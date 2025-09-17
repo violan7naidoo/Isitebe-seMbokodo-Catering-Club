@@ -89,8 +89,8 @@ export default function MembershipPage() {
         secondaryButtonText="Learn More"
         secondaryButtonLink="/about"
         backgroundImage={{
-          src: placeholderImages.hero.src,
-          alt: 'Women supporting each other in community'
+          src: "/images/gallery-24.jpg",
+          alt: 'Isithebe seMbokodo Catering Club members gathering'
         }}
       />
       

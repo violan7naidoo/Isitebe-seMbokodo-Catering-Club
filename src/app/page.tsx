@@ -81,41 +81,76 @@ export default function Home() {
         primaryButtonLink="/membership"
         secondaryButtonText="Learn More"
         secondaryButtonLink="/about"
+        backgroundImage={{
+          src: "/images/gallery-22.jpg",
+          alt: "Isithebe seMbokodo Catering Club event"
+        }}
       />
 
-      <section className="container mx-auto px-4">
-        <div className="grid gap-12 md:grid-cols-2 lg:gap-16">
-          <section className="py-20">
-            <div className="container mx-auto px-4">
-              <AnimateIn className="mx-auto max-w-3xl text-center">
-                <AnimateIn delay={1} direction="up">
-                  <h2 className="font-headline text-3xl font-bold tracking-tight md:text-4xl">
-                    Rooted in Community, Serving with <span className="text-primary">Heart</span>
-                  </h2>
-                </AnimateIn>
-                <AnimateIn delay={2} direction="up">
-                  <p className="mt-6 text-lg text-foreground/80">
-                    Isithebe seMbokodo Catering Club is a unique membership-based organization providing catering services for funerals and other family events. Our mission is to support our members during their most challenging times while fostering a strong sense of community and sisterhood.
-                  </p>
-                </AnimateIn>
-              </AnimateIn>
-            </div>
-          </section>
-          <div className="relative h-80 w-full overflow-hidden rounded-lg shadow-lg animate-fade-in slide-in-from-right-8 duration-700 md:h-full">
+      <section className="container mx-auto px-4 py-12">
+        <div className="grid gap-12 md:grid-cols-2 lg:gap-16 items-center">
+          <div className="space-y-8">
+            <AnimateIn delay={1} direction="up">
+              <h2 className="font-headline text-3xl font-bold tracking-tight md:text-4xl">
+                Rooted in Community, Serving with <span className="text-primary">Heart</span>
+              </h2>
+            </AnimateIn>
+            <AnimateIn delay={2} direction="up">
+              <p className="text-lg text-foreground/80">
+                Isithebe seMbokodo Catering Club is a unique membership-based organization providing catering services for funerals and other family events. Our mission is to support our members during their most challenging times while fostering a strong sense of community and sisterhood.
+              </p>
+            </AnimateIn>
+            <AnimateIn delay={3} direction="up" className="pt-4">
+              <div className="grid grid-cols-3 gap-4">
+                <div className="relative h-32 rounded-lg overflow-hidden shadow-md">
+                  <Image
+                    src="/images/IMG-20250916-WA0023.jpg"
+                    alt="Our catering team in action"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div className="relative h-32 rounded-lg overflow-hidden shadow-md">
+                  <Image
+                    src="/images/IMG-20250916-WA0025.jpg"
+                    alt="Event catering showcase"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div className="relative h-32 rounded-lg overflow-hidden shadow-md">
+                  <Image
+                    src="/images/IMG-20250916-WA0027.jpg"
+                    alt="Happy guests at our events"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              </div>
+            </AnimateIn>
+          </div>
+          <div className="relative h-96 w-full overflow-hidden rounded-2xl shadow-xl">
             <Image
               src={placeholderImages.sharingFood.src}
               alt={placeholderImages.sharingFood.alt}
               data-ai-hint={placeholderImages.sharingFood.hint}
               fill
-              className="object-cover"
+              className="object-cover transition-transform duration-700 hover:scale-105"
+              priority
             />
           </div>
         </div>
       </section>
 
-      <section className="bg-muted py-20">
-        <div className="container mx-auto px-4">
-          <AnimateIn className="mb-12 text-center" direction="up">
+      <section className="bg-muted py-20 relative overflow-hidden">
+        {/* Decorative elements */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute -left-20 -top-20 h-64 w-64 rounded-full bg-primary/30 blur-3xl"></div>
+          <div className="absolute -right-20 -bottom-20 h-64 w-64 rounded-full bg-secondary/30 blur-3xl"></div>
+        </div>
+        
+        <div className="container mx-auto px-4 relative z-10">
+          <AnimateIn className="mb-16 text-center" direction="up">
             <h2 className="font-headline text-3xl font-bold tracking-tight md:text-4xl">
               Our Core <span className="text-primary">Principles</span>
             </h2>
@@ -123,46 +158,94 @@ export default function Home() {
               Guiding our actions and shaping our community.
             </p>
           </AnimateIn>
+          
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             <AnimateIn delay={1} direction="up">
-              <div className="group relative h-full rounded-xl bg-background p-8 shadow-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
-                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                  <Heart className="h-6 w-6" />
+              <div className="group h-full rounded-2xl bg-background shadow-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-1 overflow-hidden flex flex-col">
+                <div className="relative h-48 overflow-hidden">
+                  <Image
+                    src="/images/gallery-5.jpg"
+                    alt="Our Mission in Action"
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/30 to-transparent"></div>
                 </div>
-                <h3 className="font-headline text-xl font-bold mb-3 text-foreground">Our Mission</h3>
-                <p className="text-foreground/80">
-                  To provide quality catering services to our members during times of need, while building a strong sense of community and support among sisters.
-                </p>
+                <div className="p-8 flex-grow flex flex-col">
+                  <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/20 text-primary -mt-14 relative z-10">
+                    <Heart className="h-8 w-8" />
+                  </div>
+                  <CardHeader className="p-0 mb-4 text-center">
+                    <CardTitle className="font-headline text-2xl">
+                      Our Mission
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="p-0 flex-grow flex items-start">
+                    <p className="text-foreground/80">
+                      To provide quality catering services to our members during times of need, while building a strong sense of community and support among sisters.
+                    </p>
+                  </CardContent>
+                </div>
               </div>
             </AnimateIn>
+            
             <AnimateIn delay={2} direction="up">
-              <div className="group relative h-full rounded-xl bg-background p-8 shadow-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
-                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                  <Users className="h-6 w-6" />
+              <div className="group h-full rounded-2xl bg-background shadow-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-1 overflow-hidden flex flex-col">
+                <div className="relative h-48 overflow-hidden">
+                  <Image
+                    src="/images/gallery-6.jpg"
+                    alt="Our Vision for the Future"
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/30 to-transparent"></div>
                 </div>
-                <h3 className="font-headline text-xl font-bold mb-3 text-foreground">Our Vision</h3>
-                <p className="text-foreground/80">
-                  To become a leading catering club in South Africa, known for
-                  our commitment to quality, community, and sisterhood, where
-                  every member is empowered.
-                </p>
+                <div className="p-8 flex-grow flex flex-col">
+                  <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/20 text-primary -mt-14 relative z-10">
+                    <Users className="h-8 w-8" />
+                  </div>
+                  <CardHeader className="p-0 mb-4 text-center">
+                    <CardTitle className="font-headline text-2xl">
+                      Our Vision
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="p-0 flex-grow flex items-start">
+                    <p className="text-foreground/80">
+                      To become a leading catering club in South Africa, known for our commitment to quality, community, and sisterhood, where every member is empowered.
+                    </p>
+                  </CardContent>
+                </div>
               </div>
             </AnimateIn>
-            <Card className="text-center transition-transform hover:scale-105 hover:shadow-xl animate-fade-in-up animation-delay-400">
-              <CardHeader>
-                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/20 text-primary">
-                  <Sprout className="h-8 w-8" />
+            
+            <AnimateIn delay={3} direction="up">
+              <div className="group h-full rounded-2xl bg-background shadow-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-1 overflow-hidden flex flex-col">
+                <div className="relative h-48 overflow-hidden">
+                  <Image
+                    src="/images/WhatsApp Image 2025-09-16 at 11.03.19_0c2655ce.jpg"
+                    alt="Beautiful food presentation"
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/30 to-transparent"></div>
                 </div>
-                <CardTitle className="font-headline text-2xl">
-                  Our Aim
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-foreground/80">
-                  To deliver an excellent service and create a lifetime legacy for our members, working together to ensure growth, success, and a lasting impact.
-                </p>
-              </CardContent>
-            </Card>
+                <div className="p-8 flex-grow flex flex-col">
+                  <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/20 text-primary -mt-14 relative z-10">
+                    <Sprout className="h-8 w-8" />
+                  </div>
+                  <CardHeader className="p-0 mb-4">
+                    <CardTitle className="font-headline text-2xl">
+                      Our Aim
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="p-0 flex-grow flex items-start">
+                    <p className="text-foreground/80">
+                      To deliver an excellent service and create a lifetime legacy for our members, working together to ensure growth, success, and a lasting impact.
+                    </p>
+                  </CardContent>
+                </div>
+              </div>
+            </AnimateIn>
           </div>
         </div>
       </section>

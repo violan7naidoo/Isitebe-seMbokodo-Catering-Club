@@ -1,64 +1,159 @@
 {
     "hero": {
-        "src": "https://picsum.photos/seed/hero/1920/1080",
-        "alt": "A group of women preparing food together",
-        "hint": "community gathering"
+        "src": "/images/IMG-20250916-WA0021.jpg",
+        "alt": "Isitebe seMbokodo Catering Club event setup",
+        "hint": "event setup"
     },
     "sharingFood": {
-        "src": "https://picsum.photos/seed/sharing/600/750",
-        "alt": "Hands sharing a bowl of food",
-        "hint": "sharing food"
+        "src": "/images/IMG-20250916-WA0022.jpg",
+        "alt": "Delicious food prepared by Isitebe seMbokodo",
+        "hint": "catering food"
     },
     "founder": {
-        "src": "https://picsum.photos/seed/founder/600/800",
-        "alt": "Founder Bongiwe Mzana",
-        "hint": "portrait woman"
+        "src": "/images/WhatsApp Image 2025-09-16 at 11.11.06_4a034328.jpg",
+        "alt": "Our dedicated catering team",
+        "hint": "team photo"
     },
     "gallery": [
       {
-        "src": "https://picsum.photos/seed/gallery1/800/600",
-        "alt": "A beautifully set table for a large event.",
+        "src": "/images/IMG-20250916-WA0021.jpg",
+        "alt": "Isitebe seMbokodo Catering Club event",
         "hint": "event setup"
       },
       {
-        "src": "https://picsum.photos/seed/gallery2/600/800",
-        "alt": "A close-up of a delicious African dish.",
-        "hint": "african food"
+        "src": "/images/IMG-20250916-WA0022.jpg",
+        "alt": "Delicious food prepared by Isitebe seMbokodo",
+        "hint": "catering food"
       },
       {
-        "src": "https://picsum.photos/seed/gallery3/800/600",
-        "alt": "Women from the club smiling and working together.",
-        "hint": "community women"
+        "src": "/images/IMG-20250916-WA0023.jpg",
+        "alt": "Our catering team in action",
+        "hint": "team work"
       },
       {
-        "src": "https://picsum.photos/seed/gallery4/800/600",
-        "alt": "A buffet line with a variety of foods.",
-        "hint": "catering buffet"
+        "src": "/images/IMG-20250916-WA0024.jpg",
+        "alt": "Beautiful table setting by Isitebe seMbokodo",
+        "hint": "table setting"
       },
       {
-        "src": "https://picsum.photos/seed/gallery5/600/800",
-        "alt": "Decorative centerpiece on a dining table.",
-        "hint": "table decoration"
+        "src": "/images/IMG-20250916-WA0025.jpg",
+        "alt": "Event catering showcase",
+        "hint": "event showcase"
       },
       {
-        "src": "https://picsum.photos/seed/gallery6/800/600",
-        "alt": "A colorful platter of fresh salads.",
-        "hint": "fresh food"
+        "src": "/images/IMG-20250916-WA0026.jpg",
+        "alt": "Delicious dishes prepared by our team",
+        "hint": "food presentation"
       },
       {
-        "src": "https://picsum.photos/seed/gallery7/800/600",
-        "alt": "Guests enjoying the catered food at an event.",
-        "hint": "people eating"
+        "src": "/images/IMG-20250916-WA0027.jpg",
+        "alt": "Guests enjoying our catering service",
+        "hint": "happy guests"
       },
       {
-        "src": "https://picsum.photos/seed/gallery8/600/800",
-        "alt": "A traditional pot of stew being prepared.",
-        "hint": "traditional cooking"
+        "src": "/images/IMG-20250916-WA0028.jpg",
+        "alt": "Our catering team preparing food",
+        "hint": "food preparation"
       },
       {
-        "src": "https://picsum.photos/seed/gallery9/800/600",
-        "alt": "An outdoor catering setup.",
-        "hint": "outdoor event"
+        "src": "/images/IMG-20250916-WA0029.jpg",
+        "alt": "Beautiful food display",
+        "hint": "food display"
+      },
+      {
+        "src": "/images/IMG-20250916-WA0030.jpg",
+        "alt": "Event setup by Isitebe seMbokodo",
+        "hint": "event setup"
+      },
+      {
+        "src": "/images/IMG-20250916-WA0031.jpg",
+        "alt": "Our catering service in action",
+        "hint": "service in action"
+      },
+      {
+        "src": "/images/IMG-20250916-WA0032.jpg",
+        "alt": "Delicious menu items",
+        "hint": "menu showcase"
+      },
+      {
+        "src": "/images/IMG-20250916-WA0033.jpg",
+        "alt": "Beautifully presented dishes",
+        "hint": "food presentation"
+      },
+      {
+        "src": "/images/IMG-20250916-WA0034.jpg",
+        "alt": "Our catering team at work",
+        "hint": "team at work"
+      },
+      {
+        "src": "/images/IMG-20250916-WA0038.jpg",
+        "alt": "Event catering setup",
+        "hint": "event setup"
+      },
+      {
+        "src": "/images/IMG-20250916-WA0039.jpg",
+        "alt": "Delicious food selection",
+        "hint": "food selection"
+      },
+      {
+        "src": "/images/IMG-20250916-WA0040.jpg",
+        "alt": "Our catering service",
+        "hint": "service showcase"
+      },
+      {
+        "src": "/images/IMG-20250916-WA0041.jpg",
+        "alt": "Beautiful food presentation",
+        "hint": "food presentation"
+      },
+      {
+        "src": "/images/IMG-20250916-WA0042.jpg",
+        "alt": "Event catering by Isitebe seMbokodo",
+        "hint": "event catering"
+      },
+      {
+        "src": "/images/IMG-20250916-WA0043.jpg",
+        "alt": "Our delicious dishes",
+        "hint": "food showcase"
+      },
+      {
+        "src": "/images/WhatsApp Image 2025-09-16 at 11.01.03_d2fe5cd0.jpg",
+        "alt": "Catering team in action",
+        "hint": "team work"
+      },
+      {
+        "src": "/images/WhatsApp Image 2025-09-16 at 11.02.44_b053913f.jpg",
+        "alt": "Beautiful food arrangement",
+        "hint": "food arrangement"
+      },
+      {
+        "src": "/images/WhatsApp Image 2025-09-16 at 11.03.19_0c2655ce.jpg",
+        "alt": "Event setup and decoration",
+        "hint": "event decoration"
+      },
+      {
+        "src": "/images/WhatsApp Image 2025-09-16 at 11.04.51_d76d73d4.jpg",
+        "alt": "Our catering service",
+        "hint": "service showcase"
+      },
+      {
+        "src": "/images/WhatsApp Image 2025-09-16 at 11.07.38_6e58cdd4.jpg",
+        "alt": "Delicious food selection",
+        "hint": "food selection"
+      },
+      {
+        "src": "/images/WhatsApp Image 2025-09-16 at 11.11.06_13c85b92.jpg",
+        "alt": "Beautiful table setting",
+        "hint": "table setting"
+      },
+      {
+        "src": "/images/WhatsApp Image 2025-09-16 at 11.11.06_4a034328.jpg",
+        "alt": "Our catering team",
+        "hint": "team photo"
+      },
+      {
+        "src": "/images/WhatsApp Image 2025-09-16 at 11.11.06_c123ed09.jpg",
+        "alt": "Event catering showcase",
+        "hint": "event showcase"
       }
     ]
 }

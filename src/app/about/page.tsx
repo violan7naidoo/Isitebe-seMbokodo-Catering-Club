@@ -64,8 +64,8 @@ I'm passionate about making a difference in the lives of our members and their f
         secondaryButtonText="Contact Us"
         secondaryButtonLink="/contact"
         backgroundImage={{
-          src: placeholderImages.founder.src,
-          alt: placeholderImages.founder.alt
+          src: "/images/gallery-4.jpg",
+          alt: "Isithebe seMbokodo Catering Club event setup"
         }}
       />
 
@@ -75,9 +75,8 @@ I'm passionate about making a difference in the lives of our members and their f
             <div className="md:col-span-2">
               <div className="relative h-64 w-full md:h-full">
                 <Image
-                  src={placeholderImages.founder.src}
-                  alt={placeholderImages.founder.alt}
-                  data-ai-hint={placeholderImages.founder.hint}
+                  src="/images/gallery-2.jpg"
+                  alt="Isithebe seMbokodo Catering Club team"
                   fill
                   className="object-cover"
                 />

@@ -1,0 +1,29 @@
+﻿Old Path,New Path
+IMG-20250916-WA0021.jpg,gallery-1.jpg
+IMG-20250916-WA0022.jpg,gallery-2.jpg
+IMG-20250916-WA0023.jpg,gallery-3.jpg
+IMG-20250916-WA0024.jpg,gallery-4.jpg
+IMG-20250916-WA0025.jpg,gallery-5.jpg
+IMG-20250916-WA0026.jpg,gallery-6.jpg
+IMG-20250916-WA0027.jpg,gallery-7.jpg
+IMG-20250916-WA0028.jpg,gallery-8.jpg
+IMG-20250916-WA0029.jpg,gallery-9.jpg
+IMG-20250916-WA0030.jpg,gallery-10.jpg
+IMG-20250916-WA0031.jpg,gallery-11.jpg
+IMG-20250916-WA0032.jpg,gallery-12.jpg
+IMG-20250916-WA0033.jpg,gallery-13.jpg
+IMG-20250916-WA0034.jpg,gallery-14.jpg
+IMG-20250916-WA0038.jpg,gallery-15.jpg
+IMG-20250916-WA0039.jpg,gallery-16.jpg
+IMG-20250916-WA0040.jpg,gallery-17.jpg
+IMG-20250916-WA0041.jpg,gallery-18.jpg
+IMG-20250916-WA0042.jpg,gallery-19.jpg
+IMG-20250916-WA0043.jpg,gallery-20.jpg
+WhatsApp Image 2025-09-16 at 11.01.03_d2fe5cd0.jpg,gallery-21.jpg
+WhatsApp Image 2025-09-16 at 11.02.44_b053913f.jpg,gallery-22.jpg
+WhatsApp Image 2025-09-16 at 11.03.19_0c2655ce.jpg,gallery-23.jpg
+WhatsApp Image 2025-09-16 at 11.04.51_d76d73d4.jpg,gallery-24.jpg
+WhatsApp Image 2025-09-16 at 11.07.38_6e58cdd4.jpg,gallery-25.jpg
+WhatsApp Image 2025-09-16 at 11.11.06_13c85b92.jpg,gallery-26.jpg
+WhatsApp Image 2025-09-16 at 11.11.06_4a034328.jpg,gallery-27.jpg
+WhatsApp Image 2025-09-16 at 11.11.06_c123ed09.jpg,gallery-28.jpg
