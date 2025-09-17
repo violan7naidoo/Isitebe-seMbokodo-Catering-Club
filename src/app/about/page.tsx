@@ -183,7 +183,7 @@ We invite you Sisters to join us in making this vision a reality. Together, we c
                 <ul className="list-disc pl-6 space-y-2 text-foreground/80">
                     <li>Every member has access to quality catering services during times of need.</li>
                     <li>Our members are empowered to achieve their full potential.</li>
-                    <li>Our club is a symbol of sisterhood and community.</li>
+                    <li>Our club is a symbol of sisterhood and community, where women support and uplift one another.</li>
                     <li>We are recognized as a leader in the catering industry for excellence and innovation.</li>
                     <li>Our members are able to build a brighter future for themselves and their families.</li>
                 </ul>
