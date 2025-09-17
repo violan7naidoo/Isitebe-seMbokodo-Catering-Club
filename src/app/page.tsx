@@ -97,7 +97,7 @@ export default function Home() {
             </AnimateIn>
             <AnimateIn delay={2} direction="up">
               <p className="text-lg text-foreground/80">
-                Isithebe seMbokodo Catering Club is a unique membership-based organization providing catering services for funerals and other family events. Our mission is to support our members during their most challenging times while fostering a strong sense of community and sisterhood.
+                Isithebe seMbokodo Catering Club is a unique membership-based organization that provides catering services for funerals and other family events. Our club is built on the principle of sisterhood and mutual support, where members contribute a premium to access our catering services. We aim to empower our sisters by creating job and business opportunities in the catering industry.
               </p>
             </AnimateIn>
             <AnimateIn delay={3} direction="up" className="pt-4">
