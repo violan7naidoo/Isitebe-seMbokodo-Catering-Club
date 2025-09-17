@@ -104,7 +104,7 @@ export default function Home() {
               <div className="grid grid-cols-3 gap-4">
                 <div className="relative h-32 rounded-lg overflow-hidden shadow-md">
                   <Image
-                    src="/images/IMG-20250916-WA0023.jpg"
+                    src="/images/gallery-3.jpg"
                     alt="Our catering team in action"
                     fill
                     className="object-cover"
@@ -112,7 +112,7 @@ export default function Home() {
                 </div>
                 <div className="relative h-32 rounded-lg overflow-hidden shadow-md">
                   <Image
-                    src="/images/IMG-20250916-WA0025.jpg"
+                    src="/images/gallery-5.jpg"
                     alt="Event catering showcase"
                     fill
                     className="object-cover"
@@ -120,7 +120,7 @@ export default function Home() {
                 </div>
                 <div className="relative h-32 rounded-lg overflow-hidden shadow-md">
                   <Image
-                    src="/images/IMG-20250916-WA0027.jpg"
+                    src="/images/gallery-7.jpg"
                     alt="Happy guests at our events"
                     fill
                     className="object-cover"
@@ -222,7 +222,7 @@ export default function Home() {
               <div className="group h-full rounded-2xl bg-background shadow-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-1 overflow-hidden flex flex-col">
                 <div className="relative h-48 overflow-hidden">
                   <Image
-                    src="/images/WhatsApp Image 2025-09-16 at 11.03.19_0c2655ce.jpg"
+                    src="/images/gallery-23.jpg"
                     alt="Beautiful food presentation"
                     fill
                     className="object-cover transition-transform duration-700 group-hover:scale-105"
