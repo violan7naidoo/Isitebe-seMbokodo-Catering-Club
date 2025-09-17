@@ -43,7 +43,9 @@ export function Footer() {
               </li>
               <li className="flex items-center gap-2 text-foreground/70">
                 <Mail className="h-5 w-5 text-primary" />
-                <span>contact@isithebe.co.za</span>
+                <a href="mailto:info@isithebesembokodo.co.za" className="hover:text-primary transition-colors">
+                  info@isithebesembokodo.co.za
+                </a>
               </li>
             </ul>
           </div>

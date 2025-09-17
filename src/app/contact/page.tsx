@@ -49,10 +49,10 @@ export default function ContactPage() {
                   <h3 className="font-semibold text-foreground">Phone</h3>
                   <p className="text-foreground/80">
                     <a
-                      href="tel:+27123456789"
+                      href="tel:+27657434928"
                       className="hover:text-primary transition-colors"
                     >
-                      +27 12 345 6789
+                      065 743 4928
                     </a>
                   </p>
                 </div>
@@ -65,10 +65,10 @@ export default function ContactPage() {
                   <h3 className="font-semibold text-foreground">Email</h3>
                   <p className="text-foreground/80">
                     <a
-                      href="mailto:contact@isithebe.co.za"
+                      href="mailto:info@isithebesembokodo.co.za"
                       className="hover:text-primary transition-colors"
                     >
-                      contact@isithebe.co.za
+                      info@isithebesembokodo.co.za
                     </a>
                   </p>
                 </div>

@@ -1,9 +1,5 @@
-import {
-  Facebook,
-  Instagram,
-  Twitter,
-  type LucideIcon,
-} from 'lucide-react';
+import { Facebook, Instagram, type LucideIcon } from 'lucide-react';
+import XIcon from '@/components/shared/icons/XIcon';
 
 export const NAV_LINKS = [
   { href: '/', label: 'Home' },
@@ -20,5 +16,5 @@ export const SOCIAL_LINKS: {
 }[] = [
   { name: 'Facebook', href: '#', icon: Facebook },
   { name: 'Instagram', href: '#', icon: Instagram },
-  { name: 'Twitter', href: '#', icon: Twitter },
+  { name: 'X', href: '#', icon: XIcon },
 ];

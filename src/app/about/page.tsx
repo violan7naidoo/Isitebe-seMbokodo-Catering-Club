@@ -207,6 +207,66 @@ We invite you Sisters to join us in making this vision a reality. Together, we c
           </TabsContent>
         </Tabs>
       </section>
+
+      {/* Meet the Team Section */}
+      <section className="py-16 bg-muted/30">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="font-headline text-3xl font-bold tracking-tight md:text-4xl mb-4">
+              Meet <span className="text-primary">Our Team</span>
+            </h2>
+            <p className="text-lg text-foreground/80 max-w-2xl mx-auto">
+              The passionate individuals behind Isithebe seMbokodo Catering Club
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            {/* Bongiwe Mzana */}
+            <Card className="overflow-hidden group">
+              <div className="relative h-64 w-full overflow-hidden">
+                <Image
+                  src="/images/gallery-2.jpg"
+                  alt="Bongiwe Mzana - Founder"
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent" />
+              </div>
+              <CardHeader>
+                <CardTitle className="font-headline text-2xl">Bongiwe Mzana</CardTitle>
+                <CardDescription className="text-primary font-medium">Founder & Catering Director</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p className="text-foreground/80">
+                  With over 15 years in the catering industry, Bongiwe brings expertise and passion to every event. Her vision of creating a supportive sisterhood has transformed the way communities experience catering services.
+                </p>
+              </CardContent>
+            </Card>
+
+            {/* Thembakazi Ntsantsa */}
+            <Card className="overflow-hidden group">
+              <div className="relative h-64 w-full overflow-hidden">
+                <Image
+                  src="/images/gallery-1.jpg"
+                  alt="Thembakazi Ntsantsa - Partner"
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent" />
+              </div>
+              <CardHeader>
+                <CardTitle className="font-headline text-2xl">Thembakazi Ntsantsa</CardTitle>
+                <CardDescription className="text-primary font-medium">Health & Wellness Partner</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p className="text-foreground/80">
+                  A dedicated Health, Safety, and Environmental professional and wellness coach, Thembakazi ensures that our services promote not just great food, but overall wellbeing for our members and their communities.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
