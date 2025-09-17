@@ -97,6 +97,47 @@ I'm passionate about making a difference in the lives of our members and their f
         </Card>
       </section>
 
+      <section className="container mx-auto px-4 py-16">
+        <Card className="overflow-hidden shadow-lg">
+          <div className="grid md:grid-cols-5">
+            <div className="md:col-span-3 order-2 md:order-1">
+              <CardHeader>
+                <CardTitle className="font-headline text-3xl">
+                Molweni bantu abahle!
+                </CardTitle>
+                <CardDescription>Thembakazi Ntsantsa - Health, Safety, and Environmental Professional & Wellness Coach</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4 text-foreground/80">
+                <p className="whitespace-pre-line">
+                  Molweni bantu abahle! My name is Thembakazi Ntsantsa, employed full time, a wellness coach and a single mother of three lovely daughters - Abenathi, Yololwethu, and Mikhulu - from Bizana. When Bii shared her vision of creating a Sisters' Club, I was immediately on board. As someone who's experienced the challenges of support when having family events firsthand I know the stress, and I believe our communities deserve better.
+
+Our initiative aims to:
+
+1. Ease the burden on catering during significant events like funerals, weddings, and gatherings through shared catering support from Isithebe SeMbokodo.
+2. Ensure all family members, especially oMakoti whom always carry the burden of imbiza emakhaya and missing out in fully participate in ceremonies.
+3. Promote wellness, learning, and knowledge sharing on health, balance, and overall mental wellbeing.
+4. Unite families and communities, highlighting the strength that comes from togetherness.
+
+We envision a community where families can come together, support one another, and celebrate life's milestones without added stress of catering. Our Club Isithebe seMbokodo will provide a platform for sharing, learning to support one another, and growing together.
+
+We invite you Sisters to join us in making this vision a reality. Together, we can build a stronger, more supportive community that values support, dignity, relief, and connection. Ndiyabonga, Enkosi
+                </p>
+              </CardContent>
+            </div>
+            <div className="md:col-span-2 order-1 md:order-2">
+              <div className="relative h-64 w-full md:h-full">
+                <Image
+                  src="/images/gallery-1.jpg"
+                  alt="Thembakazi Ntsantsa - Partner at Isithebe seMbokodo"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+            </div>
+          </div>
+        </Card>
+      </section>
+
       <section className="container mx-auto px-4">
         <Tabs defaultValue="mission" className="w-full">
           <TabsList className="grid w-full grid-cols-3">
