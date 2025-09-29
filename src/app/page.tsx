@@ -76,13 +76,13 @@ export default function Home() {
     <div className="flex flex-col">
       <HeroSection
         title="Isithebe seMbokodo"
-        subtitle="A sisterhood providing strength, support, and exceptional catering for life's most significant moments."
+        subtitle=""
         primaryButtonText="Join Our Sisterhood"
         primaryButtonLink="/membership"
         secondaryButtonText="Learn More"
         secondaryButtonLink="/about"
         backgroundImage={{
-          src: "/images/gallery-22.jpg",
+          src: "/images/logo1.png",
           alt: "Isithebe seMbokodo Catering Club event"
         }}
       />
