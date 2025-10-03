@@ -18,25 +18,25 @@ import placeholderImages from '@/lib/placeholder-images.json';
 
 const testimonials = [
   {
-    name: 'Noluthando Khumalo',
-    avatar: 'https://i.pravatar.cc/150?u=a042581f4e29026704d',
-    title: 'Grateful Member',
-    testimonial:
-      'Isithebe seMbokodo was a pillar of strength for my family during a difficult time. The support and professionalism were beyond words. It felt like family helping family.',
-  },
-  {
     name: 'Zizipho Dindo',
     avatar: '/images/Zizipho-Dindo.jpg',
     title: 'Empowered Sister',
     testimonial:
-      "Joining the 'Sisters in Business' program opened so many doors for my small catering business. The financial support and mentorship are invaluable.",
+      'Joining the "Sisters in Business" program opened so many doors for my small catering business. The financial support and mentorship are invaluable.',
   },
   {
     name: 'Themba Moyo',
     avatar: 'https://i.pravatar.cc/150?u=a042581f4e29026706d',
     title: 'Community Leader',
     testimonial:
-      'This club is more than just catering; it’s a movement. It’s about restoring dignity, building community, and empowering women. We are proud to have them in our community.',
+      'This club is more than just catering; it\'s a movement. It\'s about restoring dignity, building community, and empowering women. We are proud to have them in our community.',
+  },
+  {
+    name: 'Esihle Mhatu',
+    avatar: '/images/Esihle.jpg',
+    title: 'Valued Member',
+    testimonial:
+      'For me, joining the organization is not just about convenience—it\'s about empowerment. Knowing that I have a reliable system to lean on allows me to focus on enjoying the moment with my family, friends, and community without the burden of last-minute expenses or overwhelming planning.',
   },
 ];
 
@@ -372,14 +372,16 @@ export default function Home() {
         </AnimateIn>
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           {testimonials.map((testimonial, index) => (
-            <AnimateIn key={index} delay={index * 0.2} direction="up">
-              <Card className="flex flex-col">
-                <CardContent className="pt-6 flex-grow">
-                  <p className="italic text-foreground/80">
-                    &quot;{testimonial.testimonial}&quot;
-                  </p>
+            <AnimateIn key={index} delay={index * 0.2} direction="up" className="h-full">
+              <Card className="flex flex-col h-full">
+                <CardContent className="pt-6 pb-4 flex-grow overflow-hidden">
+                  <div className="h-full flex flex-col">
+                    <p className="italic text-foreground/80 line-clamp-5">
+                      &quot;{testimonial.testimonial}&quot;
+                    </p>
+                  </div>
                 </CardContent>
-                <CardFooter className="flex items-center gap-4">
+                <CardFooter className="flex items-center gap-4 pt-0">
                   <Avatar>
                     <AvatarImage src={testimonial.avatar} alt={testimonial.name} />
                     <AvatarFallback>{testimonial.name.charAt(0)}</AvatarFallback>

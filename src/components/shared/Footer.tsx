@@ -74,6 +74,17 @@ export function Footer() {
             &copy; {new Date().getFullYear()} Isithebe seMbokodo Catering Club.
             All rights reserved.
           </p>
+          <p className="mt-2">
+            Design by{' '}
+            <a 
+              href="https://ve3z.co.za" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-primary hover:underline"
+            >
+              ve3z
+            </a>
+          </p>
         </div>
       </div>
     </footer>

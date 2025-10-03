@@ -16,6 +16,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Goal, Handshake, Lightbulb, Users } from 'lucide-react';
 import { HeroSection } from '@/components/shared/hero-section';
+import { AnimateIn } from '@/components/ui/animate-in';
 import placeholderImages from '@/lib/placeholder-images.json';
 
 export const metadata: Metadata = {
@@ -212,47 +213,49 @@ I'm passionate about making a difference in the lives of our members and their f
       </section>
 
       <section className="container mx-auto px-4 py-16">
-        <Card className="overflow-hidden shadow-lg">
-          <div className="grid md:grid-cols-5">
-            <div className="md:col-span-2">
-              <div className="relative h-64 w-full md:h-full">
-                <Image
-                  src="/images/Nande-Mpambane.jpg"
-                  alt="Nande Mpambane - Partner at Isithebe seMbokodo"
-                  fill
-                  className="object-cover"
-                />
+        <AnimateIn direction="left">
+          <Card className="overflow-hidden shadow-lg">
+            <div className="grid md:grid-cols-5">
+              <div className="md:col-span-2">
+                <div className="relative h-64 w-full md:h-full">
+                  <Image
+                    src="/images/nande.jpg"
+                    alt="Nande Mpambane - Partner at Isithebe seMbokodo"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+              </div>
+              <div className="md:col-span-3">
+                <CardHeader>
+                  <CardTitle className="font-headline text-3xl">
+                    A Message from Nande
+                  </CardTitle>
+                  <CardDescription>Nande Mpambane - Partner at Isithebe seMbokodo</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4 text-foreground/80">
+                  <div className="space-y-6">
+                    <p>
+                      Molweni, Sanibonani, Lekai, Makweras sei! Welcome, beautiful people of our beautiful nation! I'm Nande Mpambane, originally from the Eastern Cape but raised in KZN. I greet you in different languages because that's what Isithebe is all about - unity and empowerment. We bring together women from all over the country to work together and succeed.
+                    </p>
+                    
+                    <p>
+                      As the Bible says, "The husband is the head of the wife" (Ephesians 5:23), but let's not forget the neck that supports the head! Imbokodo is that neck that brings families together, providing essential services that allow them to bond during life's most challenging and busiest moments, such as funerals and celebrations.
+                    </p>
+                    
+                    <p>
+                      At Isithebe seMbokodo, we take care of the smallest yet most crucial details of your events, including food and catering. From the moment you call us, we take full responsibility for delivering with love, dignity, and kindness. Join us, and you won't want to miss out on this opportunity to be served with excellence!
+                    </p>
+                    
+                    <p className="text-right font-medium">
+                      Nande Mpambane
+                    </p>
+                  </div>
+                </CardContent>
               </div>
             </div>
-            <div className="md:col-span-3">
-              <CardHeader>
-                <CardTitle className="font-headline text-3xl">
-                  A Message from Nande
-                </CardTitle>
-                <CardDescription>Nande Mpambane - Partner at Isithebe seMbokodo</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4 text-foreground/80">
-                <div className="space-y-6">
-                  <p>
-                    Molweni, Sanibonani, Lekai, Makweras sei! Welcome, beautiful people of our beautiful nation! I'm Nande Mpambane, originally from the Eastern Cape but raised in KZN. I greet you in different languages because that's what Isithebe is all about - unity and empowerment. We bring together women from all over the country to work together and succeed.
-                  </p>
-                  
-                  <p>
-                    As the Bible says, "The husband is the head of the wife" (Ephesians 5:23), but let's not forget the neck that supports the head! Imbokodo is that neck that brings families together, providing essential services that allow them to bond during life's most challenging and busiest moments, such as funerals and celebrations.
-                  </p>
-                  
-                  <p>
-                    At Isithebe seMbokodo, we take care of the smallest yet most crucial details of your events, including food and catering. From the moment you call us, we take full responsibility for delivering with love, dignity, and kindness. Join us, and you won't want to miss out on this opportunity to be served with excellence!
-                  </p>
-                  
-                  <p className="text-right font-medium">
-                    Nande Mpambane
-                  </p>
-                </div>
-              </CardContent>
-            </div>
-          </div>
-        </Card>
+          </Card>
+        </AnimateIn>
       </section>
 
       <section className="container mx-auto px-4">
@@ -339,7 +342,7 @@ I'm passionate about making a difference in the lives of our members and their f
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
             {/* Bongiwe Mzana */}
-            <Card className="overflow-hidden group">
+            <Card className="overflow-hidden group h-full flex flex-col">
               <div className="relative h-64 w-full overflow-hidden">
                 <Image
                   src="/images/gallery-2.jpg"
@@ -349,19 +352,21 @@ I'm passionate about making a difference in the lives of our members and their f
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent" />
               </div>
-              <CardHeader>
-                <CardTitle className="font-headline text-2xl">Bongiwe Mzana</CardTitle>
-                <CardDescription className="text-primary font-medium">Founder & Catering Director</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p className="text-foreground/80">
-                  With over 15 years in the catering industry, Bongiwe brings expertise and passion to every event. Her vision of creating a supportive sisterhood has transformed the way communities experience catering services.
-                </p>
-              </CardContent>
+              <div className="flex flex-col flex-grow">
+                <CardHeader>
+                  <CardTitle className="font-headline text-2xl">Bongiwe Mzana</CardTitle>
+                  <CardDescription className="text-primary font-medium">Founder & Catering Director</CardDescription>
+                </CardHeader>
+                <CardContent className="flex-grow">
+                  <p className="text-foreground/80">
+                    With over 15 years in the catering industry, Bongiwe brings expertise and passion to every event. Her vision of creating a supportive sisterhood has transformed the way communities experience catering services.
+                  </p>
+                </CardContent>
+              </div>
             </Card>
 
             {/* Thembakazi Ntsantsa */}
-            <Card className="overflow-hidden group">
+            <Card className="overflow-hidden group h-full flex flex-col">
               <div className="relative h-64 w-full overflow-hidden">
                 <Image
                   src="/images/gallery-1.jpg"
@@ -371,15 +376,65 @@ I'm passionate about making a difference in the lives of our members and their f
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent" />
               </div>
-              <CardHeader>
-                <CardTitle className="font-headline text-2xl">Thembakazi Ntsantsa</CardTitle>
-                <CardDescription className="text-primary font-medium">Health & Wellness Partner</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p className="text-foreground/80">
-                  A dedicated Health, Safety, and Environmental professional and wellness coach, Thembakazi ensures that our services promote not just great food, but overall wellbeing for our members and their communities.
-                </p>
-              </CardContent>
+              <div className="flex flex-col flex-grow">
+                <CardHeader>
+                  <CardTitle className="font-headline text-2xl">Thembakazi Ntsantsa</CardTitle>
+                  <CardDescription className="text-primary font-medium">Health & Wellness Partner</CardDescription>
+                </CardHeader>
+                <CardContent className="flex-grow">
+                  <p className="text-foreground/80">
+                    A dedicated Health, Safety, and Environmental professional and wellness coach, Thembakazi ensures that our services promote not just great food, but overall wellbeing for our members and their communities.
+                  </p>
+                </CardContent>
+              </div>
+            </Card>
+
+            {/* Nande Mpambane */}
+            <Card className="overflow-hidden group h-full flex flex-col">
+              <div className="relative h-64 w-full overflow-hidden">
+                <Image
+                  src="/images/nande.jpg"
+                  alt="Nande Mpambane - Partner"
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent" />
+              </div>
+              <div className="flex flex-col flex-grow">
+                <CardHeader>
+                  <CardTitle className="font-headline text-2xl">Nande Mpambane</CardTitle>
+                  <CardDescription className="text-primary font-medium">Operations & Community Partner</CardDescription>
+                </CardHeader>
+                <CardContent className="flex-grow">
+                  <p className="text-foreground/80">
+                    Hailing from the Eastern Cape and raised in KZN, Nande brings a unique perspective on unity and empowerment. Her dedication to bringing women together from all over the country helps strengthen our community bonds and service delivery.
+                  </p>
+                </CardContent>
+              </div>
+            </Card>
+
+            {/* Nobonke Nokeni */}
+            <Card className="overflow-hidden group h-full flex flex-col">
+              <div className="relative h-64 w-full overflow-hidden">
+                <Image
+                  src="/images/nobonke.jpg"
+                  alt="Nobonke Nokeni - Partner"
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent" />
+              </div>
+              <div className="flex flex-col flex-grow">
+                <CardHeader>
+                  <CardTitle className="font-headline text-2xl">Nobonke Nokeni</CardTitle>
+                  <CardDescription className="text-primary font-medium">Catering & Business Development</CardDescription>
+                </CardHeader>
+                <CardContent className="flex-grow">
+                  <p className="text-foreground/80">
+                    A passionate advocate for women's empowerment, Nobonke is dedicated to creating opportunities for women in the catering industry. Her experience and commitment help drive our mission of financial independence and community support.
+                  </p>
+                </CardContent>
+              </div>
             </Card>
           </div>
         </div>

@@ -86,12 +86,347 @@ const benefits = [
 ]
 
 const policies = [
-    { title: "Membership Policy", content: "Membership is open to individuals who share our values and principles." },
-    { title: "Benefit Policy", content: "Benefits are payable according to the package held by the member." },
-    { title: "Umgalelo Policy", content: "Members on relevant packages contribute R50 when a fellow sister hosts an event." },
-    { title: "Sisters in Business Policy", content: "Business financial support is subject to terms and conditions and is exclusive to sisters in business." },
-    { title: "Confidentiality Policy", content: "We maintain strict confidentiality of all member information and transactions." },
-    { title: "Dispute Resolution Policy", content: "We have a fair and transparent process for resolving any disputes." },
+    { 
+        title: "Membership Policy", 
+        content: (
+            <div className="space-y-4">
+                <p><strong>Purpose:</strong><br />
+                Isithebe seMbokodo is a collective organization that aims to provide financial support and empowerment to its members. This policy outlines the membership requirements, benefits, and responsibilities.</p>
+                
+                <div>
+                    <p className="font-semibold">Membership Eligibility:</p>
+                    <p>Membership is open to individuals who:</p>
+                    <ul className="list-disc pl-6 space-y-1 mt-1">
+                        <li>Meet the specified eligibility criteria for each package</li>
+                        <li>Agree to abide by the rules and regulations of Isithebe seMbokodo</li>
+                        <li>Pay the required premiums on time</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <p className="font-semibold">Membership Benefits:</p>
+                    <ul className="list-disc pl-6 space-y-1 mt-1">
+                        <li>Access to financial support and assistance</li>
+                        <li>Opportunity to participate in Umgalelo and Sisters in Business initiatives</li>
+                        <li>Support from a community of like-minded individuals</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <p className="font-semibold">Membership Responsibilities:</p>
+                    <ul className="list-disc pl-6 space-y-1 mt-1">
+                        <li>Pay premiums on time</li>
+                        <li>Adhere to the rules and regulations of Isithebe seMbokodo</li>
+                        <li>Provide accurate and truthful information</li>
+                        <li>Nominate beneficiaries and keep information up-to-date</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <p className="font-semibold">Package Details:</p>
+                    <ul className="list-disc pl-6 space-y-1 mt-1">
+                        <li>Different packages have varying benefits, waiting periods, and requirements</li>
+                        <li>Members must choose a package that suits their needs and adhere to its terms</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <p className="font-semibold">Termination of Membership:</p>
+                    <ul className="list-disc pl-6 space-y-1 mt-1">
+                        <li>Membership may be terminated due to non-payment of premiums or breach of rules and regulations</li>
+                        <li>Members may also choose to terminate their membership by providing written notice</li>
+                    </ul>
+                </div>
+
+                <p><strong>Amendments to Policy:</strong><br />
+                Isithebe seMbokodo reserves the right to amend this policy as necessary. Members will be notified of any changes.</p>
+
+                <p><strong>Acceptance:</strong><br />
+                By joining Isithebe seMbokodo, members acknowledge that they have read, understood, and agree to abide by this policy.</p>
+            </div>
+        )
+    },
+    { 
+        title: "Benefit Policy", 
+        content: (
+            <div className="space-y-4">
+                <p><strong>Purpose:</strong><br />
+                This policy outlines the benefits provided by Isithebe seMbokodo to its members.</p>
+                
+                <div>
+                    <p className="font-semibold">Benefits:</p>
+                    <ol className="list-decimal pl-6 space-y-2 mt-1">
+                        <li><strong>Financial Support:</strong> Members can access financial assistance to support their business or personal needs.</li>
+                        <li><strong>Umgalelo Package:</strong> Members can participate in the Umgalelo package, which provides financial support and empowerment.</li>
+                        <li><strong>Sisters in Business:</strong> Members can benefit from the Sisters in Business initiative, which provides support and resources for women in business.</li>
+                        <li><strong>Support Network:</strong> Members become part of a supportive community of like-minded individuals.</li>
+                    </ol>
+                </div>
+
+                <div>
+                    <p className="font-semibold">Benefit Details:</p>
+                    <ul className="list-disc pl-6 space-y-1 mt-1">
+                        <li>Benefits vary depending on the package chosen by the member.</li>
+                        <li>Members must meet the eligibility criteria and adhere to the rules and regulations to access benefits.</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <p className="font-semibold">Claiming Benefits:</p>
+                    <ul className="list-disc pl-6 space-y-1 mt-1">
+                        <li>Members must follow the claiming process outlined by Isithebe seMbokodo.</li>
+                        <li>Benefits will be paid out according to the terms and conditions of the package.</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <p className="font-semibold">Benefit Limitations:</p>
+                    <ul className="list-disc pl-6 space-y-1 mt-1">
+                        <li>Benefits are limited to biological family members only.</li>
+                        <li>Benefits may not be payable in certain circumstances, such as non-payment of premiums or breach of rules and regulations.</li>
+                    </ul>
+                </div>
+
+                <p><strong>Beneficiary Nomination:</strong><br />
+                Members must nominate a beneficiary to receive benefits in the event of their passing.</p>
+            </div>
+        )
+    },
+    { 
+        title: "Umgalelo Policy", 
+        content: (
+            <div className="space-y-4">
+                <p><strong>Purpose:</strong><br />
+                The Umgalelo package is a collective financial support initiative where members contribute to support one another in times of need.</p>
+                
+                <div>
+                    <p className="font-semibold">Member Agreement:</p>
+                    <p>Members who enter the Umgalelo package must sign an agreement to:</p>
+                    <ol className="list-decimal pl-6 space-y-1 mt-1">
+                        <li>Contribute to the collective fund as required.</li>
+                        <li>Repay the contributions received from other members in a timely manner.</li>
+                    </ol>
+                </div>
+
+                <div>
+                    <p className="font-semibold">No Tolerance for Non-Compliance:</p>
+                    <p>Isithebe seMbokodo has a zero-tolerance policy for members who fail to comply with the rules and regulations of the Umgalelo package. Members who attempt to take advantage of the system or fail to meet their obligations will face consequences.</p>
+                </div>
+
+                <div>
+                    <p className="font-semibold">Consequences of Non-Compliance:</p>
+                    <ul className="list-disc pl-6 space-y-1 mt-1">
+                        <li>Failure to contribute to the collective fund will result in the lapse of premiums.</li>
+                        <li>Failure to repay contributions received from other members will result in legal action being taken against the member.</li>
+                    </ul>
+                </div>
+
+                <p><strong>Terms of Repayment:</strong><br />
+                Members who receive Umgalelo contributions are required to repay the full amount contributed by other members. Failure to do so will be considered a breach of the agreement.</p>
+
+                <p><strong>Legal Action:</strong><br />
+                In the event of non-repayment, Isithebe seMbokodo reserves the right to pursue legal action against the member to recover the outstanding amount.</p>
+
+                <p><strong>No Chancers Allowed:</strong><br />
+                We emphasize that no chancers will be tolerated in the Umgalelo package. All members are expected to abide by the rules and regulations, and any attempts to exploit or manipulate the system will be dealt with swiftly and fairly.</p>
+
+                <p><strong>Acknowledgement:</strong><br />
+                By participating in the Umgalelo package, members acknowledge that they have read, understood, and agree to abide by the terms and conditions outlined in this policy.</p>
+            </div>
+        )
+    },
+    { 
+        title: "Sisters in Business Policy", 
+        content: (
+            <div className="space-y-4">
+                <p><strong>Purpose:</strong><br />
+                The Sisters in Business package is a collective support initiative designed to empower women in business, particularly black-owned businesses that have faced historical disadvantages. Our aim is to provide a platform for growth, exposure, and success.</p>
+                
+                <div>
+                    <p className="font-semibold">Objectives:</p>
+                    <ul className="list-disc pl-6 space-y-1 mt-1">
+                        <li>Support the growth and development of black-owned businesses and women-led enterprises.</li>
+                        <li>Provide a platform for women to market their businesses and reach a larger audience.</li>
+                        <li>Foster a community of like-minded women who support and uplift each other.</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <p className="font-semibold">Member Agreement:</p>
+                    <p>Members who enter the Sisters in Business package must sign an agreement to:</p>
+                    <ol className="list-decimal pl-6 space-y-1 mt-1">
+                        <li>Contribute to the collective fund as required.</li>
+                        <li>Repay the contributions received from other members in a timely manner.</li>
+                    </ol>
+                </div>
+
+                <div>
+                    <p className="font-semibold">Benefits:</p>
+                    <ul className="list-disc pl-6 space-y-1 mt-1">
+                        <li>Access to financial support and resources.</li>
+                        <li>Exposure to a larger market through our platforms and networks.</li>
+                        <li>Opportunities for business growth and development.</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <p className="font-semibold">No Tolerance for Non-Compliance:</p>
+                    <p>Isithebe seMbokodo has a zero-tolerance policy for members who fail to comply with the rules and regulations of the Sisters in Business package. Members who attempt to take advantage of the system or fail to meet their obligations will face consequences.</p>
+                </div>
+
+                <div>
+                    <p className="font-semibold">Consequences of Non-Compliance:</p>
+                    <ul className="list-disc pl-6 space-y-1 mt-1">
+                        <li>Failure to contribute to the collective fund will result in the lapse of premiums.</li>
+                        <li>Failure to repay contributions received from other members will result in legal action being taken against the member.</li>
+                    </ul>
+                </div>
+
+                <p><strong>Terms of Repayment:</strong><br />
+                Members who receive support from the Sisters in Business package are required to repay the full amount contributed by other members. Failure to do so will be considered a breach of the agreement.</p>
+
+                <p><strong>Legal Action:</strong><br />
+                In the event of non-repayment, Isithebe seMbokodo reserves the right to pursue legal action against the member to recover the outstanding amount.</p>
+
+                <p><strong>No Chancers Allowed:</strong><br />
+                We emphasize that no chancers will be tolerated in the Sisters in Business package. All members are expected to abide by the rules and regulations, and any attempts to exploit or manipulate the system will be dealt with swiftly and fairly.</p>
+
+                <p><strong>Growing Your Business:</strong><br />
+                As members of this package, we aim to grow your business by exposing it to a larger market. We believe in the potential of women-led businesses and are committed to supporting their growth and success.</p>
+
+                <p><strong>Acknowledgement:</strong><br />
+                By participating in the Sisters in Business package, members acknowledge that they have read, understood, and agree to abide by the terms and conditions outlined in this policy.</p>
+            </div>
+        )
+    },
+    { 
+        title: "Confidentiality Policy", 
+        content: (
+            <div className="space-y-4">
+                <p><strong>Purpose:</strong><br />
+                This policy outlines the confidentiality requirements for Isithebe seMbokodo members, business partners, team members, and employees.</p>
+                
+                <div>
+                    <p className="font-semibold">Scope:</p>
+                    <p>This policy applies to all individuals who have access to confidential information, including:</p>
+                    <ul className="list-disc pl-6 space-y-1 mt-1">
+                        <li>Members of Isithebe seMbokodo</li>
+                        <li>Business partners</li>
+                        <li>Team members</li>
+                        <li>Employees</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <p className="font-semibold">Confidential Information:</p>
+                    <p>Confidential information includes, but is not limited to:</p>
+                    <ul className="list-disc pl-6 space-y-1 mt-1">
+                        <li>Member personal and financial information</li>
+                        <li>Business strategies and plans</li>
+                        <li>Financial records and reports</li>
+                        <li>Proprietary information and trade secrets</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <p className="font-semibold">Confidentiality Obligations:</p>
+                    <p>Individuals with access to confidential information must:</p>
+                    <ul className="list-disc pl-6 space-y-1 mt-1">
+                        <li>Keep confidential information secure and protected</li>
+                        <li>Not disclose confidential information to unauthorized parties</li>
+                        <li>Use confidential information only for authorized purposes</li>
+                        <li>Return or destroy confidential information when no longer needed</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <p className="font-semibold">Protection of Personal Information (POPI Act):</p>
+                    <p>Isithebe seMbokodo adheres to the Protection of Personal Information Act (POPI Act) and is committed to protecting the personal information of its members, employees, and business partners. We ensure that all personal information is:</p>
+                    <ul className="list-disc pl-6 space-y-1 mt-1">
+                        <li>Collected lawfully and processed with consent</li>
+                        <li>Used only for the intended purpose</li>
+                        <li>Kept secure and protected against unauthorized access</li>
+                        <li>Not retained for longer than necessary</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <p className="font-semibold">Consequences of Breach:</p>
+                    <p>Failure to maintain confidentiality and adhere to the POPI Act may result in:</p>
+                    <ul className="list-disc pl-6 space-y-1 mt-1">
+                        <li>Termination of membership or partnership</li>
+                        <li>Legal action</li>
+                        <li>Disciplinary action, up to and including termination of employment</li>
+                    </ul>
+                </div>
+
+                <p><strong>Acknowledgement:</strong><br />
+                By accessing confidential information, individuals acknowledge that they have read, understood, and agree to abide by this confidentiality policy and the POPI Act.</p>
+            </div>
+        )
+    },
+    { 
+        title: "Dispute Resolution Policy", 
+        content: (
+            <div className="space-y-4">
+                <p><strong>Purpose:</strong><br />
+                This policy outlines the procedures for resolving disputes that may arise between members, business partners, team members, or employees of Isithebe seMbokodo.</p>
+                
+                <div>
+                    <p className="font-semibold">Scope:</p>
+                    <p>This policy applies to all disputes related to Isithebe seMbokodo's activities, including but not limited to:</p>
+                    <ul className="list-disc pl-6 space-y-1 mt-1">
+                        <li>Membership disputes</li>
+                        <li>Business partnership disputes</li>
+                        <li>Employment disputes</li>
+                        <li>Contractual disputes</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <p className="font-semibold">Dispute Resolution Process:</p>
+                    <ol className="list-decimal pl-6 space-y-2 mt-1">
+                        <li><strong>Internal Resolution:</strong> Parties involved in the dispute will attempt to resolve the issue through internal discussions and negotiations.</li>
+                        <li><strong>Mediation:</strong> If internal resolution is unsuccessful, a neutral third-party mediator will be appointed to facilitate a resolution.</li>
+                        <li><strong>Arbitration:</strong> If mediation is unsuccessful, the dispute will be referred to arbitration in accordance with the Arbitration Act.</li>
+                        <li><strong>Litigation:</strong> As a last resort, disputes may be resolved through litigation.</li>
+                    </ol>
+                </div>
+
+                <div>
+                    <p className="font-semibold">Principles:</p>
+                    <ul className="list-disc pl-6 space-y-1 mt-1">
+                        <li>Fairness and impartiality</li>
+                        <li>Timely resolution</li>
+                        <li>Confidentiality</li>
+                        <li>Respect for all parties involved</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <p className="font-semibold">Procedure:</p>
+                    <ol className="list-decimal pl-6 space-y-1 mt-1">
+                        <li>Notify Isithebe seMbokodo's management team of the dispute.</li>
+                        <li>Provide detailed information about the dispute.</li>
+                        <li>Follow the dispute resolution process outlined above.</li>
+                    </ol>
+                </div>
+
+                <div>
+                    <p className="font-semibold">Timeframes:</p>
+                    <p>Disputes will be resolved in a timely manner, with the following timeframes:</p>
+                    <ul className="list-disc pl-6 space-y-1 mt-1">
+                        <li>Internal resolution: 7-14 days</li>
+                        <li>Mediation: 14-30 days</li>
+                        <li>Arbitration: 30-60 days</li>
+                    </ul>
+                </div>
+
+                <p><strong>Confidentiality:</strong><br />
+                All parties involved in the dispute resolution process will maintain confidentiality.</p>
+            </div>
+        )
+    }
 ];
 
 export default function MembershipPage() {
@@ -281,11 +616,15 @@ export default function MembershipPage() {
                 </li>
                 <li className="flex items-start">
                   <Info className="mr-3 mt-1 h-6 w-6 flex-shrink-0 text-primary" />
-                  <span>Umgalelo Package and Sisters in Business each have a <span className="font-semibold text-foreground">R500</span> joining fee.</span>
+                  <span>Umgalelo Package has a joining fee of <span className="font-semibold text-foreground">R500</span>.</span>
                 </li>
                 <li className="flex items-start">
                   <Info className="mr-3 mt-1 h-6 w-6 flex-shrink-0 text-primary" />
-                  <span>Take both packages for a discounted joining fee of <span className="font-semibold text-foreground">R750</span> (save R250).</span>
+                  <span>Sisters in Business Package has a joining fee of <span className="font-semibold text-foreground">R500</span>.</span>
+                </li>
+                <li className="flex items-start">
+                  <Info className="mr-3 mt-1 h-6 w-6 flex-shrink-0 text-primary" />
+                  <span>Take both packages together for a <span className="font-semibold text-foreground">25% discount</span> and pay only <span className="font-semibold text-foreground">R750</span> total joining fee (save R250).</span>
                 </li>
                 <li className="flex items-start">
                   <Info className="mr-3 mt-1 h-6 w-6 flex-shrink-0 text-primary" />
