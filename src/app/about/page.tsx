@@ -161,7 +161,7 @@ I'm passionate about making a difference in the lives of our members and their f
             <div className="md:col-span-2 order-2 md:order-1">
               <div className="relative h-64 w-full md:h-full">
                 <Image
-                  src="/images/nobonke.jpg"
+                  src="/images/nobonke.png"
                   alt="Nobonke Nokeni - Partner at Isithebe seMbokodo"
                   fill
                   className="object-cover"
