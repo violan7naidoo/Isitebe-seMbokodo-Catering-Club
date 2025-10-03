@@ -11,16 +11,16 @@ export const metadata: Metadata = {
 export default function GalleryPage() {
   return (
     <div>
-      <HeroSection 
+      <HeroSection
         title="A Taste of Our Craft"
-        subtitle="Explore moments from our events and the beautiful dishes we create with love."
+        subtitle=""
         primaryButtonText="View Our Menu"
         primaryButtonLink="/membership"
         secondaryButtonText="Book Us"
         secondaryButtonLink="/contact"
         backgroundImage={{
-          src: placeholderImages.gallery[0].src,
-          alt: 'Beautifully set table for a large event'
+          src: "/images/logo2.png",
+          alt: "Isithebe seMbokodo Catering Club event"
         }}
       />
 

@@ -14,16 +14,16 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <div>
-      <HeroSection 
+      <HeroSection
         title="Get in Touch"
-        subtitle="We're here to help. Reach out to us with any questions or to join our sisterhood."
+        subtitle=""
         primaryButtonText="Join Our Sisterhood"
         primaryButtonLink="/membership"
         secondaryButtonText="View Gallery"
         secondaryButtonLink="/gallery"
         backgroundImage={{
-          src: placeholderImages.gallery[2].src,
-          alt: 'Women from the club smiling and working together'
+          src: "/images/logo2.png",
+          alt: "Isithebe seMbokodo Catering Club event"
         }}
       />
 

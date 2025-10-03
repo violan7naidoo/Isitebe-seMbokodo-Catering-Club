@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import { HeroSection } from '@/components/shared/hero-section';
-import placeholderImages from '@/lib/placeholder-images.json';
 import {
   Accordion,
   AccordionContent,
@@ -44,21 +43,38 @@ const packages = [
   },
   {
     name: 'Umgalelo Package',
-    price: 'R150 + R50',
+    price: 'R150',
+    joiningFee: 'R500',
     description: 'Community-driven event support.',
     features: [
       'All Premium Package benefits',
       'Contribute R50 (umgalelo) for fellow sister events',
+      'R500 once-off joining fee',
     ],
   },
   {
     name: 'Sisters in Business',
-    price: 'R150 + R50',
+    price: 'R150',
+    joiningFee: 'R500',
     description: 'For entrepreneurs seeking growth.',
     features: [
-      'All Umgalelo Package benefits',
+      'All Premium Package benefits',
       'Access to business financial support (T&Cs apply)',
+      'R500 once-off joining fee',
     ],
+  },
+  {
+    name: 'Both Packages',
+    price: 'R150',
+    joiningFee: 'R750',
+    description: 'Get both Umgalelo and Sisters in Business benefits.',
+    features: [
+      'All Premium Package benefits',
+      'Contribute R50 (umgalelo) for fellow sister events',
+      'Access to business financial support (T&Cs apply)',
+      'Discounted R750 joining fee for both packages',
+    ],
+    highlight: true,
   },
 ];
 
@@ -81,57 +97,155 @@ const policies = [
 export default function MembershipPage() {
   return (
     <div className="bg-background">
-      <HeroSection 
+      <HeroSection
         title="Join Our Sisterhood"
-        subtitle="Become part of a supportive community that stands together in times of need and celebration."
+        subtitle=""
         primaryButtonText="Become a Member"
         primaryButtonLink="#membership-packages"
         secondaryButtonText="Learn More"
         secondaryButtonLink="/about"
         backgroundImage={{
-          src: "/images/gallery-24.jpg",
-          alt: 'Isithebe seMbokodo Catering Club members gathering'
+          src: "/images/logo2.png",
+          alt: "Isithebe seMbokodo Catering Club event"
         }}
       />
       
       <section id="membership-packages" className="container mx-auto px-4 py-16">
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
-          {packages.map((pkg) => (
-            <Card
-              key={pkg.name}
-              className={`flex flex-col ${
-                pkg.highlight ? 'border-primary shadow-lg' : ''
-              }`}
-            >
-              <CardHeader>
-                <CardTitle className="font-headline text-2xl">
-                  {pkg.name}
-                </CardTitle>
-                <CardDescription>{pkg.description}</CardDescription>
-                <div className="pt-4">
-                  <span className="font-headline text-4xl font-bold">
-                    {pkg.price}
-                  </span>
-                  <span className="text-sm text-foreground/70">/ month</span>
-                </div>
-              </CardHeader>
-              <CardContent className="flex-grow">
-                <ul className="space-y-3">
-                  {pkg.features.map((feature) => (
-                    <li key={feature} className="flex items-start">
-                      <Check className="mr-2 mt-1 h-5 w-5 flex-shrink-0 text-green-600" />
-                      <span className="text-foreground/80">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-              <CardFooter>
-                <Button asChild className="w-full">
-                  <Link href="/contact">Choose Package</Link>
-                </Button>
-              </CardFooter>
-            </Card>
-          ))}
+        <div className="text-center mb-12">
+          <h2 className="font-headline text-3xl font-bold tracking-tight md:text-4xl mb-4">Our Membership Packages</h2>
+          <p className="text-foreground/80 max-w-3xl mx-auto">Choose the package that best suits your needs and join our sisterhood today.</p>
+        </div>
+        
+        <div className="space-y-8">
+          {/* First row - 2 packages */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {packages.slice(0, 2).map((pkg) => (
+              <div key={pkg.name} className="group">
+                <Card className="h-full transition-all duration-300 hover:shadow-md border-border/50 hover:border-primary/30">
+                  <CardHeader>
+                    <CardTitle className="text-2xl font-bold">{pkg.name}</CardTitle>
+                    <CardDescription>{pkg.description}</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="mb-4">
+                      <div className="flex items-baseline">
+                        <span className="text-3xl font-bold">{pkg.price}</span>
+                        <span className="ml-2 text-muted-foreground">/month</span>
+                      </div>
+                      {pkg.joiningFee && (
+                        <div className="text-sm text-muted-foreground">
+                          + {pkg.joiningFee} one-time joining fee
+                        </div>
+                      )}
+                    </div>
+                    <ul className="space-y-2">
+                      {pkg.features.map((feature) => (
+                        <li key={feature} className="flex items-start">
+                          <Check className="h-4 w-4 mt-1 mr-2 text-green-500 flex-shrink-0" />
+                          <span className="text-sm">{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </CardContent>
+                  <CardFooter>
+                    <Button asChild className="w-full" variant={pkg.highlight ? 'default' : 'outline'}>
+                      <Link href="/contact">
+                        {pkg.highlight ? 'Get Started' : 'Choose Plan'}
+                      </Link>
+                    </Button>
+                  </CardFooter>
+                </Card>
+              </div>
+            ))}
+          </div>
+          
+          {/* Second row - 2 packages */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {packages.slice(2, 4).map((pkg) => (
+              <div key={pkg.name} className="group">
+                <Card className="h-full transition-all duration-300 hover:shadow-md border-border/50 hover:border-primary/30">
+                  <CardHeader>
+                    <CardTitle className="text-2xl font-bold">{pkg.name}</CardTitle>
+                    <CardDescription>{pkg.description}</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="mb-4">
+                      <div className="flex items-baseline">
+                        <span className="text-3xl font-bold">{pkg.price}</span>
+                        <span className="ml-2 text-muted-foreground">/month</span>
+                      </div>
+                      {pkg.joiningFee && (
+                        <div className="text-sm text-muted-foreground">
+                          + {pkg.joiningFee} one-time joining fee
+                        </div>
+                      )}
+                    </div>
+                    <ul className="space-y-2">
+                      {pkg.features.map((feature) => (
+                        <li key={feature} className="flex items-start">
+                          <Check className="h-4 w-4 mt-1 mr-2 text-green-500 flex-shrink-0" />
+                          <span className="text-sm">{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </CardContent>
+                  <CardFooter>
+                    <Button asChild className="w-full" variant={pkg.highlight ? 'default' : 'outline'}>
+                      <Link href="/contact">
+                        {pkg.highlight ? 'Get Started' : 'Choose Plan'}
+                      </Link>
+                    </Button>
+                  </CardFooter>
+                </Card>
+              </div>
+            ))}
+          </div>
+          
+          {/* Third row - Full width package */}
+          <div className="grid grid-cols-1 gap-6">
+            {packages.slice(4).map((pkg) => (
+              <div key={pkg.name} className="group">
+                <Card className="transition-all duration-300 hover:shadow-md border-border/50 hover:border-primary/30">
+                  <div className="grid md:grid-cols-2 gap-6 p-6">
+                    <div>
+                      <CardHeader className="p-0">
+                        <CardTitle className="text-2xl font-bold">{pkg.name}</CardTitle>
+                        <CardDescription>{pkg.description}</CardDescription>
+                      </CardHeader>
+                      <div className="mt-4">
+                        <div className="flex items-baseline">
+                          <span className="text-3xl font-bold">{pkg.price}</span>
+                          <span className="ml-2 text-muted-foreground">/month</span>
+                        </div>
+                        {pkg.joiningFee && (
+                          <div className="text-sm text-muted-foreground">
+                            + {pkg.joiningFee} one-time joining fee
+                          </div>
+                        )}
+                      </div>
+                      <div className="mt-6">
+                        <Button asChild className="w-full" size="lg" variant={pkg.highlight ? 'default' : 'outline'}>
+                          <Link href="/contact">
+                            {pkg.highlight ? 'Get Started' : 'Choose Plan'}
+                          </Link>
+                        </Button>
+                      </div>
+                    </div>
+                    <div>
+                      <ul className="space-y-3">
+                        {pkg.features.map((feature) => (
+                          <li key={feature} className="flex items-start">
+                            <Check className="h-5 w-5 mt-0.5 mr-2 text-green-500 flex-shrink-0" />
+                            <span className="text-sm">{feature}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                </Card>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -163,7 +277,15 @@ export default function MembershipPage() {
                 </li>
                  <li className="flex items-start">
                   <Info className="mr-3 mt-1 h-6 w-6 flex-shrink-0 text-primary" />
-                  <span>A once-off joining fee of <span className="font-semibold text-foreground">R200</span> is payable upon registration.</span>
+                  <span>Standard membership has a once-off joining fee of <span className="font-semibold text-foreground">R200</span>.</span>
+                </li>
+                <li className="flex items-start">
+                  <Info className="mr-3 mt-1 h-6 w-6 flex-shrink-0 text-primary" />
+                  <span>Umgalelo Package and Sisters in Business each have a <span className="font-semibold text-foreground">R500</span> joining fee.</span>
+                </li>
+                <li className="flex items-start">
+                  <Info className="mr-3 mt-1 h-6 w-6 flex-shrink-0 text-primary" />
+                  <span>Take both packages for a discounted joining fee of <span className="font-semibold text-foreground">R750</span> (save R250).</span>
                 </li>
                 <li className="flex items-start">
                   <Info className="mr-3 mt-1 h-6 w-6 flex-shrink-0 text-primary" />
@@ -172,6 +294,10 @@ export default function MembershipPage() {
                 <li className="flex items-start">
                   <Info className="mr-3 mt-1 h-6 w-6 flex-shrink-0 text-primary" />
                   <span>There is a <span className="font-semibold text-foreground">6-month waiting period</span> for funeral benefits to ensure community stability.</span>
+                </li>
+                <li className="flex items-start">
+                  <Info className="mr-3 mt-1 h-6 w-6 flex-shrink-0 text-primary" />
+                  <span>There is a <span className="font-semibold text-foreground">12-month waiting period</span> for significant event benefits.</span>
                 </li>
               </ul>
             </div>
@@ -199,6 +325,123 @@ export default function MembershipPage() {
                 </AccordionItem>
             ))}
           </Accordion>
+        </div>
+      </section>
+
+      <section className="bg-muted/40 py-16">
+        <div className="container mx-auto px-4">
+          <div className="mx-auto max-w-4xl">
+            <div className="mb-8 text-center">
+              <h2 className="font-headline text-3xl font-bold tracking-tight md:text-4xl">
+                Claiming Process for Catering Services
+              </h2>
+              <p className="mt-2 text-foreground/80">
+                Our clear and fair process for addressing any service concerns
+              </p>
+            </div>
+
+            <div className="space-y-8">
+              <Card>
+                <CardHeader>
+                  <CardTitle>How to Make a Claim</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  <div className="space-y-2">
+                    <h3 className="font-semibold text-lg">1. Notification</h3>
+                    <p className="text-muted-foreground">
+                      Notify Isithebe seMbokodo Catering Club in writing of any issues or disputes related to catering services, providing detailed information about the problem.
+                    </p>
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <h3 className="font-semibold text-lg">2. Claim Form</h3>
+                    <p className="text-muted-foreground">
+                      Complete a claim form, which can be obtained from Isithebe seMbokodo Catering Club.
+                    </p>
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <h3 className="font-semibold text-lg">3. Supporting Documentation</h3>
+                    <p className="text-muted-foreground">
+                      Attach relevant documents, such as receipts, invoices, or proof of service delivery issues.
+                    </p>
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <h3 className="font-semibold text-lg">4. Submission Deadlines</h3>
+                    <ul className="list-disc pl-5 space-y-1 text-muted-foreground">
+                      <li>Funeral services: 7 days from the date of the incident</li>
+                      <li>Major events: 3 months from the date of the event</li>
+                    </ul>
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <h3 className="font-semibold text-lg">5. Review Process</h3>
+                    <p className="text-muted-foreground">
+                      Isithebe seMbokodo Catering Club will review claims and verify the information provided.
+                    </p>
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <h3 className="font-semibold text-lg">6. Resolution</h3>
+                    <p className="text-muted-foreground">
+                      The club will communicate the outcome of the claim, which may include approval, rejection, or a request for additional information.
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <div className="grid gap-6 md:grid-cols-2">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Required Documents</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <ul className="space-y-2 text-muted-foreground">
+                      <li className="flex items-start">
+                        <Check className="mr-2 h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                        <span>Completed claim form</span>
+                      </li>
+                      <li className="flex items-start">
+                        <Check className="mr-2 h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                        <span>Receipts or invoices</span>
+                      </li>
+                      <li className="flex items-start">
+                        <Check className="mr-2 h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                        <span>Proof of service delivery issues</span>
+                      </li>
+                      <li className="flex items-start">
+                        <Check className="mr-2 h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                        <span>Correspondence with Isithebe seMbokodo Catering Club</span>
+                      </li>
+                    </ul>
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Best Practices</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <ul className="space-y-2 text-muted-foreground">
+                      <li className="flex items-start">
+                        <Info className="mr-2 h-5 w-5 text-blue-500 flex-shrink-0 mt-0.5" />
+                        <span>Ensure timely submission of claims</span>
+                      </li>
+                      <li className="flex items-start">
+                        <Info className="mr-2 h-5 w-5 text-blue-500 flex-shrink-0 mt-0.5" />
+                        <span>Provide detailed information and supporting documentation</span>
+                      </li>
+                      <li className="flex items-start">
+                        <Info className="mr-2 h-5 w-5 text-blue-500 flex-shrink-0 mt-0.5" />
+                        <span>Follow up to confirm receipt and status of your claim</span>
+                      </li>
+                    </ul>
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
     </div>

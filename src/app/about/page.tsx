@@ -56,16 +56,16 @@ I'm passionate about making a difference in the lives of our members and their f
 
   return (
     <div className="bg-background">
-      <HeroSection 
+      <HeroSection
         title="Our Story & Purpose"
-        subtitle="Discover the heart and soul behind Isithebe seMbokodo Catering Club."
+        subtitle=""
         primaryButtonText="Join Our Sisterhood"
         primaryButtonLink="/membership"
         secondaryButtonText="Contact Us"
         secondaryButtonLink="/contact"
         backgroundImage={{
-          src: "/images/gallery-4.jpg",
-          alt: "Isithebe seMbokodo Catering Club event setup"
+          src: "/images/logo2.png",
+          alt: "Isithebe seMbokodo Catering Club event"
         }}
       />
 
@@ -108,20 +108,36 @@ I'm passionate about making a difference in the lives of our members and their f
                 <CardDescription>Thembakazi Ntsantsa - Health, Safety, and Environmental Professional & Wellness Coach</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4 text-foreground/80">
-                <p className="whitespace-pre-line">
-                  Molweni bantu abahle! My name is Thembakazi Ntsantsa, employed full time, a wellness coach and a single mother of three lovely daughters - Abenathi, Yololwethu, and Mikhulu - from Bizana. When Bii shared her vision of creating a Sisters' Club, I was immediately on board. As someone who's experienced the challenges of support when having family events firsthand I know the stress, and I believe our communities deserve better.
+                <div className="space-y-6">
+                  <p>
+                    Molweni bantu abahle! My name is Thembakazi Ntsantsa, a wellness coach and a single mother of three lovely daughters - Abenathi, Yololwethu, and Mikhulu - from Bizana. When Bii shared her vision of creating a Sisters' Club, I was immediately on board. As someone who's experienced the challenges of support during family events firsthand, I understand the stress involved, and I believe our communities deserve better.
+                  </p>
+                  
+                  <p className="font-medium">Our initiative aims to:</p>
+                  
+                  <ol className="list-decimal pl-6 space-y-3">
+                    <li className="pl-2">
+                      <span className="font-medium">Ease the burden</span> on catering during significant events like funerals, weddings, and gatherings through shared catering support from Isithebe SeMbokodo.
+                    </li>
+                    <li className="pl-2">
+                      <span className="font-medium">Support all family members</span>, especially oMakoti who often carry the burden of imbiza emakhaya and miss out on fully participating in ceremonies.
+                    </li>
+                    <li className="pl-2">
+                      <span className="font-medium">Promote wellness</span>, learning, and knowledge sharing on health, balance, and overall mental wellbeing.
+                    </li>
+                    <li className="pl-2">
+                      <span className="font-medium">Unite families and communities</span>, highlighting the strength that comes from togetherness.
+                    </li>
+                  </ol>
 
-Our initiative aims to:
+                  <p>
+                    We envision a community where families can come together, support one another, and celebrate life's milestones without added stress of catering. Our Club Isithebe seMbokodo will provide a platform for sharing, learning to support one another, and growing together.
+                  </p>
 
-1. Ease the burden on catering during significant events like funerals, weddings, and gatherings through shared catering support from Isithebe SeMbokodo.
-2. Ensure all family members, especially oMakoti whom always carry the burden of imbiza emakhaya and missing out in fully participate in ceremonies.
-3. Promote wellness, learning, and knowledge sharing on health, balance, and overall mental wellbeing.
-4. Unite families and communities, highlighting the strength that comes from togetherness.
-
-We envision a community where families can come together, support one another, and celebrate life's milestones without added stress of catering. Our Club Isithebe seMbokodo will provide a platform for sharing, learning to support one another, and growing together.
-
-We invite you Sisters to join us in making this vision a reality. Together, we can build a stronger, more supportive community that values support, dignity, relief, and connection. Ndiyabonga, Enkosi
-                </p>
+                  <p>
+                    We invite you Sisters to join us in making this vision a reality. Together, we can build a stronger, more supportive community that values support, dignity, relief, and connection. Ndiyabonga, Enkosi
+                  </p>
+                </div>
               </CardContent>
             </div>
             <div className="md:col-span-2 order-1 md:order-2">
@@ -133,6 +149,107 @@ We invite you Sisters to join us in making this vision a reality. Together, we c
                   className="object-cover"
                 />
               </div>
+            </div>
+          </div>
+        </Card>
+      </section>
+
+      <section className="container mx-auto px-4 py-16">
+        <Card className="overflow-hidden shadow-lg">
+          <div className="grid md:grid-cols-5">
+            <div className="md:col-span-2 order-2 md:order-1">
+              <div className="relative h-64 w-full md:h-full">
+                <Image
+                  src="/images/nobonke.jpg"
+                  alt="Nobonke Nokeni - Partner at Isithebe seMbokodo"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+            </div>
+            <div className="md:col-span-3">
+              <CardHeader>
+                <CardTitle className="font-headline text-3xl">
+                  Message from Nobonke
+                </CardTitle>
+                <CardDescription>Nobonke Nokeni - Partner at Isithebe seMbokodo</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4 text-foreground/80">
+                <div className="space-y-6">
+                  <p>
+                    Molweni Bantu bakuthi!
+                  </p>
+                  
+                  <p>
+                    Igama ndingu Nobonke Nokeni, I am from Flagstaff. I'm really passionate about Isithebe seMbokodo Catering Club because it's all about empowering women nationwide - supporting their families, contributing to communities, and building a stronger network of women.
+                  </p>
+                  
+                  <p>
+                    As someone in the catering business, I know firsthand the struggles people face when it comes to affording quality catering services. That's why I'm excited to join the team in this initiative project - I want to be part of the solution. I'd love to become a sister that's there for people, providing support and care through food that brings us together.
+                  </p>
+                  
+                  <p>
+                    I think it's so important to open up job opportunities and create spaces where women can share experiences, uplift each other, and grow together. Financial independence is a game-changer for women's autonomy and status, both in their communities and at home.
+                  </p>
+                  
+                  <div className="space-y-2">
+                    <p className="font-medium italic">
+                      Ngeke uphinde uthwale umthwalo uwedwa, Isithebe seMbokodo sikhona.
+                    </p>
+                    <p className="text-sm text-foreground/80 pl-4 italic">
+                      You'll never have to carry the burden alone again with Isithebe seMbokodo being here for you
+                    </p>
+                  </div>
+                  
+                  <p className="text-right font-medium">
+                    Nobonke Nokeni
+                  </p>
+                </div>
+              </CardContent>
+            </div>
+          </div>
+        </Card>
+      </section>
+
+      <section className="container mx-auto px-4 py-16">
+        <Card className="overflow-hidden shadow-lg">
+          <div className="grid md:grid-cols-5">
+            <div className="md:col-span-2">
+              <div className="relative h-64 w-full md:h-full">
+                <Image
+                  src="/images/Nande-Mpambane.jpg"
+                  alt="Nande Mpambane - Partner at Isithebe seMbokodo"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+            </div>
+            <div className="md:col-span-3">
+              <CardHeader>
+                <CardTitle className="font-headline text-3xl">
+                  A Message from Nande
+                </CardTitle>
+                <CardDescription>Nande Mpambane - Partner at Isithebe seMbokodo</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4 text-foreground/80">
+                <div className="space-y-6">
+                  <p>
+                    Molweni, Sanibonani, Lekai, Makweras sei! Welcome, beautiful people of our beautiful nation! I'm Nande Mpambane, originally from the Eastern Cape but raised in KZN. I greet you in different languages because that's what Isithebe is all about - unity and empowerment. We bring together women from all over the country to work together and succeed.
+                  </p>
+                  
+                  <p>
+                    As the Bible says, "The husband is the head of the wife" (Ephesians 5:23), but let's not forget the neck that supports the head! Imbokodo is that neck that brings families together, providing essential services that allow them to bond during life's most challenging and busiest moments, such as funerals and celebrations.
+                  </p>
+                  
+                  <p>
+                    At Isithebe seMbokodo, we take care of the smallest yet most crucial details of your events, including food and catering. From the moment you call us, we take full responsibility for delivering with love, dignity, and kindness. Join us, and you won't want to miss out on this opportunity to be served with excellence!
+                  </p>
+                  
+                  <p className="text-right font-medium">
+                    Nande Mpambane
+                  </p>
+                </div>
+              </CardContent>
             </div>
           </div>
         </Card>

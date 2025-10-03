@@ -55,10 +55,9 @@ export function HeroSection({
           </div>
         </div>
       </div>
-      <div className="relative z-10 h-full flex flex-col">
-        <div className="flex-grow"></div>
+      <div className="relative z-10 h-full flex flex-col justify-start pt-8 sm:justify-center sm:pt-0">
         <div className="w-full">
-          <div className="container mx-auto px-4 text-center pb-16 sm:pb-24 md:pb-32">
+          <div className="container mx-auto px-4 text-center">
             <div className="space-y-4">
               <h1 className="font-headline text-4xl font-bold tracking-tight text-white drop-shadow-lg md:text-6xl lg:text-7xl animate-fade-in-up">
                 {title}
@@ -78,11 +77,6 @@ export function HeroSection({
                   </Button>
                 )}
               </div>
-            </div>
-          </div>
-          <div className="absolute bottom-4 left-0 right-0 flex justify-center">
-            <div className="h-10 w-6 rounded-full border-2 border-white/50 flex items-start justify-center p-1">
-              <div className="w-1 h-3 bg-white/80 rounded-full animate-bounce" />
             </div>
           </div>
         </div>
