@@ -145,7 +145,7 @@ I'm passionate about making a difference in the lives of our members and their f
               <div className="relative h-64 w-full md:h-full">
                 <Image
                   src="/images/gallery-1.jpg"
-                  alt="Thembakazi Ntsantsa - Partner at Isithebe seMbokodo"
+                  alt="Thembakazi Ntsantsa - Team Leader at Isithebe seMbokodo"
                   fill
                   className="object-cover"
                 />
@@ -162,7 +162,7 @@ I'm passionate about making a difference in the lives of our members and their f
               <div className="relative h-64 w-full md:h-full">
                 <Image
                   src="/images/nobonke.jpg"
-                  alt="Nobonke Nokeni - Partner at Isithebe seMbokodo"
+                  alt="Nobonke Nokeni - Team Leader at Isithebe seMbokodo"
                   fill
                   className="object-cover"
                 />
@@ -173,7 +173,7 @@ I'm passionate about making a difference in the lives of our members and their f
                 <CardTitle className="font-headline text-3xl">
                   Message from Nobonke
                 </CardTitle>
-                <CardDescription>Nobonke Nokeni - Partner at Isithebe seMbokodo</CardDescription>
+                <CardDescription>Nobonke Nokeni - Team Leader at Isithebe seMbokodo</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4 text-foreground/80">
                 <div className="space-y-6">
@@ -231,7 +231,7 @@ I'm passionate about making a difference in the lives of our members and their f
                   <CardTitle className="font-headline text-3xl">
                     A Message from Nande
                   </CardTitle>
-                  <CardDescription>Nande Mpambane - Partner at Isithebe seMbokodo</CardDescription>
+                  <CardDescription>Nande Mpambane - Team Leader at Isithebe seMbokodo</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4 text-foreground/80">
                   <div className="space-y-6">
@@ -394,7 +394,7 @@ I'm passionate about making a difference in the lives of our members and their f
               <div className="relative h-64 w-full overflow-hidden">
                 <Image
                   src="/images/nande.jpg"
-                  alt="Nande Mpambane - Partner"
+                  alt="Nande Mpambane - Team Leader"
                   fill
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
                 />
@@ -403,7 +403,7 @@ I'm passionate about making a difference in the lives of our members and their f
               <div className="flex flex-col flex-grow">
                 <CardHeader>
                   <CardTitle className="font-headline text-2xl">Nande Mpambane</CardTitle>
-                  <CardDescription className="text-primary font-medium">Operations & Community Partner</CardDescription>
+                  <CardDescription className="text-primary font-medium">Operations & Community Team Leader</CardDescription>
                 </CardHeader>
                 <CardContent className="flex-grow">
                   <p className="text-foreground/80">
@@ -418,7 +418,7 @@ I'm passionate about making a difference in the lives of our members and their f
               <div className="relative h-64 w-full overflow-hidden">
                 <Image
                   src="/images/nobonke.jpg"
-                  alt="Nobonke Nokeni - Partner"
+                  alt="Nobonke Nokeni - Team Leader"
                   fill
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
                 />

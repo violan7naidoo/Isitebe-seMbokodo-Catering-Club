@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { HeartHandshake, ChefHat, Sprout, CheckCircle, Star, Heart, Users, Shield, Handshake } from 'lucide-react';
+import { HeartHandshake, ChefHat, Sprout, CheckCircle, Star, Heart, Users, Shield, Handshake, ArrowRight } from 'lucide-react';
 import { AnimateIn } from '@/components/ui/animate-in';
 import styles from './animations.module.css';
 import { Button } from '@/components/ui/button';
@@ -394,6 +394,73 @@ export default function Home() {
               </Card>
             </AnimateIn>
           ))}
+        </div>
+      </section>
+
+      <section className="py-20 bg-muted/30">
+        <div className="container mx-auto px-4">
+          <AnimateIn className="mb-12 text-center" direction="up">
+            <h2 className="font-headline text-3xl font-bold tracking-tight md:text-4xl">
+              Our <span className="text-primary">Membership</span> Packages
+            </h2>
+            <p className="mt-4 max-w-2xl mx-auto text-lg text-foreground/80">
+              Choose the package that best suits your needs and join our sisterhood today.
+            </p>
+          </AnimateIn>
+          
+          <div className="overflow-x-auto">
+            <table className="min-w-full bg-background rounded-lg overflow-hidden shadow-lg border border-border/50">
+              <thead className="bg-primary/10">
+                <tr>
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-foreground/90 uppercase tracking-wider">Package</th>
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-foreground/90 uppercase tracking-wider">Joining Fees</th>
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-foreground/90 uppercase tracking-wider">Monthly Contributions</th>
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-foreground/90 uppercase tracking-wider">Total</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-border/50">
+                <tr className="hover:bg-muted/50 transition-colors">
+                  <td className="px-6 py-4 whitespace-nowrap font-medium text-foreground">Package One</td>
+                  <td className="px-6 py-4 whitespace-nowrap">R200 joining fee + R100</td>
+                  <td className="px-6 py-4 whitespace-nowrap">R100/month</td>
+                  <td className="px-6 py-4 whitespace-nowrap font-semibold">R300 initial</td>
+                </tr>
+                <tr className="hover:bg-muted/50 transition-colors">
+                  <td className="px-6 py-4 whitespace-nowrap font-medium text-foreground">Package Two</td>
+                  <td className="px-6 py-4 whitespace-nowrap">R200 + R150</td>
+                  <td className="px-6 py-4 whitespace-nowrap">R150/month</td>
+                  <td className="px-6 py-4 whitespace-nowrap font-semibold">R350 initial</td>
+                </tr>
+                <tr className="hover:bg-muted/50 transition-colors">
+                  <td className="px-6 py-4 whitespace-nowrap font-medium text-foreground">Umgalelo Package</td>
+                  <td className="px-6 py-4 whitespace-nowrap">R500 (pledging) + R200 (joining) + R150</td>
+                  <td className="px-6 py-4 whitespace-nowrap">R50 (when contributing for a member)</td>
+                  <td className="px-6 py-4 whitespace-nowrap font-semibold">R850 initial</td>
+                </tr>
+                <tr className="hover:bg-muted/50 transition-colors">
+                  <td className="px-6 py-4 whitespace-nowrap font-medium text-foreground">Sisters in Business</td>
+                  <td className="px-6 py-4 whitespace-nowrap">R500 + R150 + R200</td>
+                  <td className="px-6 py-4 whitespace-nowrap">R50 (when contributing)</td>
+                  <td className="px-6 py-4 whitespace-nowrap font-semibold">R850 initial</td>
+                </tr>
+                <tr className="hover:bg-muted/50 transition-colors bg-primary/5">
+                  <td className="px-6 py-4 whitespace-nowrap font-bold text-foreground">Umgalelo + Sisters in Business</td>
+                  <td className="px-6 py-4 whitespace-nowrap">R1000 (joining) + R350 (premiums)</td>
+                  <td className="px-6 py-4 whitespace-nowrap">Each month you pay your chosen package</td>
+                  <td className="px-6 py-4 whitespace-nowrap font-bold text-primary">R1100 (after 25% discount)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+          <div className="mt-8 text-center">
+            <Button asChild size="lg">
+              <Link href="/membership">
+                Join Our Sisterhood
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
+          </div>
         </div>
       </section>
 
