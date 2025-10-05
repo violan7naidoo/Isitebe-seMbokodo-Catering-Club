@@ -481,9 +481,9 @@ export default function MembershipPage() {
                     </ul>
                   </CardContent>
                   <CardFooter>
-                    <Button asChild className="w-full" variant={pkg.highlight ? 'default' : 'outline'}>
+                    <Button asChild className="w-full" variant="default">
                       <Link href="/contact">
-                        {pkg.highlight ? 'Get Started' : 'Choose Plan'}
+                        Get Started
                       </Link>
                     </Button>
                   </CardFooter>
@@ -523,9 +523,9 @@ export default function MembershipPage() {
                     </ul>
                   </CardContent>
                   <CardFooter>
-                    <Button asChild className="w-full" variant={pkg.highlight ? 'default' : 'outline'}>
+                    <Button asChild className="w-full" variant="default">
                       <Link href="/contact">
-                        {pkg.highlight ? 'Get Started' : 'Choose Plan'}
+                        Get Started
                       </Link>
                     </Button>
                   </CardFooter>

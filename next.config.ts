@@ -1,28 +1,37 @@
-import type {NextConfig} from 'next';
+import type { NextConfig } from 'next';
+import path from 'path';
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  // Enable Turbopack
+  experimental: {
+    externalDir: true,
+    turbo: {
+      resolveAlias: {
+        // Ensure path aliases work with Turbopack
+        '@': [path.resolve(__dirname, './src')],
+      },
+    },
+  },
+  // Webpack configuration for fallback
+  webpack: (config, { isServer }) => {
+    // Configure path aliases
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@': path.resolve(__dirname, './src'),
+    };
+
+    // Important: return the modified config
+    return config;
+  },
+  // TypeScript configuration
   typescript: {
-    ignoreBuildErrors: true,
+    // Enable TypeScript type checking during build
+    ignoreBuildErrors: false,
   },
+  // ESLint configuration
   eslint: {
-    ignoreDuringBuilds: true,
-  },
-  images: {
-    remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'placehold.co',
-        port: '',
-        pathname: '/**',
-      },
-      {
-        protocol: 'https',
-        hostname: 'picsum.photos',
-        port: '',
-        pathname: '/**',
-      },
-    ],
+    // Enable ESLint during production builds
+    ignoreDuringBuilds: false,
   },
 };
 
