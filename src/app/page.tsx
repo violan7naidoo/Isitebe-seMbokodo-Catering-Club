@@ -26,7 +26,7 @@ const testimonials = [
   },
   {
     name: 'Themba Moyo',
-    avatar: 'https://i.pravatar.cc/150?u=a042581f4e29026706d',
+    avatar: '/images/Themba-Moyo.jpg',
     title: 'Community Leader',
     testimonial:
       'This club is more than just catering; it\'s a movement. It\'s about restoring dignity, building community, and empowering women. We are proud to have them in our community.',

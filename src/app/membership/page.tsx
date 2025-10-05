@@ -48,8 +48,7 @@ const packages = [
     description: 'Community-driven event support.',
     features: [
       'All Premium Package benefits',
-      'Contribute R50 (umgalelo) for fellow sister events',
-      'R500 once-off joining fee',
+      'Contribute R50 (umgalelo) for fellow sister events'
     ],
   },
   {
@@ -59,8 +58,7 @@ const packages = [
     description: 'For entrepreneurs seeking growth.',
     features: [
       'All Premium Package benefits',
-      'Access to business financial support (T&Cs apply)',
-      'R500 once-off joining fee',
+      'Access to business financial support (T&Cs apply)'
     ],
   },
   {
