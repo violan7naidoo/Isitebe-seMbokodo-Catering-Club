@@ -26,7 +26,7 @@ const testimonials = [
   },
   {
     name: 'Themba Moyo',
-    avatar: '/images/Themba-Moyo.jpg',
+    avatar: '/images/Themba-Moyo-2.jpg',
     title: 'Community Leader',
     testimonial:
       'This club is more than just catering; it\'s a movement. It\'s about restoring dignity, building community, and empowering women. We are proud to have them in our community.',
