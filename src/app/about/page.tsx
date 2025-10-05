@@ -161,7 +161,7 @@ I'm passionate about making a difference in the lives of our members and their f
             <div className="md:col-span-2 order-2 md:order-1">
               <div className="relative h-64 w-full md:h-full">
                 <Image
-                  src="/images/nobonke2.jpg"
+                  src="/images/Nobonke2.jpg"
                   alt="Nobonke Nokeni - Team Leader at Isithebe seMbokodo"
                   fill
                   className="object-cover"
@@ -417,7 +417,7 @@ I'm passionate about making a difference in the lives of our members and their f
             <Card className="overflow-hidden group h-full flex flex-col">
               <div className="relative h-64 w-full overflow-hidden">
                 <Image
-                  src="/images/nobonke2.jpg"
+                  src="/images/Nobonke2.jpg"
                   alt="Nobonke Nokeni - Team Leader"
                   fill
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
