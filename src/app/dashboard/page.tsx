@@ -1,4 +1,5 @@
 'use client';
+
 import { useAuth } from '@/contexts/AuthContext';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { useEffect, useState } from 'react';
@@ -25,11 +26,21 @@ type Payment = {
   created_at: string;
 };
 
+type User = {
+  id: string;
+  email: string;
+  user_metadata?: {
+    first_name?: string;
+    last_name?: string;
+  };
+};
+
 export default function Dashboard() {
-  const { user } = useAuth();
+  const { user, loading: authLoading } = useAuth();
   const [memberships, setMemberships] = useState<Membership[]>([]);
   const [payments, setPayments] = useState<Payment[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const supabase = createClientComponentClient();
 
   useEffect(() => {
@@ -37,6 +48,9 @@ export default function Dashboard() {
       if (!user) return;
       
       try {
+        setLoading(true);
+        setError(null);
+        
         // Fetch memberships
         const { data: membershipsData, error: membershipsError } = await supabase
           .from('user_memberships')
@@ -46,9 +60,8 @@ export default function Dashboard() {
           `)
           .eq('user_id', user.id);
 
-        if (!membershipsError) {
-          setMemberships(membershipsData || []);
-        }
+        if (membershipsError) throw membershipsError;
+        setMemberships(membershipsData || []);
 
         // Fetch payments
         const { data: paymentsData, error: paymentsError } = await supabase
@@ -57,23 +70,41 @@ export default function Dashboard() {
           .eq('user_id', user.id)
           .order('created_at', { ascending: false });
 
-        if (!paymentsError) {
-          setPayments(paymentsData || []);
-        }
+        if (paymentsError) throw paymentsError;
+        setPayments(paymentsData || []);
       } catch (error) {
         console.error('Error fetching data:', error);
+        setError(error instanceof Error ? error.message : 'Failed to load dashboard data');
       } finally {
         setLoading(false);
       }
     };
 
-    fetchData();
-  }, [user, supabase]);
+    if (user) {
+      fetchData();
+    }
+  }, [user]);
 
-  if (loading) {
+  if (authLoading || loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary-500"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-500"></div>
+      </div>
+    );
+  }
+
+  if (!user) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold mb-4">Please sign in to view the dashboard</h2>
+          <Link 
+            href="/auth/login" 
+            className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          >
+            Go to Login
+          </Link>
+        </div>
       </div>
     );
   }
@@ -83,7 +114,7 @@ export default function Dashboard() {
       <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         <div className="px-4 py-6 sm:px-0">
           <h1 className="text-3xl font-bold text-gray-900">
-            Welcome back, {user?.user_metadata?.first_name || 'User'}!
+            Welcome back, {user.user_metadata?.first_name || 'User'}!
           </h1>
           
           {/* Membership Section */}

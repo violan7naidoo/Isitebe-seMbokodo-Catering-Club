@@ -3,34 +3,62 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
+import Link from 'next/link';
 
 export default function SignUp() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+    firstName: '',
+    lastName: ''
+  });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const { signUp } = useAuth();
   const router = useRouter();
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
     setLoading(true);
     
+    const { email, password, firstName, lastName } = formData;
+    
+    if (password.length < 6) {
+      setError('Password must be at least 6 characters');
+      setLoading(false);
+      return;
+    }
+    
     try {
-      await signUp(email, password, { 
-        first_name: firstName,  // Changed to match UserProfile type
-        last_name: lastName,    // Changed to match UserProfile type
-        id_number: '',          // Add any additional required fields
-        phone_number: '',       // with default empty values
+      const { error } = await signUp(email, password, { 
+        first_name: firstName,
+        last_name: lastName,
+        id_number: '',
+        phone_number: '',
         address: '',
         is_admin: false
       });
-      router.push('/dashboard'); // Redirect after successful signup
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to create an account');
+      
+      if (!error) {
+        alert('Signup successful! Please check your email to verify your account.');
+        router.push('/auth/login');
+      }
+    } catch (err: any) {
+      console.error('Signup error:', err);
+      if (err.message?.includes('already registered') || err.message?.includes('already in use')) {
+        setError('This email is already registered. Please try logging in.');
+      } else {
+        setError(err.message || 'Failed to create an account. Please try again.');
+      }
     } finally {
       setLoading(false);
     }
@@ -61,8 +89,8 @@ export default function SignUp() {
                   required
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                   placeholder="First Name"
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
+                  value={formData.firstName}
+                  onChange={handleChange}
                 />
               </div>
               <div>
@@ -74,8 +102,8 @@ export default function SignUp() {
                   required
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                   placeholder="Last Name"
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
+                  value={formData.lastName}
+                  onChange={handleChange}
                 />
               </div>
             </div>
@@ -89,8 +117,8 @@ export default function SignUp() {
                 required
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                 placeholder="Email address"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                value={formData.email}
+                onChange={handleChange}
               />
             </div>
             <div>
@@ -103,8 +131,8 @@ export default function SignUp() {
                 required
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                 placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                value={formData.password}
+                onChange={handleChange}
               />
             </div>
           </div>
@@ -117,6 +145,15 @@ export default function SignUp() {
             >
               {loading ? 'Creating account...' : 'Sign up'}
             </button>
+          </div>
+          <div className="mt-4 text-center">
+            <p className="text-sm text-gray-600 mb-2">Already have an account?</p>
+            <Link 
+              href="/auth/login" 
+              className="inline-flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-indigo-700 bg-white border border-indigo-300 rounded-md shadow-sm hover:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            >
+              Sign in to your account
+            </Link>
           </div>
         </form>
       </div>
