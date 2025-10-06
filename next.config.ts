@@ -5,12 +5,12 @@ const nextConfig: NextConfig = {
   // Enable Turbopack
   experimental: {
     externalDir: true,
-    turbo: {
-      resolveAlias: {
-        // Ensure path aliases work with Turbopack
-        '@': [path.resolve(__dirname, './src')],
-      },
-    },
+    // turbo: {
+    //   resolveAlias: {
+    //     // Ensure path aliases work with Turbopack
+    //     '@': [path.resolve(__dirname, './src')],
+    //   },
+    // },
   },
   // Webpack configuration for fallback
   webpack: (config, { isServer }) => {

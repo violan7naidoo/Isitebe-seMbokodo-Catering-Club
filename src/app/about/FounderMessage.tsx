@@ -1,7 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { summarizeFoundersMessage } from '@/ai/flows/summarize-founders-message';
+import { useState } from 'react';  // Add this import
 import { Skeleton } from '@/components/ui/skeleton';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Lightbulb } from 'lucide-react';
@@ -11,42 +10,32 @@ interface FounderMessageProps {
 }
 
 export default function FounderMessage({ fullMessage }: FounderMessageProps) {
-  const [summary, setSummary] = useState('');
-  const [loading, setLoading] = useState(true);
+  // If you want to keep the loading state for future use
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  useEffect(() => {
-    async function getSummary() {
-      try {
-        setLoading(true);
-        const result = await summarizeFoundersMessage({
-          foundersMessage: fullMessage,
-        });
-        setSummary(result.summary);
-      } catch (err) {
-        console.error('Error summarizing message:', err);
-        setError('Could not load summary.');
-      } finally {
-        setLoading(false);
-      }
-    }
-    getSummary();
-  }, [fullMessage]);
-
   if (loading) {
-    return <Skeleton className="h-6 w-full" />;
+    return <Skeleton className="h-24 w-full" />;
   }
 
   if (error) {
-    return null; // Don't show anything if there's an error
+    return (
+      <Alert variant="destructive">
+        <Lightbulb className="h-4 w-4" />
+        <AlertDescription>
+          {error}
+        </AlertDescription>
+      </Alert>
+    );
   }
 
   return (
-    <Alert className="bg-primary/10 border-primary/20">
-      <Lightbulb className="h-4 w-4 text-primary" />
-      <AlertDescription className="font-headline text-lg italic text-foreground/90">
-        {summary}
-      </AlertDescription>
-    </Alert>
+    <div className="prose max-w-none">
+      {fullMessage.split('\n').map((paragraph, index) => (
+        <p key={index} className="mb-4">
+          {paragraph}
+        </p>
+      ))}
+    </div>
   );
 }

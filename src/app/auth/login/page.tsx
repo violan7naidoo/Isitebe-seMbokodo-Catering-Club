@@ -12,14 +12,15 @@ export default function Login() {
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      await signIn(email, password);
-      router.push('/dashboard');
-    } catch (error) {
-      setError(error.message);
-    }
-  };
+  e.preventDefault();
+  try {
+    await signIn(email, password);
+    router.push('/dashboard');
+  } catch (err) {
+    const error = err as Error;
+    setError(error.message || 'An error occurred during login');
+  }
+};
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
