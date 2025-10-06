@@ -8,8 +8,8 @@ const nextConfig: NextConfig = {
       // Empty object is valid and enables server actions
       // with default settings
     },
-    serverComponentsExternalPackages: ['@supabase/supabase-js'],
   },
+  serverExternalPackages: ['@supabase/supabase-js'],
   // Webpack configuration for fallback
   webpack: (config, { isServer }) => {
     // Configure path aliases

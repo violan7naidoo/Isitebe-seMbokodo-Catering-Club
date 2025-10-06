@@ -6,6 +6,7 @@ import { createClientComponentClient, User } from '@supabase/auth-helpers-nextjs
 
 
 type UserWithProfile = User & {
+  is_admin?: boolean; // Add this line
   user_metadata?: {
     first_name: string;
     last_name: string;
