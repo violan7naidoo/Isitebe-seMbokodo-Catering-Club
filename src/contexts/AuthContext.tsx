@@ -4,6 +4,7 @@ import { createContext, useContext, useEffect, useState, ReactNode } from 'react
 import { usePathname, useRouter } from 'next/navigation';
 import { createClientComponentClient, User } from '@supabase/auth-helpers-nextjs';
 
+
 type UserProfile = {
   id: string;
   email: string;
@@ -59,37 +60,49 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   const signUp = async (email: string, password: string, userData: any) => {
-    const { data, error } = await supabase.auth.signUp({
+  try {
+    // 1. First create the auth user
+    const { data: authData, error: authError } = await supabase.auth.signUp({
       email,
       password,
       options: {
         data: {
-          first_name: userData.firstName,
-          last_name: userData.lastName,
-        }
+          first_name: userData.first_name,
+          last_name: userData.last_name,
+        },
+        emailRedirectTo: 'https://www.isithebesembokodo.co.za/auth/callback'
       }
     });
 
-    if (error) throw error;
-    if (data.user) {
-      // Save additional user data to profiles table
+    if (authError) throw authError;
+
+    // 2. Then save to your users table
+    if (authData.user) {
       const { error: profileError } = await supabase
         .from('users')
         .insert([{
-          id: data.user.id,
+          id: authData.user.id,
           email,
-          first_name: userData.firstName,
-          last_name: userData.lastName,
-          id_number: userData.idNumber,
-          phone_number: userData.phone,
-          address: userData.address,
+          first_name: userData.first_name,
+          last_name: userData.last_name,
+          id_number: userData.id_number || '',
+          phone_number: userData.phone_number || '',
+          address: userData.address || '',
+          is_admin: false
         }]);
 
-      if (profileError) throw profileError;
+      if (profileError) {
+        console.error('Profile creation error:', profileError);
+        throw new Error('Failed to create user profile');
+      }
     }
 
-    return data;
-  };
+    return authData;
+  } catch (error) {
+    console.error('Signup error:', error);
+    throw error;
+  }
+};
 
   const signIn = async (email: string, password: string) => {
     const { data, error } = await supabase.auth.signInWithPassword({
