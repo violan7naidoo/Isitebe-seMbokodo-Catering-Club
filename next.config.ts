@@ -2,25 +2,25 @@ import type { NextConfig } from 'next';
 import path from 'path';
 
 const nextConfig: NextConfig = {
-  // Enable Turbopack
   experimental: {
     externalDir: true,
-    // turbo: {
-    //   resolveAlias: {
-    //     // Ensure path aliases work with Turbopack
-    //     '@': [path.resolve(__dirname, './src')],
-    //   },
-    // },
+    serverActions: {
+      // Empty object is valid and enables server actions
+      // with default settings
+    },
+    serverComponentsExternalPackages: ['@supabase/supabase-js'],
   },
   // Webpack configuration for fallback
   webpack: (config, { isServer }) => {
     // Configure path aliases
+    if (!config.resolve) config.resolve = {};
+    if (!config.resolve.alias) config.resolve.alias = {};
+
     config.resolve.alias = {
       ...config.resolve.alias,
       '@': path.resolve(__dirname, './src'),
     };
 
-    // Important: return the modified config
     return config;
   },
   // TypeScript configuration
@@ -32,6 +32,13 @@ const nextConfig: NextConfig = {
   eslint: {
     // Enable ESLint during production builds
     ignoreDuringBuilds: false,
+  },
+  // Image optimization
+  images: {
+    domains: [
+      'labnagzwqyyvijjocfqt.supabase.co', // Your Supabase project reference
+      'www.isithebesembokodo.co.za',     // Your domain
+    ],
   },
 };
 
