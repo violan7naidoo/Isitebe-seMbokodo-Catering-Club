@@ -52,7 +52,7 @@ export default function ContactPage() {
                       href="tel:+27657434928"
                       className="hover:text-primary transition-colors"
                     >
-                      065 743 4928
+                      039 940 2728
                     </a>
                   </p>
                 </div>
