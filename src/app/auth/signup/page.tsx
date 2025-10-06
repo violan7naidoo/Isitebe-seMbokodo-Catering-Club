@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
 import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { Loader2 } from 'lucide-react';
 
 export default function SignUp() {
   const [formData, setFormData] = useState({
@@ -138,22 +140,28 @@ export default function SignUp() {
           </div>
 
           <div>
-            <button
+            <Button
               type="submit"
               disabled={loading}
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
+              className="w-full"
             >
-              {loading ? 'Creating account...' : 'Sign up'}
-            </button>
+              {loading ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Creating account...
+                </>
+              ) : (
+                'Sign up'
+              )}
+            </Button>
           </div>
           <div className="mt-4 text-center">
             <p className="text-sm text-gray-600 mb-2">Already have an account?</p>
-            <Link 
-              href="/auth/login" 
-              className="inline-flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-indigo-700 bg-white border border-indigo-300 rounded-md shadow-sm hover:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-            >
-              Sign in to your account
-            </Link>
+            <Button asChild  className="w-full">
+              <Link href="/auth/login" >
+                Sign in to your account
+              </Link>
+            </Button>
           </div>
         </form>
       </div>
