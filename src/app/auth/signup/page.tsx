@@ -5,7 +5,8 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { Loader2 } from 'lucide-react';
+import { Loader2, Mail, ArrowLeft } from 'lucide-react';
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 
 export default function SignUp() {
   const [formData, setFormData] = useState({
@@ -16,6 +17,7 @@ export default function SignUp() {
   });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [signupSuccess, setSignupSuccess] = useState(false);
   const { signUp } = useAuth();
   const router = useRouter();
 
@@ -27,6 +29,8 @@ export default function SignUp() {
     }));
   };
 
+  const supabase = createClientComponentClient();
+  
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
@@ -41,19 +45,18 @@ export default function SignUp() {
     }
     
     try {
-      const { error } = await signUp(email, password, { 
+      const { error: signUpError, confirmationSent } = await signUp(email, password, { 
         first_name: firstName,
         last_name: lastName,
-        id_number: '',
-        phone_number: '',
-        address: '',
-        is_admin: false
       });
       
-      if (!error) {
-        alert('Signup successful! Please check your email to verify your account.');
-        router.push('/auth/login');
+      if (signUpError) {
+        throw signUpError;
       }
+      
+      // On success, show the confirmation message
+      setSignupSuccess(true);
+
     } catch (err: any) {
       console.error('Signup error:', err);
       if (err.message?.includes('already registered') || err.message?.includes('already in use')) {
@@ -65,6 +68,71 @@ export default function SignUp() {
       setLoading(false);
     }
   };
+  
+  const handleResendConfirmation = async () => {
+    try {
+      setLoading(true);
+      const { error } = await supabase.auth.resend({
+        type: 'signup',
+        email: formData.email,
+        options: {
+          emailRedirectTo: `${window.location.origin}/auth/callback?next=/auth/login`
+        }
+      });
+
+      if (error) throw error;
+      
+      // Show success message
+      alert('Confirmation email resent successfully!');
+    } catch (error) {
+      console.error('Error resending confirmation:', error);
+      setError('Failed to resend confirmation email. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Show after successful signup
+  if (signupSuccess) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-md w-full space-y-8 text-center">
+          <div className="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-green-100">
+            <Mail className="h-8 w-8 text-green-600" aria-hidden="true" />
+          </div>
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+            Check Your Email!
+          </h2>
+          <p className="mt-2 text-center text-sm text-gray-600">
+            We've sent a confirmation link to <span className="font-semibold">{formData.email}</span>.
+            Please check your inbox and click the link to verify your email address.
+          </p>
+          <p className="text-sm text-gray-500">
+            Didn't receive an email? Check your spam folder or {' '}
+            <button 
+              onClick={handleResendConfirmation}
+              disabled={loading}
+              className="text-blue-600 hover:text-blue-800 font-medium disabled:opacity-50"
+            >
+              {loading ? 'Sending...' : 'Resend confirmation'}
+            </button>
+          </p>
+          <div className="mt-6">
+            <Button 
+              asChild 
+              variant="outline" 
+              className="w-full"
+            >
+              <Link href="/auth/login" className="flex items-center justify-center">
+                <ArrowLeft className="mr-2 h-4 w-4" />
+                Back to Login
+              </Link>
+            </Button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
@@ -168,3 +236,4 @@ export default function SignUp() {
     </div>
   );
 }
+

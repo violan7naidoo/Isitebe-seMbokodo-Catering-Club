@@ -112,7 +112,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   const signUp = async (email: string, password: string, userData: any) => {
     setLoading(true);
     try {
-      // 1. First create the auth user with email and password
+      // Create the auth user with email and password
       const { data: authData, error: authError } = await supabase.auth.signUp({
         email,
         password,
@@ -121,40 +121,17 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
             first_name: userData.first_name,
             last_name: userData.last_name,
           },
-          emailRedirectTo: `${window.location.origin}/auth/callback`
+          emailRedirectTo: `${window.location.origin}/auth/callback?next=/auth/login`
         }
       });
 
       if (authError) throw authError;
 
-      // The trigger will handle creating the user profile
-      // We just need to wait a bit for the trigger to complete
-      if (authData.user) {
-        // Wait for the profile to be created (the trigger will handle this)
-        const { data: profileData, error: profileError } = await supabase
-          .from('users')
-          .select('*')
-          .eq('id', authData.user.id)
-          .single();
-
-        if (profileError) {
-          console.error('Error fetching user profile:', profileError);
-          // Don't throw an error here as the user was created successfully
-          // The profile might still be created by the trigger
-        }
-
-        // Update the user state with the new profile data
-        setUser({
-          ...authData.user,
-          ...profileData,
-          user_metadata: {
-            first_name: userData.first_name,
-            last_name: userData.last_name,
-          }
-        });
-      }
-
-      return authData;
+      // Return the auth data with a confirmation flag
+      return { 
+        ...authData,
+        confirmationSent: true
+      };
     } catch (error) {
       console.error('Signup error:', error);
       if (error instanceof Error) {
