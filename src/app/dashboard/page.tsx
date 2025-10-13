@@ -5,40 +5,45 @@ import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 
-type Membership = {
+type MembershipPlan = {
   id: string;
-  membership: {
-    name: string;
-    description: string;
-    monthly_price: number;
-    joining_fee: number;
-  };
-  status: string;
-  start_date: string;
-  end_date: string | null;
+  name: string;
+  description: string;
+  price: string;
+  billing_cycle: string;
+  features: string[] | null;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
 };
 
-type Payment = {
+type UserMembership = {
   id: string;
-  amount: number;
+  user_id: string;
+  plan_id: string;
   status: string;
-  reference: string;
+  start_date: string;
+  end_date: string;
+  auto_renew: boolean;
   created_at: string;
+  updated_at: string;
+  membership_number: string;
+  plan_name: string;
 };
 
 type User = {
   id: string;
   email: string;
-  user_metadata?: {
-    first_name?: string;
-    last_name?: string;
-  };
+  first_name: string;
+  last_name: string;
+  created_at: string;
+  membership_number: string;
 };
 
 export default function Dashboard() {
   const { user, loading: authLoading } = useAuth();
-  const [memberships, setMemberships] = useState<Membership[]>([]);
-  const [payments, setPayments] = useState<Payment[]>([]);
+  const [userMembership, setUserMembership] = useState<UserMembership | null>(null);
+  const [membershipPlan, setMembershipPlan] = useState<MembershipPlan | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const supabase = createClientComponentClient();
@@ -51,27 +56,33 @@ export default function Dashboard() {
         setLoading(true);
         setError(null);
         
-        // Fetch memberships
-        const { data: membershipsData, error: membershipsError } = await supabase
+        // Fetch user membership
+        const { data: membershipData, error: membershipError } = await supabase
           .from('user_memberships')
-          .select(`
-            *,
-            membership:membership_id (*)
-          `)
-          .eq('user_id', user.id);
-
-        if (membershipsError) throw membershipsError;
-        setMemberships(membershipsData || []);
-
-        // Fetch payments
-        const { data: paymentsData, error: paymentsError } = await supabase
-          .from('payments')
           .select('*')
           .eq('user_id', user.id)
-          .order('created_at', { ascending: false });
+          .single();
 
-        if (paymentsError) throw paymentsError;
-        setPayments(paymentsData || []);
+        if (membershipError) throw membershipError;
+        
+        if (membershipData) {
+          setUserMembership(membershipData);
+          
+          // Fetch the membership plan details
+          const { data: planData, error: planError } = await supabase
+            .from('membership_plans')
+            .select('*')
+            .eq('id', membershipData.plan_id)
+            .single();
+            
+          if (planError) throw planError;
+          
+          setMembershipPlan({
+            ...planData,
+            features: Array.isArray(planData.features) ? planData.features : 
+                     (typeof planData.features === 'string' ? JSON.parse(planData.features) : [])
+          });
+        }
       } catch (error) {
         console.error('Error fetching data:', error);
         setError(error instanceof Error ? error.message : 'Failed to load dashboard data');
@@ -114,69 +125,95 @@ export default function Dashboard() {
       <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         <div className="px-4 py-6 sm:px-0">
           <h1 className="text-3xl font-bold text-gray-900">
-            Welcome back, {user.user_metadata?.first_name || 'User'}!
+            Welcome back, {user.first_name || 'User'}!
           </h1>
           
           {/* Membership Section */}
           <div className="mt-8">
             <h2 className="text-lg font-medium text-gray-900">Your Membership</h2>
             <div className="mt-4 bg-white shadow overflow-hidden sm:rounded-lg">
-              {memberships.length > 0 ? (
+              {userMembership ? (
                 <>
                   <div className="px-4 py-5 sm:px-6">
-                    <h3 className="text-lg leading-6 font-medium text-gray-900">
-                      {memberships[0].membership.name}
-                    </h3>
-                    <p className="mt-1 max-w-2xl text-sm text-gray-500">
-                      {memberships[0].membership.description}
-                    </p>
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <h3 className="text-lg leading-6 font-medium text-gray-900">
+                          {userMembership.plan_name}
+                        </h3>
+                        {membershipPlan && (
+                          <p className="mt-1 text-sm text-gray-500">
+                            {membershipPlan.description}
+                          </p>
+                        )}
+                      </div>
+                      <span className={`px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${
+                        userMembership?.status === 'active' 
+                          ? 'bg-green-100 text-green-800' 
+                          : 'bg-yellow-100 text-yellow-800'
+                      }`}>
+                        {userMembership?.status?.charAt(0)?.toUpperCase() + userMembership?.status?.slice(1)}
+                      </span>
+                    </div>
                   </div>
-                  <div className="border-t border-gray-200">
-                    <dl>
-                      <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                        <dt className="text-sm font-medium text-gray-500">Status</dt>
+                  <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                    <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                        <dt className="text-sm font-medium text-gray-500">Start Date</dt>
                         <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                          <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                            memberships[0].status === 'active' 
-                              ? 'bg-green-100 text-green-800' 
-                              : 'bg-yellow-100 text-yellow-800'
-                          }`}>
-                            {memberships[0].status.charAt(0).toUpperCase() + memberships[0].status.slice(1)}
-                          </span>
+                          {new Date(userMembership.start_date).toLocaleDateString('en-ZA', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric'
+                          })}
                         </dd>
                       </div>
                       <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                        <dt className="text-sm font-medium text-gray-500">Monthly Price</dt>
+                        <dt className="text-sm font-medium text-gray-500">Renewal Date</dt>
                         <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                          R{memberships[0].membership.monthly_price.toFixed(2)}
+                          {new Date(userMembership.end_date).toLocaleDateString('en-ZA', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric'
+                          })}
                         </dd>
                       </div>
-                      <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                        <dt className="text-sm font-medium text-gray-500">Start Date</dt>
-                        <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                          {new Date(memberships[0].start_date).toLocaleDateString()}
-                        </dd>
-                      </div>
-                      {memberships[0].end_date && (
-                        <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                          <dt className="text-sm font-medium text-gray-500">End Date</dt>
+                      {membershipPlan?.features && membershipPlan.features.length > 0 && (
+                        <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                          <dt className="text-sm font-medium text-gray-500">Benefits</dt>
                           <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                            {new Date(memberships[0].end_date).toLocaleDateString()}
+                            <ul className="list-disc pl-5 space-y-1">
+                              {membershipPlan.features?.map((feature, index) => (
+                                <li key={index}>{feature}</li>
+                              ))}
+                            </ul>
                           </dd>
                         </div>
                       )}
-                    </dl>
-                  </div>
+                    </div>
                 </>
               ) : (
-                <div className="px-4 py-5 sm:px-6">
-                  <p className="text-gray-500">No active membership found.</p>
-                  <div className="mt-4">
+                <div className="px-4 py-5 sm:p-6 text-center">
+                  <svg
+                    className="mx-auto h-12 w-12 text-gray-400"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                    />
+                  </svg>
+                  <h3 className="mt-2 text-sm font-medium text-gray-900">No active membership</h3>
+                  <p className="mt-1 text-sm text-gray-500">Get started by selecting a membership plan.</p>
+                  <div className="mt-6">
                     <Link
-                      href="/packages"
-                      className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary-600 hover:bg-primary-700"
+                      href="/membership/plans"
+                      className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                     >
-                      View Available Packages
+                      View Membership Plans
                     </Link>
                   </div>
                 </div>
@@ -184,70 +221,40 @@ export default function Dashboard() {
             </div>
           </div>
 
-          {/* Recent Payments Section */}
+          {/* Payment History */}
           <div className="mt-8">
             <div className="flex justify-between items-center">
-              <h2 className="text-lg font-medium text-gray-900">Recent Payments</h2>
-              <Link
-                href="/payments"
-                className="text-sm font-medium text-primary-600 hover:text-primary-500"
+              <h2 className="text-lg font-medium text-gray-900">Payment History</h2>
+              <button
+                type="button"
+                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
-                View all
-              </Link>
+                Make Payment
+              </button>
             </div>
-            <div className="mt-4 overflow-hidden shadow ring-1 ring-black ring-opacity-5 md:rounded-lg">
-              <table className="min-w-full divide-y divide-gray-300">
-                <thead className="bg-gray-50">
-                  <tr>
-                    <th scope="col" className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">
-                      Date
-                    </th>
-                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                      Amount
-                    </th>
-                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                      Status
-                    </th>
-                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                      Reference
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-200 bg-white">
-                  {payments.length > 0 ? (
-                    payments.slice(0, 5).map((payment) => (
-                      <tr key={payment.id}>
-                        <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
-                          {new Date(payment.created_at).toLocaleDateString()}
-                        </td>
-                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                          R{payment.amount.toFixed(2)}
-                        </td>
-                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                          <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                            payment.status === 'completed' 
-                              ? 'bg-green-100 text-green-800' 
-                              : payment.status === 'pending'
-                              ? 'bg-yellow-100 text-yellow-800'
-                              : 'bg-red-100 text-red-800'
-                          }`}>
-                            {payment.status.charAt(0).toUpperCase() + payment.status.slice(1)}
-                          </span>
-                        </td>
-                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                          {payment.reference}
-                        </td>
-                      </tr>
-                    ))
-                  ) : (
-                    <tr>
-                      <td colSpan={4} className="px-3 py-4 text-sm text-gray-500 text-center">
-                        No payment history found.
-                      </td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
+            <div className="mt-4">
+              <div className="bg-white shadow overflow-hidden sm:rounded-md">
+                <div className="text-center py-12">
+                  <svg
+                    className="mx-auto h-12 w-12 text-gray-400"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                  <h3 className="mt-2 text-sm font-medium text-gray-900">No payment history</h3>
+                  <p className="mt-1 text-sm text-gray-500">
+                    Your payment history will appear here once you make a payment.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>

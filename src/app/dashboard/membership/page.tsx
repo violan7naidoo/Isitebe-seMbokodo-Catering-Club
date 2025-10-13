@@ -5,6 +5,8 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter }
 import { Button } from '@/components/ui/button';
 import { Loader2, CreditCard, Package, AlertCircle, Calendar, Check } from 'lucide-react';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { useAuth } from '@/contexts/AuthContext';
 
 type MembershipPackage = {
   id: string;
@@ -19,75 +21,133 @@ type MembershipPackage = {
 type Payment = {
   id: string;
   date: string;
-  amount: string;
+  amount: number;
   status: 'completed' | 'pending' | 'failed';
   description: string;
 };
 
 export default function MembershipDashboard() {
+  const { user } = useAuth();
   const [membership, setMembership] = useState<MembershipPackage | null>(null);
   const [payments, setPayments] = useState<Payment[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const supabase = createClientComponentClient();
 
   useEffect(() => {
-    // In a real app, you would fetch this data from your API
     const fetchMembershipData = async () => {
+      if (!user) return;
+      
       try {
         setLoading(true);
-        // Simulate API call
-        await new Promise(resolve => setTimeout(resolve, 1000));
         
-        // Mock data - replace with actual API call
-        const mockMembership: MembershipPackage = {
-          id: '1',
-          name: 'Premium Package',
-          price: 'R150',
-          description: 'Expanded support for funerals and events.',
-          features: [
-            'Funeral catering services',
-            'One major event catering per annum',
-          ],
-          status: 'active',
-          renewalDate: '2024-12-31',
-        };
+        console.log('Fetching membership data for user:', user.id);
+        
+        // First, get the user's membership
+        const { data: membershipData, error: membershipError } = await supabase
+          .from('user_memberships')
+          .select('*')
+          .eq('user_id', user.id)
+          .single();
 
-        const mockPayments: Payment[] = [
-          {
-            id: '1',
-            date: '2023-10-01',
-            amount: 'R150',
-            status: 'completed',
-            description: 'Monthly membership fee - October 2023',
-          },
-          {
-            id: '2',
-            date: '2023-09-01',
-            amount: 'R150',
-            status: 'completed',
-            description: 'Monthly membership fee - September 2023',
-          },
-          {
-            id: '3',
-            date: '2023-08-01',
-            amount: 'R150',
-            status: 'completed',
-            description: 'Monthly membership fee - August 2023',
-          },
-        ];
+        console.log('Membership data:', membershipData);
+        console.log('Membership error:', membershipError);
+        
+        if (membershipError) throw membershipError;
+        
+        if (membershipData) {
+          // Get the membership plan details
+          const { data: planData, error: planError } = await supabase
+            .from('membership_plans')
+            .select('*')
+            .eq('id', membershipData.plan_id)
+            .single();
+            
+          console.log('Plan data:', planData);
+          console.log('Plan error:', planError);
+          
+          if (planError) throw planError;
+          // Safely parse features whether it's a string or already an array
+          const parseFeatures = (features: any): string[] => {
+            console.log('Raw features:', features);
+            if (!features) {
+              console.log('No features found');
+              return [];
+            }
+            if (Array.isArray(features)) {
+              console.log('Features is already an array');
+              return features;
+            }
+            if (typeof features === 'string') {
+              try {
+                const parsed = JSON.parse(features);
+                console.log('Successfully parsed features:', parsed);
+                return Array.isArray(parsed) ? parsed : [parsed];
+              } catch (e) {
+                console.error('Error parsing features:', e);
+                return [features]; // Return as single-item array if it's a plain string
+              }
+            }
+            return [];
+          };
 
-        setMembership(mockMembership);
-        setPayments(mockPayments);
+          // Format membership data
+          const formattedMembership: MembershipPackage = {
+            id: membershipData.id,
+            name: membershipData.plan_name || planData?.name || 'Premium Package',
+            price: `R${planData?.price || '0'}`,
+            description: planData?.description || 'No description available',
+            features: parseFeatures(planData?.features || []),
+            status: membershipData.status || 'active',
+            renewalDate: membershipData.end_date || new Date().toISOString()
+          };
+          
+          console.log('Formatted membership:', formattedMembership);
+          
+          setMembership(formattedMembership);
+          
+          // Try to fetch payment history, but don't fail if the table doesn't exist
+          try {
+            const { data: paymentsData, error: paymentsError } = await supabase
+              .from('user_payments')  // Changed from 'payments' to 'user_payments'
+              .select('*')
+              .eq('user_id', user.id)
+              .order('created_at', { ascending: false });
+              
+            if (paymentsError) {
+              console.warn('Error fetching payment history (non-fatal):', paymentsError);
+            } else if (paymentsData) {
+              const formattedPayments: Payment[] = paymentsData.map(payment => ({
+                id: payment.id,
+                date: payment.created_at,
+                amount: payment.amount,
+                status: payment.status || 'completed',
+                description: payment.description || `Payment - ${new Date(payment.created_at).toLocaleDateString()}`
+              }));
+              
+              setPayments(formattedPayments);
+            }
+          } catch (paymentError) {
+            console.warn('Error fetching payment history (non-fatal):', paymentError);
+            // Set empty array to prevent errors in the UI
+            setPayments([]);
+          }
+        }
       } catch (err) {
-        console.error('Error fetching membership data:', err);
-        setError('Failed to load membership data. Please try again later.');
+        console.error('Error fetching membership data:', {
+          error: err,
+          message: err instanceof Error ? err.message : 'Unknown error',
+          stack: err instanceof Error ? err.stack : undefined,
+          user: user ? { id: user.id, email: user.email } : 'No user'
+        });
+        setError(`Failed to load membership data. ${err instanceof Error ? err.message : 'Please try again later.'}`);
       } finally {
         setLoading(false);
       }
     };
 
     fetchMembershipData();
-  }, []);
+  }, [user]);
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('en-ZA', {
@@ -155,12 +215,12 @@ export default function MembershipDashboard() {
                   <CreditCard className="h-5 w-5 text-muted-foreground" />
                   <span className="font-medium">Monthly Fee</span>
                 </div>
-                <span>{membership?.price}</span>
+                <span>R{membership?.price}</span>
               </div>
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-2">
                   <Calendar className="h-5 w-5 text-muted-foreground" />
-                  <span className="font-medium">Renewal Date</span>
+                  <span className="font-medium">Start Date</span>
                 </div>
                 <span>{membership?.renewalDate ? formatDate(membership.renewalDate) : 'N/A'}</span>
               </div>
