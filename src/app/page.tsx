@@ -104,7 +104,7 @@ export default function Home() {
               <div className="grid grid-cols-3 gap-4">
                 <div className="relative h-32 rounded-lg overflow-hidden shadow-md">
                   <Image
-                    src="/images/gallery-3.jpg"
+                    src="/images/gallery-29.jpg"
                     alt="Our catering team in action"
                     fill
                     className="object-cover"
@@ -112,7 +112,7 @@ export default function Home() {
                 </div>
                 <div className="relative h-32 rounded-lg overflow-hidden shadow-md">
                   <Image
-                    src="/images/gallery-5.jpg"
+                    src="/images/gallery-30.jpg"
                     alt="Event catering showcase"
                     fill
                     className="object-cover"
@@ -120,7 +120,7 @@ export default function Home() {
                 </div>
                 <div className="relative h-32 rounded-lg overflow-hidden shadow-md">
                   <Image
-                    src="/images/gallery-7.jpg"
+                    src="/images/gallery-31.jpg"
                     alt="Happy guests at our events"
                     fill
                     className="object-cover"
@@ -164,7 +164,7 @@ export default function Home() {
               <div className="group h-full rounded-2xl bg-background shadow-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-1 overflow-hidden flex flex-col">
                 <div className="relative h-48 overflow-hidden">
                   <Image
-                    src="/images/gallery-5.jpg"
+                    src="/images/gallery-32.jpg"
                     alt="Our Mission in Action"
                     fill
                     className="object-cover transition-transform duration-700 group-hover:scale-105"
@@ -193,7 +193,7 @@ export default function Home() {
               <div className="group h-full rounded-2xl bg-background shadow-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-1 overflow-hidden flex flex-col">
                 <div className="relative h-48 overflow-hidden">
                   <Image
-                    src="/images/gallery-6.jpg"
+                    src="/images/gallery-33.jpg"
                     alt="Our Vision for the Future"
                     fill
                     className="object-cover transition-transform duration-700 group-hover:scale-105"
@@ -222,8 +222,8 @@ export default function Home() {
               <div className="group h-full rounded-2xl bg-background shadow-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-1 overflow-hidden flex flex-col">
                 <div className="relative h-48 overflow-hidden">
                   <Image
-                    src="/images/gallery-23.jpg"
-                    alt="Beautiful food presentation"
+                    src="/images/gallery-34.jpg"
+                    alt="Our Aim in Action"
                     fill
                     className="object-cover transition-transform duration-700 group-hover:scale-105"
                   />
