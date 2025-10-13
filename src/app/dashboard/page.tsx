@@ -125,7 +125,7 @@ export default function Dashboard() {
       <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         <div className="px-4 py-6 sm:px-0">
           <h1 className="text-3xl font-bold text-gray-900">
-            Welcome back, {user.first_name || 'User'}!
+            Welcome back, {user?.user_metadata?.first_name || 'User'}!
           </h1>
           
           {/* Membership Section */}
