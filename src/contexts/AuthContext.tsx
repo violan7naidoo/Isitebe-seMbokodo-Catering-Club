@@ -44,25 +44,35 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   // Check user session on initial load and when pathname changes
   useEffect(() => {
+    let isMounted = true;
+
     const checkUser = async () => {
       try {
         setLoading(true);
-        const { data: { session } } = await supabase.auth.getSession();
+        const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+        
+        if (sessionError) throw sessionError;
+        
+        if (!isMounted) return;
         
         if (session?.user) {
-          const { data: userData } = await supabase
+          const { data: userData, error: userError } = await supabase
             .from('users')
             .select('*')
             .eq('id', session.user.id)
             .single();
           
-          setUser({ ...session.user, ...userData });
+          if (userError) throw userError;
           
-          // If user is on auth pages, redirect to dashboard
-          if (pathname.startsWith('/auth')) {
-            router.push('/dashboard');
+          if (isMounted) {
+            setUser({ ...session.user, ...userData });
+            
+            // If user is on auth pages, redirect to dashboard
+            if (pathname.startsWith('/auth')) {
+              router.push('/dashboard');
+            }
           }
-        } else {
+        } else if (isMounted) {
           setUser(null);
           // If user is on protected route, redirect to login
           if (pathname.startsWith('/dashboard')) {
@@ -71,12 +81,16 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
         }
       } catch (error) {
         console.error('Error checking user session:', error);
-        setUser(null);
-        if (pathname.startsWith('/dashboard')) {
-          router.push('/auth/login');
+        if (isMounted) {
+          setUser(null);
+          if (pathname.startsWith('/dashboard')) {
+            router.push('/auth/login');
+          }
         }
       } finally {
-        setLoading(false);
+        if (isMounted) {
+          setLoading(false);
+        }
       }
     };
 
@@ -84,19 +98,30 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
         if (session?.user) {
-          const { data: userData } = await supabase
-            .from('users')
-            .select('*')
-            .eq('id', session.user.id)
-            .single();
-          
-          setUser({ ...session.user, ...userData });
-          
-          // Redirect to dashboard after successful sign in
-          if (['SIGNED_IN', 'TOKEN_REFRESHED'].includes(event)) {
-            router.push('/dashboard');
+          try {
+            const { data: userData, error: userError } = await supabase
+              .from('users')
+              .select('*')
+              .eq('id', session.user.id)
+              .single();
+            
+            if (userError) throw userError;
+            
+            if (isMounted) {
+              setUser({ ...session.user, ...userData });
+              
+              // Only redirect if it's a sign in event
+              if (event === 'SIGNED_IN') {
+                router.push('/dashboard');
+              }
+            }
+          } catch (error) {
+            console.error('Error updating user data:', error);
+            if (isMounted) {
+              setUser(null);
+            }
           }
-        } else {
+        } else if (isMounted) {
           setUser(null);
           if (pathname.startsWith('/dashboard')) {
             router.push('/auth/login');
@@ -109,7 +134,8 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     checkUser();
 
     return () => {
-      subscription.unsubscribe();
+      isMounted = false;
+      subscription?.unsubscribe();
     };
   }, [pathname, router]);
 
