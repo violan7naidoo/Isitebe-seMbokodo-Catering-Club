@@ -21,6 +21,8 @@ type AuthContextType = {
   signUp: (email: string, password: string, userData: any) => Promise<any>;
   signIn: (email: string, password: string) => Promise<any>;
   signOut: () => Promise<void>;
+  resetPassword: (email: string) => Promise<void>;
+  updatePassword: (token: string, newPassword: string) => Promise<void>;
 };
 
 const AuthContext = createContext<AuthContextType>({
@@ -29,6 +31,8 @@ const AuthContext = createContext<AuthContextType>({
   signUp: async () => {},
   signIn: async () => {},
   signOut: async () => {},
+  resetPassword: async () => {},
+  updatePassword: async () => {},
 });
 
 const AuthProvider = ({ children }: { children: ReactNode }) => {
@@ -212,6 +216,70 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
+  const resetPassword = async (email: string) => {
+    try {
+      setLoading(true);
+      
+      // First, send the reset password email
+      const { error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: `${window.location.origin}/auth/callback?type=recovery`,
+      });
+      
+      if (error) {
+        console.error('Password reset error:', error);
+        throw error;
+      }
+      
+      return Promise.resolve();
+    } catch (error) {
+      console.error('Error in resetPassword:', error);
+      throw error;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const updatePassword = async (token: string, newPassword: string) => {
+    try {
+      setLoading(true);
+      
+      // First, verify the OTP token
+      const { data: { user }, error: verifyError } = await supabase.auth.verifyOtp({
+        token_hash: token,
+        type: 'recovery',
+      });
+      
+      if (verifyError) {
+        console.error('Error verifying token:', verifyError);
+        throw new Error('Invalid or expired reset link');
+      }
+      
+      if (!user) {
+        throw new Error('No user found for this reset link');
+      }
+      
+      // Then update the password
+      const { error: updateError } = await supabase.auth.updateUser({
+        password: newPassword,
+      });
+      
+      if (updateError) {
+        console.error('Password update error:', updateError);
+        throw updateError;
+      }
+      
+      // Sign out after password update
+      await supabase.auth.signOut();
+      
+      return Promise.resolve();
+    } catch (error) {
+      console.error('Error in updatePassword:', error);
+      throw error;
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -219,6 +287,8 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
         signUp,
         signIn,
         signOut,
+        resetPassword,
+        updatePassword,
         loading,
       }}
     >

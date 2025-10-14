@@ -101,10 +101,17 @@ export default function Login() {
             </div>
 
             <div className="text-sm">
-              <a href="#" className="font-bold text-blue-700 hover:text-blue-800 underline">
-                Forgot your password?
-              </a>
+              <Link href="/auth/forgot-password" className="font-medium text-indigo-600 hover:text-indigo-500">
+                Forgot password?
+              </Link>
             </div>
+          </div>
+
+          <div className="text-center text-sm">
+            <span className="text-gray-600">Don't have an account? </span>
+            <Link href="/auth/signup" className="font-medium text-indigo-600 hover:text-indigo-500">
+              Sign up
+            </Link>
           </div>
 
           <div>
