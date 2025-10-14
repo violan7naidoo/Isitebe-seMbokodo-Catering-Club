@@ -19,6 +19,28 @@ export async function GET(request: Request) {
     return NextResponse.redirect(redirectUrl.toString());
   }
 
+  // Handle email verification
+  if (type === 'signup' && code) {
+    try {
+      const cookieStore = cookies();
+      const supabase = createRouteHandlerClient({ cookies: () => cookieStore });
+      await supabase.auth.verifyOtp({
+        email: requestUrl.searchParams.get('email') || '',
+        token: code,
+        type: 'signup',
+      });
+      // After successful verification, redirect to dashboard
+      const dashboardUrl = new URL('/dashboard', baseUrl);
+      return NextResponse.redirect(dashboardUrl.toString());
+    } catch (error) {
+      console.error('Error verifying email:', error);
+      // If verification fails, still redirect to login but with an error message
+      const loginUrl = new URL('/auth/login', baseUrl);
+      loginUrl.searchParams.set('error', 'email-verification-failed');
+      return NextResponse.redirect(loginUrl.toString());
+    }
+  }
+
   // Handle regular OAuth or email sign-in
   if (code) {
     try {
@@ -32,7 +54,7 @@ export async function GET(request: Request) {
   }
 
   // Determine where to redirect after successful auth
-  let redirectPath = next || '/dashboard';
+  let redirectPath = next || (type === 'signup' ? '/dashboard' : '/');
   
   // Ensure the redirect path is a valid URL
   let redirectUrl: URL;

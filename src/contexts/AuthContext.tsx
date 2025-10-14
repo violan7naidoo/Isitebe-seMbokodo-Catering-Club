@@ -114,33 +114,26 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, [pathname, router]);
 
   const signUp = async (email: string, password: string, userData: any) => {
-    setLoading(true);
     try {
-      // Create the auth user with email and password
-      const { data: authData, error: authError } = await supabase.auth.signUp({
+      setLoading(true);
+      const { data, error } = await supabase.auth.signUp({
         email,
         password,
         options: {
+          emailRedirectTo: `${window.location.origin}/auth/callback?type=signup`,
           data: {
-            first_name: userData.first_name,
-            last_name: userData.last_name,
+            first_name: userData.firstName,
+            last_name: userData.lastName,
+            membership_number: userData.membershipNumber,
           },
-          emailRedirectTo: `${window.location.origin}/auth/callback?next=/auth/login`
-        }
+        },
       });
 
-      if (authError) throw authError;
-
-      // Return the auth data with a confirmation flag
-      return { 
-        ...authData,
-        confirmationSent: true
-      };
+      if (error) throw error;
+      return data;
     } catch (error) {
-      console.error('Signup error:', error);
-      if (error instanceof Error) {
-        throw error;
-      }
+      console.error('Error signing up:', error);
+      throw error;
       throw new Error('An unknown error occurred during signup');
     } finally {
       setLoading(false);
