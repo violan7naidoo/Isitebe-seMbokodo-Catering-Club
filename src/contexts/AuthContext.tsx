@@ -194,10 +194,18 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const signOut = async () => {
     try {
+      setLoading(true);
       const { error } = await supabase.auth.signOut();
       if (error) throw error;
+      
+      // Clear the user state
       setUser(null);
-      router.push('/auth/login');
+      
+      // Force a hard redirect to ensure all auth state is cleared
+      window.location.href = '/auth/login';
+      
+      // Return a resolved promise to satisfy the async function
+      return Promise.resolve();
     } catch (error) {
       console.error('Error signing out:', error);
       throw error;
