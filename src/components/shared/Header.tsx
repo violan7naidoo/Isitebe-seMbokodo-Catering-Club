@@ -45,9 +45,12 @@ export function Header() {
             </Link>
           ))}
         </nav>
-        <div className="hidden md:block">
+        <div className="hidden items-center gap-4 md:flex">
+          <Button variant="outline" asChild>
+            <Link href="/auth/login">Sign In</Link>
+          </Button>
           <Button asChild>
-            <Link href="/contact">Contact Us</Link>
+            <Link href="/auth/register">Sign Up</Link>
           </Button>
         </div>
         <div className="md:hidden">
@@ -79,9 +82,12 @@ export function Header() {
                     </Link>
                   ))}
                 </nav>
-                <div className="mt-auto">
+                <div className="mt-auto space-y-2">
                   <Button asChild className="w-full">
-                    <Link href="/contact">Contact Us</Link>
+                    <Link href="/auth/login">Sign In</Link>
+                  </Button>
+                  <Button asChild variant="outline" className="w-full">
+                    <Link href="/auth/register">Sign Up</Link>
                   </Button>
                 </div>
               </div>
