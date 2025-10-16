@@ -10,8 +10,8 @@ export async function GET(request: Request) {
   const type = requestUrl.searchParams.get('type');
   const next = requestUrl.searchParams.get('next');
 
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.isithebesembokodo.co.za';
-  
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || (process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://www.isithebesembokodo.co.za');
+
   // Handle password reset flow
   if (type === 'recovery' && code) {
     const redirectUrl = new URL('/auth/update-password', baseUrl);
@@ -22,13 +22,21 @@ export async function GET(request: Request) {
   // Handle email verification
   if (type === 'signup' && code) {
     try {
-      const cookieStore = cookies();
-      const supabase = createRouteHandlerClient({ cookies: () => cookieStore });
-      await supabase.auth.verifyOtp({
+      const supabase = createRouteHandlerClient({ cookies });
+      const { data, error } = await supabase.auth.verifyOtp({
         email: requestUrl.searchParams.get('email') || '',
         token: code,
         type: 'signup',
       });
+
+      if (error) {
+        console.error('Error verifying email:', error);
+        // If verification fails, still redirect to login but with an error message
+        const loginUrl = new URL('/auth/login', baseUrl);
+        loginUrl.searchParams.set('error', 'email-verification-failed');
+        return NextResponse.redirect(loginUrl.toString());
+      }
+
       // After successful verification, redirect to dashboard
       const dashboardUrl = new URL('/dashboard', baseUrl);
       return NextResponse.redirect(dashboardUrl.toString());
@@ -44,8 +52,7 @@ export async function GET(request: Request) {
   // Handle regular OAuth or email sign-in
   if (code) {
     try {
-      const cookieStore = cookies();
-      const supabase = createRouteHandlerClient({ cookies: () => cookieStore });
+      const supabase = createRouteHandlerClient({ cookies });
       await supabase.auth.exchangeCodeForSession(code);
     } catch (error) {
       console.error('Error exchanging code for session:', error);
@@ -55,7 +62,7 @@ export async function GET(request: Request) {
 
   // Determine where to redirect after successful auth
   let redirectPath = next || (type === 'signup' ? '/dashboard' : '/');
-  
+
   // Ensure the redirect path is a valid URL
   let redirectUrl: URL;
   try {

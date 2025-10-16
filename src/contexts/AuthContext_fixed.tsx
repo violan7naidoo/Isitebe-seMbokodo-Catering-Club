@@ -157,17 +157,13 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
 
         if (updateError) {
           console.error('Error updating user metadata:', updateError);
-          throw updateError;
         }
 
-        // 5. Get the updated session with the new metadata
-        const { data: { session: updatedSession } } = await supabase.auth.getSession();
-
-        // 6. Update the user state with the data we have
+        // 5. Update the user state with the data we have
         const userWithProfile: UserWithProfile = {
           ...authData.user,
           user_metadata: {
-            ...(updatedSession?.user?.user_metadata || authData.user.user_metadata || {}),
+            ...(authData.user.user_metadata || {}),
             first_name: userData.firstName,
             last_name: userData.lastName,
             firstName: userData.firstName,
@@ -179,7 +175,7 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
 
         return {
           user: userWithProfile,
-          session: updatedSession || signInData?.session
+          session: signInData?.session
         };
       }
 
@@ -231,21 +227,18 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
         console.log('Signin - Raw user data:', data.user);
         console.log('Signin - User metadata:', data.user.user_metadata);
 
-        // Ensure we have the most up-to-date user metadata
-        const { data: { session: currentSession } } = await supabase.auth.getSession();
-
         const userWithProfile: UserWithProfile = {
           ...data.user,
           user_metadata: {
-            ...(currentSession?.user?.user_metadata || data.user.user_metadata || {}),
-            first_name: (currentSession?.user?.user_metadata?.first_name || data.user.user_metadata?.first_name || data.user.user_metadata?.firstName || ''),
-            last_name: (currentSession?.user?.user_metadata?.last_name || data.user.user_metadata?.last_name || data.user.user_metadata?.lastName || ''),
+            ...data.user.user_metadata,
+            first_name: data.user.user_metadata?.first_name || data.user.user_metadata?.firstName || '',
+            last_name: data.user.user_metadata?.last_name || data.user.user_metadata?.lastName || '',
           }
         };
 
         console.log('Signin - Enhanced user metadata:', userWithProfile.user_metadata);
         setUser(userWithProfile);
-        return { data: { user: userWithProfile, session: currentSession || data.session }, error: null };
+        return { data: { user: userWithProfile, session: data.session }, error: null };
       }
 
       return { data, error: null };

@@ -45,9 +45,9 @@ export default function SignUp() {
     }
     
     try {
-      const { error: signUpError, confirmationSent } = await signUp(email, password, { 
+      const { error: signUpError } = await signUp(email, password, { 
         first_name: firstName,
-        last_name: lastName,
+        last_name: lastName
       });
       
       if (signUpError) {
@@ -61,6 +61,8 @@ export default function SignUp() {
       console.error('Signup error:', err);
       if (err.message?.includes('already registered') || err.message?.includes('already in use')) {
         setError('This email is already registered. Please try logging in.');
+      } else if (err.message?.includes('duplicate key value violates unique constraint')) {
+        setError('This membership number is already in use. Please contact support if you believe this is an error.');
       } else {
         setError(err.message || 'Failed to create an account. Please try again.');
       }
@@ -148,59 +150,62 @@ export default function SignUp() {
           </div>
         )}
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-          <div className="space-y-6">
+          <div className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label htmlFor="first-name" className="sr-only">First Name</label>
+                <label htmlFor="first-name" className="block text-sm font-medium text-gray-700 mb-1">First Name</label>
                 <input
                   id="first-name"
                   name="firstName"
                   type="text"
                   required
-                  className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                  className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-400 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                   placeholder="First Name"
                   value={formData.firstName}
                   onChange={handleChange}
                 />
               </div>
               <div>
-                <label htmlFor="last-name" className="sr-only">Last Name</label>
+                <label htmlFor="last-name" className="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
                 <input
                   id="last-name"
                   name="lastName"
                   type="text"
                   required
-                  className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                  className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-400 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                   placeholder="Last Name"
                   value={formData.lastName}
                   onChange={handleChange}
                 />
               </div>
             </div>
+            
             <div>
-              <label htmlFor="email-address" className="sr-only">Email address</label>
+              <label htmlFor="email-address" className="block text-sm font-medium text-gray-700 mb-1">Email address</label>
               <input
                 id="email-address"
                 name="email"
                 type="email"
                 autoComplete="email"
                 required
-                className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-400 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                 placeholder="Email address"
                 value={formData.email}
                 onChange={handleChange}
               />
             </div>
+            
             <div>
-              <label htmlFor="password" className="sr-only">Password</label>
+              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">Password</label>
               <input
                 id="password"
                 name="password"
                 type="password"
                 autoComplete="new-password"
                 required
+                minLength={6}
                 className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder="Password"
+                placeholder="Choose a password (min 6 characters)"
                 value={formData.password}
                 onChange={handleChange}
               />
