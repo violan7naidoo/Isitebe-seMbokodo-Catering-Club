@@ -11,6 +11,7 @@ type UserWithProfile = User & {
     last_name?: string;
     firstName?: string;
     lastName?: string;
+    is_admin?: boolean;
     [key: string]: any;
   };
 };
