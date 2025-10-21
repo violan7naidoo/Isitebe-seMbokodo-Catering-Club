@@ -1,76 +1,69 @@
-import { createRouteHandlerClient } from '@supabase/auth-helpers-nextjs';
-import { cookies } from 'next/headers';
-import { NextResponse } from 'next/server';
+import { createServerClient } from '@supabase/ssr'
+import { cookies } from 'next/headers'
+import { NextResponse } from 'next/server'
 
-export const dynamic = 'force-dynamic';
+export const dynamic = 'force-dynamic'
 
 export async function GET(request: Request) {
-  const requestUrl = new URL(request.url);
-  const code = requestUrl.searchParams.get('code');
-  const type = requestUrl.searchParams.get('type');
-  const next = requestUrl.searchParams.get('next');
+  const requestUrl = new URL(request.url)
+  const code = requestUrl.searchParams.get('code')
+  const type = requestUrl.searchParams.get('type')
+  const next = requestUrl.searchParams.get('next')
 
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || (process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://www.isithebesembokodo.co.za');
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || (process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : 'https://www.isithebesembokodo.co.za')
 
-  // Handle password reset flow
-  if (type === 'recovery' && code) {
-    const redirectUrl = new URL('/auth/update-password', baseUrl);
-    redirectUrl.searchParams.set('token', code);
-    return NextResponse.redirect(redirectUrl.toString());
-  }
-
-  // Handle email verification
-  if (type === 'signup' && code) {
-    try {
-      const supabase = createRouteHandlerClient({ cookies });
-      const { data, error } = await supabase.auth.verifyOtp({
-        email: requestUrl.searchParams.get('email') || '',
-        token: code,
-        type: 'signup',
-      });
-
-      if (error) {
-        console.error('Error verifying email:', error);
-        // If verification fails, still redirect to login but with an error message
-        const loginUrl = new URL('/auth/login', baseUrl);
-        loginUrl.searchParams.set('error', 'email-verification-failed');
-        return NextResponse.redirect(loginUrl.toString());
-      }
-
-      // After successful verification, redirect to dashboard
-      const dashboardUrl = new URL('/dashboard', baseUrl);
-      return NextResponse.redirect(dashboardUrl.toString());
-    } catch (error) {
-      console.error('Error verifying email:', error);
-      // If verification fails, still redirect to login but with an error message
-      const loginUrl = new URL('/auth/login', baseUrl);
-      loginUrl.searchParams.set('error', 'email-verification-failed');
-      return NextResponse.redirect(loginUrl.toString());
-    }
-  }
-
-  // Handle regular OAuth or email sign-in
   if (code) {
+    const cookieStore = await cookies()
+    const supabase = createServerClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+      {
+        cookies: {
+          get(name: string) {
+            return cookieStore.get(name)?.value
+          },
+          set(name: string, value: string, options: any) {
+            cookieStore.set({ name, value, ...options })
+          },
+          remove(name: string, options: any) {
+            cookieStore.set({ name, value: '', ...options })
+          },
+        },
+      }
+    )
+
     try {
-      const supabase = createRouteHandlerClient({ cookies });
-      await supabase.auth.exchangeCodeForSession(code);
+      const { data, error } = await supabase.auth.exchangeCodeForSession(code)
+      if (error) {
+        console.error('Error exchanging code for session:', error)
+        // Redirect to login with error message
+        const loginUrl = new URL('/auth/login', baseUrl)
+        loginUrl.searchParams.set('error', 'email-verification-failed')
+        return NextResponse.redirect(loginUrl.toString())
+      } else {
+        console.log('Successfully exchanged code for session:', data)
+        console.log('User data:', data.user)
+        console.log('User metadata:', data.user?.user_metadata)
+      }
     } catch (error) {
-      console.error('Error exchanging code for session:', error);
-      // Continue with redirect even if there's an error
+      console.error('Error exchanging code for session:', error)
+      // Redirect to login with error message
+      const loginUrl = new URL('/auth/login', baseUrl)
+      loginUrl.searchParams.set('error', 'email-verification-failed')
+      return NextResponse.redirect(loginUrl.toString())
     }
   }
 
-  // Determine where to redirect after successful auth
-  let redirectPath = next || (type === 'signup' ? '/dashboard' : '/');
-
-  // Ensure the redirect path is a valid URL
-  let redirectUrl: URL;
+  // Always redirect to dashboard after successful auth
+  let redirectPath = next || '/dashboard'
+  
+  let redirectUrl: URL
   try {
-    redirectUrl = new URL(redirectPath, baseUrl);
+    redirectUrl = new URL(redirectPath, baseUrl)
   } catch {
-    redirectUrl = new URL(baseUrl);
-    redirectUrl.pathname = redirectPath.startsWith('/') ? redirectPath : `/${redirectPath}`;
+    redirectUrl = new URL(baseUrl)
+    redirectUrl.pathname = redirectPath.startsWith('/') ? redirectPath : `/${redirectPath}`
   }
 
-  return NextResponse.redirect(redirectUrl.toString());
+  return NextResponse.redirect(redirectUrl.toString())
 }

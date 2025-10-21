@@ -1,12 +1,12 @@
 'use client';
 import { useEffect } from 'react';
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { createClient } from '@/lib/supabase';
 
 export default function TestConnection() {
   useEffect(() => {
     const testConnection = async () => {
       try {
-        const supabase = createClientComponentClient();
+        const supabase = createClient();
         console.log('Testing Supabase connection...');
         
         // Test 1: Check if we can connect

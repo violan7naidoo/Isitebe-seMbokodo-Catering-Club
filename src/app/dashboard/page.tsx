@@ -2,6 +2,7 @@
 
 import { useAuth } from '@/contexts/AuthContext';
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 
 export default function Dashboard() {
   const { user, loading: authLoading } = useAuth();

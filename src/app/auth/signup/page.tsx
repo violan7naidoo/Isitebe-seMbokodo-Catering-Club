@@ -6,7 +6,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Loader2, Mail, ArrowLeft } from 'lucide-react';
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { createClient } from '@/lib/supabase';
 
 export default function SignUp() {
   const [formData, setFormData] = useState({
@@ -29,7 +29,7 @@ export default function SignUp() {
     }));
   };
 
-  const supabase = createClientComponentClient();
+  const supabase = createClient();
   
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -46,8 +46,8 @@ export default function SignUp() {
     
     try {
       const { error: signUpError } = await signUp(email, password, { 
-        first_name: firstName,
-        last_name: lastName
+        firstName: firstName,
+        lastName: lastName
       });
       
       if (signUpError) {

@@ -2,7 +2,8 @@
 
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
-import { createClientComponentClient, User } from '@supabase/auth-helpers-nextjs';
+import { User } from '@supabase/supabase-js';
+import { createClient } from '@/lib/supabase';
 
 type UserWithProfile = User & {
   user_metadata?: {
@@ -37,7 +38,7 @@ const AuthContext = createContext<AuthContextType>({
 const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<AuthContextType['user']>(null);
   const [loading, setLoading] = useState<AuthContextType['loading']>(true);
-  const supabase = createClientComponentClient();
+  const supabase = createClient();
   const router = useRouter();
   const pathname = usePathname();
 
@@ -56,7 +57,12 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
 
         if (session?.user) {
           if (isMounted) {
-            setUser(session.user as UserWithProfile);
+            const userWithProfile = session.user as UserWithProfile;
+            setUser(userWithProfile);
+            
+            // Create user profile in database (non-blocking)
+            createUserProfile(userWithProfile).catch(console.error);
+            
             if (pathname.startsWith('/auth')) {
               router.push('/dashboard');
             }
@@ -86,8 +92,12 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
       async (event, session) => {
         if (session?.user) {
           if (isMounted) {
-            setUser(session.user as UserWithProfile);
+            const userWithProfile = session.user as UserWithProfile;
+            setUser(userWithProfile);
+            
+            // Create user profile in database if this is a new sign-in (non-blocking)
             if (event === 'SIGNED_IN') {
+              createUserProfile(userWithProfile).catch(console.error);
               router.push('/dashboard');
             }
           }
@@ -132,58 +142,10 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
         throw signUpError;
       }
 
-      // 2. If we get here, signup was successful
-      if (authData.user) {
-        // 3. Sign in the user immediately (this will work if email confirmation is not required)
-        const { data: signInData, error: signInError } = await supabase.auth.signInWithPassword({
-          email,
-          password,
-        });
-
-        if (signInError && !signInError.message.includes('Email not confirmed')) {
-          console.error('Sign in after signup error:', signInError);
-          throw signInError;
-        }
-
-        // 4. Update the user metadata to ensure it persists
-        const { error: updateError } = await supabase.auth.updateUser({
-          data: {
-            first_name: userData.firstName,
-            last_name: userData.lastName,
-            firstName: userData.firstName,
-            lastName: userData.lastName,
-          }
-        });
-
-        if (updateError) {
-          console.error('Error updating user metadata:', updateError);
-          throw updateError;
-        }
-
-        // 5. Get the updated session with the new metadata
-        const { data: { session: updatedSession } } = await supabase.auth.getSession();
-
-        // 6. Update the user state with the data we have
-        const userWithProfile: UserWithProfile = {
-          ...authData.user,
-          user_metadata: {
-            ...(updatedSession?.user?.user_metadata || authData.user.user_metadata || {}),
-            first_name: userData.firstName,
-            last_name: userData.lastName,
-            firstName: userData.firstName,
-            lastName: userData.lastName,
-          }
-        };
-
-        setUser(userWithProfile);
-
-        return {
-          user: userWithProfile,
-          session: updatedSession || signInData?.session
-        };
-      }
-
-      return { user: authData.user };
+      // 2. Return the signup result - don't try to sign in immediately
+      // Let the email confirmation flow handle the session creation
+      return { user: authData.user, session: authData.session };
+      
     } catch (error) {
       console.error('Signup error:', error);
       throw error;
@@ -254,6 +216,48 @@ const AuthProvider = ({ children }: { children: ReactNode }) => {
       throw error;
     } finally {
       setLoading(false);
+    }
+  };
+
+  // Helper function to create user profile in database
+  const createUserProfile = async (user: any) => {
+    try {
+      // First check if user already exists
+      const { data: existingUser } = await supabase
+        .from('users')
+        .select('id')
+        .eq('id', user.id)
+        .single();
+
+      if (existingUser) {
+        console.log('User profile already exists');
+        return;
+      }
+
+      const { data, error } = await supabase
+        .from('users')
+        .insert({
+          id: user.id,
+          email: user.email,
+          first_name: user.user_metadata?.first_name || user.user_metadata?.firstName || '',
+          last_name: user.user_metadata?.last_name || user.user_metadata?.lastName || '',
+        })
+        .select()
+        .single();
+
+      if (error) {
+        // Handle specific error types
+        if (error.code === '23505' || error.message.includes('duplicate key')) {
+          console.log('User profile already exists (duplicate key)');
+        } else {
+          console.error('Error creating user profile:', error);
+        }
+      } else if (data) {
+        console.log('User profile created successfully:', data);
+      }
+    } catch (error) {
+      console.error('Error in createUserProfile:', error);
+      // Don't throw the error, just log it
     }
   };
 
