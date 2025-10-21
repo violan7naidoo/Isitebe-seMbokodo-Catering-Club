@@ -12,7 +12,7 @@ export default function ProtectedRoute({ children, adminOnly = false }: { childr
     if (!loading && !user) {
       router.push('/auth/login');
     }
-    if (!loading && user && adminOnly && !user.is_admin) {
+    if (!loading && user && adminOnly && !user.user_metadata?.is_admin) {
       router.push('/dashboard');
     }
   }, [user, loading, router, adminOnly]);
@@ -25,7 +25,7 @@ export default function ProtectedRoute({ children, adminOnly = false }: { childr
     );
   }
 
-  if (adminOnly && !user.is_admin) {
+  if (adminOnly && !user.user_metadata?.is_admin) {
     return null; // or an access denied component
   }
 
