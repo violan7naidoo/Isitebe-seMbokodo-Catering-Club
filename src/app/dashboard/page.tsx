@@ -3,6 +3,7 @@
 import { useAuth } from '@/contexts/AuthContext';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import MembershipSelector from '@/components/membership/MembershipSelector';
 
 export default function Dashboard() {
   const { user, loading: authLoading } = useAuth();
@@ -81,33 +82,9 @@ export default function Dashboard() {
             Welcome back, {user?.user_metadata?.first_name || user?.user_metadata?.firstName || 'User'}!
           </h1>
           
-          {/* Welcome Section */}
+          {/* Membership Section */}
           <div className="mt-8">
-            <h2 className="text-lg font-medium text-gray-900">Dashboard</h2>
-            <div className="mt-4 bg-white shadow overflow-hidden sm:rounded-lg">
-              <div className="px-4 py-5 sm:p-6">
-                <div className="text-center">
-                  <svg
-                    className="mx-auto h-12 w-12 text-green-400"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    aria-hidden="true"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                    />
-                  </svg>
-                  <h3 className="mt-2 text-sm font-medium text-gray-900">Welcome to Isithebe seMbokodo!</h3>
-                  <p className="mt-1 text-sm text-gray-500">
-                    Your account is successfully set up and ready to use.
-                  </p>
-                </div>
-              </div>
-            </div>
+            <MembershipSelector />
           </div>
 
           {/* Coming Soon Features */}

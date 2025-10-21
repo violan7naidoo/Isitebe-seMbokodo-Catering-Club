@@ -23,39 +23,23 @@ export async function GET() {
       }
     );
 
-    // Get the current user
-    const { data: { user }, error: userError } = await supabase.auth.getUser();
-    
-    if (userError || !user) {
-      return NextResponse.json(
-        { error: 'Not authenticated' },
-        { status: 401 }
-      );
-    }
-
-    // Get user's payment history
-    const { data: payments, error } = await supabase
-      .from('payments')
-      .select(`
-        *,
-        membership:user_memberships(
-          plan:membership_plans(name)
-        )
-      `)
-      .eq('user_id', user.id)
-      .order('created_at', { ascending: false });
+    // Get all available membership plans
+    const { data: plans, error } = await supabase
+      .from('membership_plans')
+      .select('*')
+      .order('price', { ascending: true });
 
     if (error) {
-      console.error('Error fetching payments:', error);
+      console.error('Error fetching membership plans:', error);
       return NextResponse.json(
-        { error: 'Error fetching payment history' },
+        { error: 'Error fetching membership plans' },
         { status: 500 }
       );
     }
 
-    return NextResponse.json(payments);
+    return NextResponse.json(plans);
   } catch (error) {
-    console.error('Error in payments API:', error);
+    console.error('Error in membership plans API:', error);
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }

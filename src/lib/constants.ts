@@ -6,6 +6,7 @@ export const NAV_LINKS = [
   { href: '/about', label: 'About Us' },
   { href: '/membership', label: 'Membership' },
   { href: '/gallery', label: 'Gallery' },
+  { href: '/dashboard', label: 'Dashboard' },
 ];
 
 export const SOCIAL_LINKS: {

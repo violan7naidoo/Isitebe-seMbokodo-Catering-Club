@@ -1,41 +1,124 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 
-interface Membership {
+export interface MembershipPlan {
   id: string;
-  status: 'active' | 'inactive' | 'expired';
-  package: {
-    name: string;
-    monthly_fee: number;
-    description: string;
-    benefits: string[];
-  };
-  renewal_date: string;
+  name: string;
+  description: string;
+  price: number;
+  billing_cycle: string;
+  features: string[];
+  is_active: boolean;
   created_at: string;
+  updated_at: string;
 }
 
-export function useMembership() {
-  const [membership, setMembership] = useState<Membership | null>(null);
+export interface UserMembership {
+  id: string;
+  user_id: string;
+  plan_id: string;
+  status: string;
+  start_date: string;
+  end_date: string;
+  auto_renew: boolean;
+  membership_number: string;
+  created_at: string;
+  updated_at: string;
+  plan: MembershipPlan;
+}
+
+export const useMembership = () => {
+  const [membershipPlans, setMembershipPlans] = useState<MembershipPlan[]>([]);
+  const [userMembership, setUserMembership] = useState<UserMembership | null>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<Error | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    const fetchMembership = async () => {
-      try {
-        const response = await fetch('/api/membership');
-        if (!response.ok) {
-          throw new Error('Failed to fetch membership data');
-        }
-        const data = await response.json();
-        setMembership(data);
-      } catch (err) {
-        setError(err instanceof Error ? err : new Error('An error occurred'));
-      } finally {
-        setLoading(false);
+  // Fetch all membership plans
+  const fetchMembershipPlans = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch('/api/membership-plans');
+      const data = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to fetch membership plans');
       }
-    };
+      
+      setMembershipPlans(data);
+    } catch (err) {
+      console.error('Error fetching membership plans:', err);
+      setError(err instanceof Error ? err.message : 'Failed to fetch membership plans');
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    fetchMembership();
+  // Fetch user's current membership
+  const fetchUserMembership = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch('/api/user-membership');
+      const data = await response.json();
+      
+      if (!response.ok) {
+        if (response.status === 404) {
+          // User has no membership yet
+          setUserMembership(null);
+          return;
+        }
+        throw new Error(data.error || 'Failed to fetch user membership');
+      }
+      
+      setUserMembership(data);
+    } catch (err) {
+      console.error('Error fetching user membership:', err);
+      setError(err instanceof Error ? err.message : 'Failed to fetch user membership');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Select a membership plan
+  const selectMembership = async (planId: string) => {
+    try {
+      setLoading(true);
+      const response = await fetch('/api/user-membership', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ plan_id: planId }),
+      });
+      
+      const data = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to select membership');
+      }
+      
+      setUserMembership(data);
+      return data;
+    } catch (err) {
+      console.error('Error selecting membership:', err);
+      setError(err instanceof Error ? err.message : 'Failed to select membership');
+      throw err;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Load data on mount
+  useEffect(() => {
+    fetchMembershipPlans();
+    fetchUserMembership();
   }, []);
 
-  return { membership, loading, error };
-}
+  return {
+    membershipPlans,
+    userMembership,
+    loading,
+    error,
+    selectMembership,
+    refetchMembership: fetchUserMembership,
+    refetchPlans: fetchMembershipPlans,
+  };
+};

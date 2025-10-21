@@ -57,18 +57,24 @@ export function Header() {
           <span className="sr-only">Isithebe seMbokodo Home</span>
         </Link>
         <nav className="hidden items-center gap-6 md:flex">
-          {NAV_LINKS.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={cn(
-                'font-medium text-foreground/70 transition-colors hover:text-primary',
-                pathname === link.href && 'text-primary font-semibold'
-              )}
-            >
-              {link.label}
-            </Link>
-          ))}
+          {NAV_LINKS.map((link) => {
+            // Only show Dashboard link for authenticated users
+            if (link.href === '/dashboard' && !user) {
+              return null;
+            }
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={cn(
+                  'font-medium text-foreground/70 transition-colors hover:text-primary',
+                  pathname === link.href && 'text-primary font-semibold'
+                )}
+              >
+                {link.label}
+              </Link>
+            );
+          })}
         </nav>
         <div className="hidden items-center gap-4 md:flex">
           {user ? (
@@ -126,18 +132,24 @@ export function Header() {
                   </Link>
                 </div>
                 <nav className="flex flex-col items-start gap-6">
-                  {NAV_LINKS.map((link) => (
-                    <Link
-                      key={link.href}
-                      href={link.href}
-                      className={cn(
-                        'text-xl font-medium text-foreground/70 transition-colors hover:text-primary',
-                        pathname === link.href && 'text-primary'
-                      )}
-                    >
-                      {link.label}
-                    </Link>
-                  ))}
+                  {NAV_LINKS.map((link) => {
+                    // Only show Dashboard link for authenticated users
+                    if (link.href === '/dashboard' && !user) {
+                      return null;
+                    }
+                    return (
+                      <Link
+                        key={link.href}
+                        href={link.href}
+                        className={cn(
+                          'text-xl font-medium text-foreground/70 transition-colors hover:text-primary',
+                          pathname === link.href && 'text-primary'
+                        )}
+                      >
+                        {link.label}
+                      </Link>
+                    );
+                  })}
                 </nav>
                 <div className="mt-auto space-y-2">
                   {user ? (
