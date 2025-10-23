@@ -18,25 +18,7 @@ import {
   DollarSign
 } from 'lucide-react';
 import { toast } from '@/hooks/use-toast';
-
-interface MembershipPlan {
-  id: string;
-  name: string;
-  description: string;
-  price: number;
-  duration_months: number;
-  features: string[];
-}
-
-interface UserMembership {
-  id: string;
-  plan_id: string;
-  status: string;
-  start_date: string;
-  end_date: string;
-  membership_number: string;
-  plan: MembershipPlan;
-}
+import { UserMembership } from '@/hooks/useMembership';
 
 interface PaymentFormProps {
   membership: UserMembership;

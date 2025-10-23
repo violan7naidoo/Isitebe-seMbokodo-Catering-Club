@@ -19,25 +19,7 @@ import { useRouter } from 'next/navigation';
 import BankingDetailsForm from '@/components/payment/BankingDetailsForm';
 import PaymentForm from '@/components/payment/PaymentForm';
 import PaymentMethodSelector from '@/components/payment/PaymentMethodSelector';
-
-interface UserMembership {
-  id: string;
-  user_id: string;
-  plan_id: string;
-  status: string;
-  start_date: string;
-  end_date: string;
-  auto_renew: boolean;
-  membership_number: string;
-  payment_method?: string;
-  plan: {
-    id: string;
-    name: string;
-    description: string;
-    price: number;
-    billing_cycle: string;
-  };
-}
+import { UserMembership } from '@/hooks/useMembership';
 
 export default function PaymentsPage() {
   const router = useRouter();
