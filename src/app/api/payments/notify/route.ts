@@ -31,9 +31,10 @@ export async function POST(request: NextRequest) {
     const formData = await request.formData();
     const notificationData: Record<string, string> = {};
     
-    for (const [key, value] of formData.entries()) {
+    // Convert FormData to object using Array.from
+    Array.from(formData.entries()).forEach(([key, value]) => {
       notificationData[key] = value.toString();
-    }
+    });
 
     console.log('PayFast notification received:', notificationData);
 
