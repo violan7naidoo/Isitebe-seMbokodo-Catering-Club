@@ -98,9 +98,13 @@ export default function PaymentForm({ membership, onPaymentInitiated }: PaymentF
     } catch (error) {
       console.error('Error initiating payment:', error);
       console.error('Error details:', error);
+      
+      // Handle unknown error type safely
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      
       toast({
         title: "Error",
-        description: `Failed to initiate payment: ${error.message || 'Unknown error'}`,
+        description: `Failed to initiate payment: ${errorMessage}`,
         variant: "destructive",
       });
     } finally {
