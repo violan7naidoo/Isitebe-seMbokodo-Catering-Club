@@ -7,6 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { PasswordInput } from '@/components/ui/password-input';
 import { Switch } from '@/components/ui/switch';
 import { Separator } from '@/components/ui/separator';
 import { Textarea } from '@/components/ui/textarea';
@@ -534,22 +535,23 @@ export default function SettingsPage() {
                   </div>
                   <div>
                     <Label htmlFor="new-password">New Password</Label>
-                    <Input
+                    <PasswordInput
                       id="new-password"
-                      type="password"
                       value={passwordData.new_password}
                       onChange={(e) => setPasswordData(prev => ({ ...prev, new_password: e.target.value }))}
                       placeholder="Enter new password"
+                      showValidation={true}
                     />
                   </div>
                   <div>
                     <Label htmlFor="confirm-password">Confirm New Password</Label>
-                    <Input
+                    <PasswordInput
                       id="confirm-password"
-                      type="password"
                       value={passwordData.confirm_password}
                       onChange={(e) => setPasswordData(prev => ({ ...prev, confirm_password: e.target.value }))}
                       placeholder="Confirm new password"
+                      showValidation={true}
+                      confirmPassword={passwordData.new_password}
                     />
                   </div>
                   <Button onClick={handlePasswordChange} disabled={saving}>

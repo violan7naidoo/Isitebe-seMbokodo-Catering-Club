@@ -6,6 +6,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Loader2, Mail, ArrowLeft } from 'lucide-react';
+import { PasswordInput } from '@/components/ui/password-input';
 import { createClient } from '@/lib/supabase';
 
 export default function SignUp() {
@@ -197,15 +198,14 @@ export default function SignUp() {
             
             <div>
               <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">Password</label>
-              <input
+              <PasswordInput
                 id="password"
                 name="password"
-                type="password"
                 autoComplete="new-password"
                 required
-                minLength={6}
+                showValidation={true}
                 className="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                placeholder="Choose a password (min 6 characters)"
+                placeholder="Choose a password"
                 value={formData.password}
                 onChange={handleChange}
               />

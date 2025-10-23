@@ -240,7 +240,7 @@ export async function PATCH(request: Request) {
       );
     }
 
-    const { action } = await request.json();
+    const { action, payment_method } = await request.json();
 
     if (action === 'deactivate') {
       // Deactivate user's membership
@@ -268,8 +268,34 @@ export async function PATCH(request: Request) {
       return NextResponse.json(membership);
     }
 
+    if (payment_method) {
+      // Update payment method
+      const { data: membership, error: membershipError } = await supabase
+        .from('user_memberships')
+        .update({ 
+          payment_method: payment_method,
+          updated_at: new Date().toISOString()
+        })
+        .eq('user_id', user.id)
+        .select(`
+          *,
+          plan:membership_plans(*)
+        `)
+        .single();
+
+      if (membershipError) {
+        console.error('Error updating payment method:', membershipError);
+        return NextResponse.json(
+          { error: 'Error updating payment method' },
+          { status: 500 }
+        );
+      }
+
+      return NextResponse.json(membership);
+    }
+
     return NextResponse.json(
-      { error: 'Invalid action' },
+      { error: 'Invalid action or missing parameters' },
       { status: 400 }
     );
   } catch (error) {

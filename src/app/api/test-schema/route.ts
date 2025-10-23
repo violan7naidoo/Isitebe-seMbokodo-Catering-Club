@@ -35,31 +35,32 @@ export async function GET() {
       );
     }
 
-    // Get user's payment history
-    const { data: payments, error } = await supabase
-      .from('payments')
-      .select(`
-        *,
-        membership:user_memberships(
-          plan:membership_plans(name)
-        )
-      `)
+    // Check if payment_method column exists by trying to select it
+    const { data: membership, error } = await supabase
+      .from('user_memberships')
+      .select('id, payment_method')
       .eq('user_id', user.id)
-      .order('created_at', { ascending: false });
+      .single();
 
     if (error) {
-      console.error('Error fetching payments:', error);
-      return NextResponse.json(
-        { error: 'Error fetching payment history' },
-        { status: 500 }
-      );
+      console.error('Schema check error:', error);
+      return NextResponse.json({
+        error: 'Schema check failed',
+        details: error.message,
+        code: error.code
+      });
     }
 
-    return NextResponse.json(payments);
+    return NextResponse.json({
+      success: true,
+      membership,
+      message: 'payment_method column exists'
+    });
+
   } catch (error) {
-    console.error('Error in payments API:', error);
+    console.error('Error in schema test API:', error);
     return NextResponse.json(
-      { error: 'Internal server error' },
+      { error: 'Internal server error', details: error },
       { status: 500 }
     );
   }

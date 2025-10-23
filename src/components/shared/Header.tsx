@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X, User, Home, CreditCard, Settings } from 'lucide-react';
+import { Menu, X, User, Home, CreditCard, Settings, Banknote } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
 import { NAV_LINKS } from '@/lib/constants';
@@ -104,6 +104,12 @@ export function Header() {
                   <Link href="/dashboard/membership" className="flex items-center cursor-pointer">
                     <CreditCard className="mr-2 h-4 w-4" />
                     Membership
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/dashboard/payments" className="flex items-center cursor-pointer">
+                    <Banknote className="mr-2 h-4 w-4" />
+                    Payments
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>

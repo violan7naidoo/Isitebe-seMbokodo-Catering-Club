@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useMembership } from '@/hooks/useMembership';
-import { usePayments } from '@/hooks/usePayments';
+import { useRouter } from 'next/navigation';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -34,8 +34,8 @@ import { MembershipSkeleton } from '@/components/dashboard/MembershipSkeleton';
 
 export default function MembershipPage() {
   const { userMembership, loading, refetchMembership } = useMembership();
-  const { payments, loading: paymentsLoading } = usePayments();
   const [isDeactivating, setIsDeactivating] = useState(false);
+  const router = useRouter();
 
   const handleDeactivateMembership = async () => {
     try {
@@ -75,6 +75,18 @@ export default function MembershipPage() {
     } finally {
       setIsDeactivating(false);
     }
+  };
+
+  const handleUpdateProfile = () => {
+    router.push('/dashboard/profile');
+  };
+
+  const handlePaymentMethods = () => {
+    router.push('/dashboard/payments');
+  };
+
+  const handleChangePlan = () => {
+    router.push('/dashboard');
   };
 
   if (loading) {
@@ -215,122 +227,12 @@ export default function MembershipPage() {
 
               <Separator />
 
-              {/* Membership Actions */}
-              <div className="flex flex-col sm:flex-row gap-3">
-                <Button variant="outline" className="flex-1">
-                  <CreditCard className="h-4 w-4 mr-2" />
-                  Make Payment
-                </Button>
-                <Button variant="outline" className="flex-1">
-                  <User className="h-4 w-4 mr-2" />
-                  Update Billing
-                </Button>
-                {userMembership.status === 'active' && (
-                  <AlertDialog>
-                    <AlertDialogTrigger asChild>
-                      <Button variant="destructive" className="flex-1">
-                        <XCircle className="h-4 w-4 mr-2" />
-                        Deactivate Membership
-                      </Button>
-                    </AlertDialogTrigger>
-                    <AlertDialogContent>
-                      <AlertDialogHeader>
-                        <AlertDialogTitle>Deactivate Membership</AlertDialogTitle>
-                        <AlertDialogDescription>
-                          Are you sure you want to deactivate your membership? This action cannot be undone and you will lose access to all membership benefits.
-                        </AlertDialogDescription>
-                      </AlertDialogHeader>
-                      <AlertDialogFooter>
-                        <AlertDialogCancel>Cancel</AlertDialogCancel>
-                        <AlertDialogAction
-                          onClick={handleDeactivateMembership}
-                          disabled={isDeactivating}
-                          className="bg-red-600 hover:bg-red-700"
-                        >
-                          {isDeactivating ? (
-                            <>
-                              <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                              Deactivating...
-                            </>
-                          ) : (
-                            'Deactivate Membership'
-                          )}
-                        </AlertDialogAction>
-                      </AlertDialogFooter>
-                    </AlertDialogContent>
-                  </AlertDialog>
-                )}
-              </div>
             </CardContent>
           </Card>
 
-          {/* Payment History */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <CreditCard className="h-5 w-5" />
-                Payment History
-              </CardTitle>
-              <CardDescription>
-                View your payment history and download receipts
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              {paymentsLoading ? (
-                <div className="flex items-center justify-center py-8">
-                  <Loader2 className="h-6 w-6 animate-spin" />
-                  <span className="ml-2">Loading payment history...</span>
-                </div>
-              ) : payments.length === 0 ? (
-                <div className="text-center py-8">
-                  <CreditCard className="mx-auto h-12 w-12 text-gray-400" />
-                  <h3 className="mt-4 text-lg font-medium text-gray-900">No Payments Yet</h3>
-                  <p className="mt-2 text-gray-600">
-                    Your payment history will appear here once you make your first payment.
-                  </p>
-                  <Button className="mt-4">
-                    <CreditCard className="h-4 w-4 mr-2" />
-                    Make First Payment
-                  </Button>
-                </div>
-              ) : (
-                <div className="space-y-4">
-                  {payments.map((payment) => (
-                    <div key={payment.id} className="flex items-center justify-between p-4 border rounded-lg">
-                      <div className="flex items-center gap-4">
-                        <div className="flex-shrink-0">
-                          {payment.status === 'completed' ? (
-                            <CheckCircle className="h-6 w-6 text-green-500" />
-                          ) : payment.status === 'pending' ? (
-                            <Clock className="h-6 w-6 text-yellow-500" />
-                          ) : (
-                            <XCircle className="h-6 w-6 text-red-500" />
-                          )}
-                        </div>
-                        <div>
-                          <p className="font-medium">
-                            {payment.membership?.plan?.name || 'Membership Payment'}
-                          </p>
-                          <p className="text-sm text-gray-600">
-                            {new Date(payment.created_at).toLocaleDateString()}
-                          </p>
-                          <p className="text-xs text-gray-500">
-                            Transaction: {payment.transaction_id}
-                          </p>
-                        </div>
-                      </div>
-                      <div className="text-right">
-                        <p className="font-semibold">R{payment.amount}</p>
-                        <Badge className={getStatusColor(payment.status)}>
-                          {payment.status}
-                        </Badge>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </CardContent>
-          </Card>
+
+
+
         </div>
 
         {/* Sidebar */}
@@ -340,24 +242,28 @@ export default function MembershipPage() {
             <CardHeader>
               <CardTitle className="text-lg">Membership Summary</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="flex justify-between">
-                <span className="text-gray-600">Status</span>
-                <Badge className={getStatusColor(userMembership.status)}>
-                  {userMembership.status}
-                </Badge>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">Payment Method</span>
-                <span className="font-medium">
-                  {getPaymentMethodDisplay(userMembership.payment_method)}
-                </span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">Member Since</span>
-                <span className="font-medium">
-                  {new Date(userMembership.created_at).toLocaleDateString()}
-                </span>
+            <CardContent className="space-y-6">
+              <div className="grid grid-cols-1 gap-4">
+                <div className="flex flex-col space-y-2">
+                  <span className="text-sm text-gray-600">Status</span>
+                  <Badge className={getStatusColor(userMembership.status)}>
+                    {userMembership.status}
+                  </Badge>
+                </div>
+                <div className="flex flex-col space-y-2">
+                  <span className="text-sm text-gray-600">Payment Method</span>
+                  <div className="flex items-center gap-2">
+                    <Badge className="bg-blue-100 text-blue-800">
+                      {getPaymentMethodDisplay(userMembership.payment_method)}
+                    </Badge>
+                  </div>
+                </div>
+                <div className="flex flex-col space-y-2">
+                  <span className="text-sm text-gray-600">Member Since</span>
+                  <span className="font-medium text-gray-900">
+                    {new Date(userMembership.created_at).toLocaleDateString()}
+                  </span>
+                </div>
               </div>
             </CardContent>
           </Card>
@@ -368,15 +274,27 @@ export default function MembershipPage() {
               <CardTitle className="text-lg">Quick Actions</CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
-              <Button variant="outline" className="w-full justify-start">
+              <Button 
+                variant="outline" 
+                className="w-full justify-start"
+                onClick={handleUpdateProfile}
+              >
                 <User className="h-4 w-4 mr-2" />
                 Update Profile
               </Button>
-              <Button variant="outline" className="w-full justify-start">
+              <Button 
+                variant="outline" 
+                className="w-full justify-start"
+                onClick={() => router.push('/dashboard/payments')}
+              >
                 <CreditCard className="h-4 w-4 mr-2" />
-                Payment Methods
+                Manage Payments
               </Button>
-              <Button variant="outline" className="w-full justify-start">
+              <Button 
+                variant="outline" 
+                className="w-full justify-start"
+                onClick={handleChangePlan}
+              >
                 <Package className="h-4 w-4 mr-2" />
                 Change Plan
               </Button>
@@ -384,6 +302,66 @@ export default function MembershipPage() {
           </Card>
         </div>
       </div>
+
+      {/* Deactivate Membership Section - Bottom of Page */}
+      {userMembership.status === 'active' && (
+        <div className="mt-8">
+          <Card className="border-red-200 bg-red-50">
+            <CardHeader>
+              <CardTitle className="text-red-800 flex items-center gap-2">
+                <XCircle className="h-5 w-5" />
+                Danger Zone
+              </CardTitle>
+              <CardDescription className="text-red-600">
+                Irreversible actions that will affect your membership
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="flex items-center justify-between">
+                <div>
+                  <h3 className="font-medium text-red-800">Deactivate Membership</h3>
+                  <p className="text-sm text-red-600 mt-1">
+                    This will immediately deactivate your membership and you will lose access to all benefits.
+                  </p>
+                </div>
+                <AlertDialog>
+                  <AlertDialogTrigger asChild>
+                    <Button variant="destructive">
+                      <XCircle className="h-4 w-4 mr-2" />
+                      Deactivate Membership
+                    </Button>
+                  </AlertDialogTrigger>
+                  <AlertDialogContent>
+                    <AlertDialogHeader>
+                      <AlertDialogTitle>Deactivate Membership</AlertDialogTitle>
+                      <AlertDialogDescription>
+                        Are you sure you want to deactivate your membership? This action cannot be undone and you will lose access to all membership benefits.
+                      </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                      <AlertDialogCancel>Cancel</AlertDialogCancel>
+                      <AlertDialogAction
+                        onClick={handleDeactivateMembership}
+                        disabled={isDeactivating}
+                        className="bg-red-600 hover:bg-red-700"
+                      >
+                        {isDeactivating ? (
+                          <>
+                            <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                            Deactivating...
+                          </>
+                        ) : (
+                          'Deactivate Membership'
+                        )}
+                      </AlertDialogAction>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      )}
     </div>
   );
 }

@@ -7,6 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { PasswordInput } from '@/components/ui/password-input';
 import { Separator } from '@/components/ui/separator';
 import { 
   User, 
@@ -47,6 +48,7 @@ interface UserProfile {
   membership_number?: string;
   membership_status?: string;
 }
+
 
 export default function ProfilePage() {
   const { user, loading: authLoading } = useAuth();
@@ -99,6 +101,7 @@ export default function ProfilePage() {
       setLoading(false);
     }
   };
+
 
   useEffect(() => {
     if (user) {
@@ -578,9 +581,8 @@ export default function ProfilePage() {
                     <div className="space-y-4">
                       <div>
                         <Label htmlFor="currentPassword">Current Password</Label>
-                        <Input
+                        <PasswordInput
                           id="currentPassword"
-                          type="password"
                           value={passwordData.currentPassword}
                           onChange={(e) => setPasswordData(prev => ({ ...prev, currentPassword: e.target.value }))}
                           placeholder="Enter your current password"
@@ -588,22 +590,24 @@ export default function ProfilePage() {
                       </div>
                       <div>
                         <Label htmlFor="newPassword">New Password</Label>
-                        <Input
+                        <PasswordInput
                           id="newPassword"
-                          type="password"
                           value={passwordData.newPassword}
                           onChange={(e) => setPasswordData(prev => ({ ...prev, newPassword: e.target.value }))}
                           placeholder="Enter your new password"
+                          showValidation={true}
+                          currentPassword={passwordData.currentPassword}
                         />
                       </div>
                       <div>
                         <Label htmlFor="confirmPassword">Confirm New Password</Label>
-                        <Input
+                        <PasswordInput
                           id="confirmPassword"
-                          type="password"
                           value={passwordData.confirmPassword}
                           onChange={(e) => setPasswordData(prev => ({ ...prev, confirmPassword: e.target.value }))}
                           placeholder="Confirm your new password"
+                          showValidation={true}
+                          confirmPassword={passwordData.newPassword}
                         />
                       </div>
                     </div>
@@ -840,6 +844,7 @@ export default function ProfilePage() {
               </div>
             </CardContent>
           </Card>
+
         </div>
       </div>
     </div>

@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Home, Users, CreditCard, Settings, User } from 'lucide-react';
+import { Home, Users, CreditCard, Settings, User, Banknote } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const navItems = [
@@ -15,6 +15,11 @@ const navItems = [
     name: 'Membership',
     href: '/dashboard/membership',
     icon: CreditCard,
+  },
+  {
+    name: 'Payments',
+    href: '/dashboard/payments',
+    icon: Banknote,
   },
   {
     name: 'Profile',
