@@ -9,7 +9,7 @@ export async function GET() {
   try {
     console.log('Testing banking details API...');
     
-    const cookieStore = cookies();
+    const cookieStore = await cookies();
     console.log('Cookie store created');
     
     const supabase = createServerClient(
