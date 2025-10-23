@@ -125,7 +125,10 @@ export default function PaymentMethodSelector({ currentMethod, onMethodChange }:
     } catch (error) {
       console.error('Error updating payment method:', error);
       console.error('Error details:', error);
-      alert(`Error updating payment method: ${error.message}`);
+      
+      // Handle unknown error type safely
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      alert(`Error updating payment method: ${errorMessage}`);
     } finally {
       setSaving(false);
     }
