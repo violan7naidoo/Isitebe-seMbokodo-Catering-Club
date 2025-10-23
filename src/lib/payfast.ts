@@ -45,9 +45,20 @@ export class PayFastService {
   /**
    * Generate PayFast signature for payment data
    */
-  generateSignature(data: Record<string, string>): string {
+  generateSignature(data: PayFastPaymentData | Record<string, string>): string {
+    // Convert PayFastPaymentData to Record<string, string> if needed
+    const dataRecord: Record<string, string> = {};
+    
+    if (data && typeof data === 'object') {
+      Object.entries(data).forEach(([key, value]) => {
+        if (value !== null && value !== undefined) {
+          dataRecord[key] = String(value);
+        }
+      });
+    }
+
     // Remove empty values and sort by key
-    const filteredData = Object.entries(data)
+    const filteredData = Object.entries(dataRecord)
       .filter(([_, value]) => value !== '' && value !== null && value !== undefined)
       .sort(([a], [b]) => a.localeCompare(b));
 
