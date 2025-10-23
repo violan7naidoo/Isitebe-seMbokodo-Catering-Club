@@ -73,10 +73,6 @@ export default function MembershipSelector() {
                 <span>{new Date(userMembership.start_date).toLocaleDateString()}</span>
               </div>
               <div className="flex justify-between">
-                <span className="font-medium">End Date:</span>
-                <span>{new Date(userMembership.end_date).toLocaleDateString()}</span>
-              </div>
-              <div className="flex justify-between">
                 <span className="font-medium">Price:</span>
                 <span className="text-2xl font-bold text-green-600">
                   R{userMembership.plan.price}

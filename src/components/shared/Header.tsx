@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X, User } from 'lucide-react';
+import { Menu, X, User, Home, CreditCard, Settings } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
 import { NAV_LINKS } from '@/lib/constants';
@@ -57,24 +57,18 @@ export function Header() {
           <span className="sr-only">Isithebe seMbokodo Home</span>
         </Link>
         <nav className="hidden items-center gap-6 md:flex">
-          {NAV_LINKS.map((link) => {
-            // Only show Dashboard link for authenticated users
-            if (link.href === '/dashboard' && !user) {
-              return null;
-            }
-            return (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={cn(
-                  'font-medium text-foreground/70 transition-colors hover:text-primary',
-                  pathname === link.href && 'text-primary font-semibold'
-                )}
-              >
-                {link.label}
-              </Link>
-            );
-          })}
+          {NAV_LINKS.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className={cn(
+                'font-medium text-foreground/70 transition-colors hover:text-primary',
+                pathname === link.href && 'text-primary font-semibold'
+              )}
+            >
+              {link.label}
+            </Link>
+          ))}
         </nav>
         <div className="hidden items-center gap-4 md:flex">
           {user ? (
@@ -100,6 +94,30 @@ export function Header() {
                     </p>
                   </div>
                 </div>
+                <DropdownMenuItem asChild>
+                  <Link href="/dashboard" className="flex items-center cursor-pointer">
+                    <Home className="mr-2 h-4 w-4" />
+                    Dashboard
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/dashboard/membership" className="flex items-center cursor-pointer">
+                    <CreditCard className="mr-2 h-4 w-4" />
+                    Membership
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/dashboard/profile" className="flex items-center cursor-pointer">
+                    <User className="mr-2 h-4 w-4" />
+                    Profile
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/dashboard/settings" className="flex items-center cursor-pointer">
+                    <Settings className="mr-2 h-4 w-4" />
+                    Settings
+                  </Link>
+                </DropdownMenuItem>
                 <DropdownMenuItem onClick={handleSignOut} className="cursor-pointer">
                   Sign out
                 </DropdownMenuItem>
@@ -132,30 +150,95 @@ export function Header() {
                   </Link>
                 </div>
                 <nav className="flex flex-col items-start gap-6">
-                  {NAV_LINKS.map((link) => {
-                    // Only show Dashboard link for authenticated users
-                    if (link.href === '/dashboard' && !user) {
-                      return null;
-                    }
-                    return (
-                      <Link
-                        key={link.href}
-                        href={link.href}
-                        className={cn(
-                          'text-xl font-medium text-foreground/70 transition-colors hover:text-primary',
-                          pathname === link.href && 'text-primary'
-                        )}
-                      >
-                        {link.label}
-                      </Link>
-                    );
-                  })}
+                  {NAV_LINKS.map((link) => (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      className={cn(
+                        'text-xl font-medium text-foreground/70 transition-colors hover:text-primary',
+                        pathname === link.href && 'text-primary'
+                      )}
+                    >
+                      {link.label}
+                    </Link>
+                  ))}
+                  
+                  {/* Dashboard Navigation for authenticated users */}
+                  {user && (
+                    <div className="w-full">
+                      <div className="border-t pt-4 mt-4">
+                        <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-3">
+                          Dashboard
+                        </h3>
+                        <div className="space-y-2">
+                          <Link
+                            href="/dashboard"
+                            className={cn(
+                              'flex items-center gap-3 text-lg font-medium text-foreground/70 transition-colors hover:text-primary',
+                              pathname === '/dashboard' && 'text-primary'
+                            )}
+                          >
+                            <Home className="h-5 w-5" />
+                            Dashboard
+                          </Link>
+                          <Link
+                            href="/dashboard/membership"
+                            className={cn(
+                              'flex items-center gap-3 text-lg font-medium text-foreground/70 transition-colors hover:text-primary',
+                              pathname === '/dashboard/membership' && 'text-primary'
+                            )}
+                          >
+                            <CreditCard className="h-5 w-5" />
+                            Membership
+                          </Link>
+                          <Link
+                            href="/dashboard/profile"
+                            className={cn(
+                              'flex items-center gap-3 text-lg font-medium text-foreground/70 transition-colors hover:text-primary',
+                              pathname === '/dashboard/profile' && 'text-primary'
+                            )}
+                          >
+                            <User className="h-5 w-5" />
+                            Profile
+                          </Link>
+                          <Link
+                            href="/dashboard/settings"
+                            className={cn(
+                              'flex items-center gap-3 text-lg font-medium text-foreground/70 transition-colors hover:text-primary',
+                              pathname === '/dashboard/settings' && 'text-primary'
+                            )}
+                          >
+                            <Settings className="h-5 w-5" />
+                            Settings
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </nav>
                 <div className="mt-auto space-y-2">
                   {user ? (
-                    <Button onClick={handleSignOut} variant="destructive" className="w-full">
-                      Sign Out
-                    </Button>
+                    <>
+                      {/* User Profile Section */}
+                      <div className="border-t pt-4">
+                        <div className="flex items-center gap-3 mb-4">
+                          <div className="h-10 w-10 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-medium">
+                            {getUserInitials()}
+                          </div>
+                          <div>
+                            <p className="font-medium text-sm">
+                              {user.user_metadata?.first_name} {user.user_metadata?.last_name}
+                            </p>
+                            <p className="text-xs text-muted-foreground">
+                              {user.email}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      <Button onClick={handleSignOut} variant="destructive" className="w-full">
+                        Sign Out
+                      </Button>
+                    </>
                   ) : (
                     <>
                       <Button asChild className="w-full">

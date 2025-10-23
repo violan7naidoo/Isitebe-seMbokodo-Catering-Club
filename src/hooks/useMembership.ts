@@ -20,6 +20,7 @@ export interface UserMembership {
   start_date: string;
   end_date: string;
   auto_renew: boolean;
+  payment_method?: string;
   membership_number: string;
   created_at: string;
   updated_at: string;
@@ -33,9 +34,9 @@ export const useMembership = () => {
   const [error, setError] = useState<string | null>(null);
 
   // Fetch all membership plans
-  const fetchMembershipPlans = async () => {
+  const fetchMembershipPlans = async (setLoadingState = true) => {
     try {
-      setLoading(true);
+      if (setLoadingState) setLoading(true);
       const response = await fetch('/api/membership-plans');
       const data = await response.json();
       
@@ -48,14 +49,14 @@ export const useMembership = () => {
       console.error('Error fetching membership plans:', err);
       setError(err instanceof Error ? err.message : 'Failed to fetch membership plans');
     } finally {
-      setLoading(false);
+      if (setLoadingState) setLoading(false);
     }
   };
 
   // Fetch user's current membership
-  const fetchUserMembership = async () => {
+  const fetchUserMembership = async (setLoadingState = true) => {
     try {
-      setLoading(true);
+      if (setLoadingState) setLoading(true);
       const response = await fetch('/api/user-membership');
       const data = await response.json();
       
@@ -73,7 +74,7 @@ export const useMembership = () => {
       console.error('Error fetching user membership:', err);
       setError(err instanceof Error ? err.message : 'Failed to fetch user membership');
     } finally {
-      setLoading(false);
+      if (setLoadingState) setLoading(false);
     }
   };
 
@@ -108,8 +109,19 @@ export const useMembership = () => {
 
   // Load data on mount
   useEffect(() => {
-    fetchMembershipPlans();
-    fetchUserMembership();
+    const loadData = async () => {
+      setLoading(true);
+      try {
+        await Promise.all([
+          fetchMembershipPlans(false),
+          fetchUserMembership(false)
+        ]);
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    loadData();
   }, []);
 
   return {

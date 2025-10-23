@@ -68,6 +68,8 @@ export async function GET() {
       email: profile.email,
       first_name: profile.first_name,
       last_name: profile.last_name,
+      phone: profile.phone || null,
+      address: profile.address || null,
       created_at: profile.created_at,
       updated_at: profile.updated_at,
       membership_number: membership?.membership_number || null,
@@ -115,16 +117,23 @@ export async function PATCH(request: Request) {
       );
     }
 
-    const { first_name, last_name, email } = await request.json();
+    const { first_name, last_name, email, phone, address, currentPassword, newPassword } = await request.json();
+
+    // Build update object with only provided fields
+    const updateData: any = {
+      updated_at: new Date().toISOString()
+    };
+
+    // Only include fields that are provided in the request
+    if (first_name !== undefined) updateData.first_name = first_name;
+    if (last_name !== undefined) updateData.last_name = last_name;
+    if (phone !== undefined) updateData.phone = phone;
+    if (address !== undefined) updateData.address = address;
 
     // Update user profile in users table
     const { data: profile, error: profileError } = await supabase
       .from('users')
-      .update({
-        first_name: first_name || null,
-        last_name: last_name || null,
-        updated_at: new Date().toISOString()
-      })
+      .update(updateData)
       .eq('id', user.id)
       .select()
       .single();
@@ -138,7 +147,7 @@ export async function PATCH(request: Request) {
     }
 
     // If email is being changed, update auth user
-    if (email && email !== user.email) {
+    if (email !== undefined && email !== user.email) {
       const { error: emailError } = await supabase.auth.updateUser({
         email: email
       });
@@ -147,6 +156,36 @@ export async function PATCH(request: Request) {
         console.error('Error updating email:', emailError);
         return NextResponse.json(
           { error: 'Error updating email' },
+          { status: 500 }
+        );
+      }
+    }
+
+    // If password is being changed, verify current password first
+    if (newPassword !== undefined && currentPassword !== undefined) {
+      // First, verify the current password by attempting to sign in
+      const { error: signInError } = await supabase.auth.signInWithPassword({
+        email: user.email!,
+        password: currentPassword
+      });
+
+      if (signInError) {
+        console.error('Current password verification failed:', signInError);
+        return NextResponse.json(
+          { error: 'Current password is incorrect. Please try again.' },
+          { status: 400 }
+        );
+      }
+
+      // If current password is correct, update to new password
+      const { error: passwordError } = await supabase.auth.updateUser({
+        password: newPassword
+      });
+
+      if (passwordError) {
+        console.error('Error updating password:', passwordError);
+        return NextResponse.json(
+          { error: 'Error updating password. Please try again.' },
           { status: 500 }
         );
       }
@@ -182,9 +221,11 @@ export async function PATCH(request: Request) {
     // Format the response
     const formattedProfile = {
       id: updatedProfile.id,
-      email: email || updatedProfile.email,
+      email: email !== undefined ? email : updatedProfile.email,
       first_name: updatedProfile.first_name,
       last_name: updatedProfile.last_name,
+      phone: updatedProfile.phone || null,
+      address: updatedProfile.address || null,
       created_at: updatedProfile.created_at,
       updated_at: updatedProfile.updated_at,
       membership_number: membership?.membership_number || null,

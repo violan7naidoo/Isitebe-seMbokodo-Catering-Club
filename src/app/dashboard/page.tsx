@@ -4,6 +4,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import MembershipSelector from '@/components/membership/MembershipSelector';
+import { DashboardSkeleton } from '@/components/dashboard/DashboardSkeleton';
 
 export default function Dashboard() {
   const { user, loading: authLoading } = useAuth();
@@ -36,15 +37,8 @@ export default function Dashboard() {
     }
   }, [user]);
 
-  if (authLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-500 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading your dashboard...</p>
-        </div>
-      </div>
-    );
+  if (authLoading || loading) {
+    return <DashboardSkeleton />;
   }
 
   if (!user) {

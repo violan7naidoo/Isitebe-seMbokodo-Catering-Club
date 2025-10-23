@@ -24,6 +24,7 @@ import {
   Loader2
 } from 'lucide-react';
 import { toast } from '@/hooks/use-toast';
+import { ProfileSkeleton } from '@/components/dashboard/ProfileSkeleton';
 import {
   Dialog,
   DialogContent,
@@ -39,6 +40,8 @@ interface UserProfile {
   email: string;
   first_name: string;
   last_name: string;
+  phone?: string;
+  address?: string;
   created_at: string;
   updated_at: string;
   membership_number?: string;
@@ -55,6 +58,22 @@ export default function ProfilePage() {
     first_name: '',
     last_name: '',
     email: ''
+  });
+  
+  // Dialog states
+  const [emailDialogOpen, setEmailDialogOpen] = useState(false);
+  const [phoneDialogOpen, setPhoneDialogOpen] = useState(false);
+  const [addressDialogOpen, setAddressDialogOpen] = useState(false);
+  const [passwordDialogOpen, setPasswordDialogOpen] = useState(false);
+  
+  // Form data for updates
+  const [emailData, setEmailData] = useState({ email: '' });
+  const [phoneData, setPhoneData] = useState({ phone: '' });
+  const [addressData, setAddressData] = useState({ address: '' });
+  const [passwordData, setPasswordData] = useState({ 
+    currentPassword: '', 
+    newPassword: '', 
+    confirmPassword: '' 
   });
 
   // Fetch user profile data
@@ -136,6 +155,177 @@ export default function ProfilePage() {
     }
   };
 
+  // Update email function
+  const handleUpdateEmail = async () => {
+    try {
+      setSaving(true);
+      const response = await fetch('/api/user-profile', {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: emailData.email }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setProfile(data);
+        setEmailDialogOpen(false);
+        setEmailData({ email: '' });
+        toast({
+          title: "Email Updated",
+          description: "Your email has been successfully updated. You can now login with your new email.",
+        });
+      } else {
+        throw new Error(data.error || 'Failed to update email');
+      }
+    } catch (error) {
+      console.error('Error updating email:', error);
+      toast({
+        title: "Error",
+        description: "Failed to update email. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  // Update phone function
+  const handleUpdatePhone = async () => {
+    try {
+      setSaving(true);
+      const response = await fetch('/api/user-profile', {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ phone: phoneData.phone }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setProfile(data);
+        setPhoneDialogOpen(false);
+        setPhoneData({ phone: '' });
+        toast({
+          title: "Phone Updated",
+          description: "Your phone number has been successfully updated.",
+        });
+      } else {
+        throw new Error(data.error || 'Failed to update phone');
+      }
+    } catch (error) {
+      console.error('Error updating phone:', error);
+      toast({
+        title: "Error",
+        description: "Failed to update phone number. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  // Update address function
+  const handleUpdateAddress = async () => {
+    try {
+      setSaving(true);
+      const response = await fetch('/api/user-profile', {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ address: addressData.address }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setProfile(data);
+        setAddressDialogOpen(false);
+        setAddressData({ address: '' });
+        toast({
+          title: "Address Updated",
+          description: "Your address has been successfully updated.",
+        });
+      } else {
+        throw new Error(data.error || 'Failed to update address');
+      }
+    } catch (error) {
+      console.error('Error updating address:', error);
+      toast({
+        title: "Error",
+        description: "Failed to update address. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  // Change password function
+  const handleChangePassword = async () => {
+    try {
+      setSaving(true);
+      
+      // Validate passwords match
+      if (passwordData.newPassword !== passwordData.confirmPassword) {
+        toast({
+          title: "Error",
+          description: "New passwords do not match.",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      // Validate password length
+      if (passwordData.newPassword.length < 6) {
+        toast({
+          title: "Error",
+          description: "Password must be at least 6 characters long.",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      const response = await fetch('/api/user-profile', {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ 
+          currentPassword: passwordData.currentPassword,
+          newPassword: passwordData.newPassword 
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setPasswordDialogOpen(false);
+        setPasswordData({ currentPassword: '', newPassword: '', confirmPassword: '' });
+        toast({
+          title: "Password Updated",
+          description: "Your password has been successfully updated.",
+        });
+      } else {
+        throw new Error(data.error || 'Failed to update password');
+      }
+    } catch (error) {
+      console.error('Error updating password:', error);
+      toast({
+        title: "Error",
+        description: "Failed to update password. Please check your current password and try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setSaving(false);
+    }
+  };
+
   const handleInputChange = (field: string, value: string) => {
     setEditData(prev => ({
       ...prev,
@@ -144,12 +334,7 @@ export default function ProfilePage() {
   };
 
   if (authLoading || loading) {
-    return (
-      <div className="flex items-center justify-center py-8">
-        <Loader2 className="h-8 w-8 animate-spin" />
-        <span className="ml-2">Loading profile...</span>
-      </div>
-    );
+    return <ProfileSkeleton />;
   }
 
   if (!user || !profile) {
@@ -281,6 +466,24 @@ export default function ProfilePage() {
                         <p className="font-medium">{profile.email}</p>
                       </div>
                     </div>
+                    {profile.phone && (
+                      <div className="flex items-center gap-3">
+                        <Phone className="h-5 w-5 text-gray-400" />
+                        <div>
+                          <p className="text-sm text-gray-500">Phone Number</p>
+                          <p className="font-medium">{profile.phone}</p>
+                        </div>
+                      </div>
+                    )}
+                    {profile.address && (
+                      <div className="flex items-center gap-3">
+                        <MapPin className="h-5 w-5 text-gray-400" />
+                        <div>
+                          <p className="text-sm text-gray-500">Address</p>
+                          <p className="font-medium">{profile.address}</p>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
               )}
@@ -359,18 +562,65 @@ export default function ProfilePage() {
                   <h3 className="font-medium">Change Password</h3>
                   <p className="text-sm text-gray-600">Update your account password</p>
                 </div>
-                <Button variant="outline">
-                  Change Password
-                </Button>
-              </div>
-              <div className="flex items-center justify-between p-4 border rounded-lg">
-                <div>
-                  <h3 className="font-medium">Two-Factor Authentication</h3>
-                  <p className="text-sm text-gray-600">Add an extra layer of security</p>
-                </div>
-                <Button variant="outline">
-                  Enable 2FA
-                </Button>
+                <Dialog open={passwordDialogOpen} onOpenChange={setPasswordDialogOpen}>
+                  <DialogTrigger asChild>
+                    <Button variant="outline">
+                      Change Password
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent>
+                    <DialogHeader>
+                      <DialogTitle>Change Password</DialogTitle>
+                      <DialogDescription>
+                        Enter your current password and choose a new password.
+                      </DialogDescription>
+                    </DialogHeader>
+                    <div className="space-y-4">
+                      <div>
+                        <Label htmlFor="currentPassword">Current Password</Label>
+                        <Input
+                          id="currentPassword"
+                          type="password"
+                          value={passwordData.currentPassword}
+                          onChange={(e) => setPasswordData(prev => ({ ...prev, currentPassword: e.target.value }))}
+                          placeholder="Enter your current password"
+                        />
+                      </div>
+                      <div>
+                        <Label htmlFor="newPassword">New Password</Label>
+                        <Input
+                          id="newPassword"
+                          type="password"
+                          value={passwordData.newPassword}
+                          onChange={(e) => setPasswordData(prev => ({ ...prev, newPassword: e.target.value }))}
+                          placeholder="Enter your new password"
+                        />
+                      </div>
+                      <div>
+                        <Label htmlFor="confirmPassword">Confirm New Password</Label>
+                        <Input
+                          id="confirmPassword"
+                          type="password"
+                          value={passwordData.confirmPassword}
+                          onChange={(e) => setPasswordData(prev => ({ ...prev, confirmPassword: e.target.value }))}
+                          placeholder="Confirm your new password"
+                        />
+                      </div>
+                    </div>
+                    <DialogFooter>
+                      <Button variant="outline" onClick={() => setPasswordDialogOpen(false)}>
+                        Cancel
+                      </Button>
+                      <Button 
+                        onClick={handleChangePassword} 
+                        disabled={saving || !passwordData.currentPassword || !passwordData.newPassword || !passwordData.confirmPassword}
+                      >
+                        {saving ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : null}
+                        Change Password
+                      </Button>
+                    </DialogFooter>
+                  </DialogContent>
+                </Dialog>
               </div>
               <div className="flex items-center justify-between p-4 border rounded-lg">
                 <div>
@@ -432,6 +682,12 @@ export default function ProfilePage() {
                   <span className="text-gray-600">Member Since</span>
                   <span className="text-sm">{new Date(profile.created_at).toLocaleDateString()}</span>
                 </div>
+                {profile.membership_number && (
+                  <div className="flex justify-between">
+                    <span className="text-gray-600">Membership Number</span>
+                    <span className="text-sm font-medium text-blue-600">#{profile.membership_number}</span>
+                  </div>
+                )}
               </div>
             </CardContent>
           </Card>
@@ -442,22 +698,120 @@ export default function ProfilePage() {
               <CardTitle className="text-lg">Quick Actions</CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
-              <Button variant="outline" className="w-full justify-start">
-                <Mail className="h-4 w-4 mr-2" />
-                Update Email
-              </Button>
-              <Button variant="outline" className="w-full justify-start">
-                <Phone className="h-4 w-4 mr-2" />
-                Add Phone Number
-              </Button>
-              <Button variant="outline" className="w-full justify-start">
-                <MapPin className="h-4 w-4 mr-2" />
-                Update Address
-              </Button>
-              <Button variant="outline" className="w-full justify-start">
-                <Shield className="h-4 w-4 mr-2" />
-                Privacy Settings
-              </Button>
+              <Dialog open={emailDialogOpen} onOpenChange={setEmailDialogOpen}>
+                <DialogTrigger asChild>
+                  <Button variant="outline" className="w-full justify-start">
+                    <Mail className="h-4 w-4 mr-2" />
+                    Update Email
+                  </Button>
+                </DialogTrigger>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle>Update Email Address</DialogTitle>
+                    <DialogDescription>
+                      Enter your new email address. You will be able to login with this new email.
+                    </DialogDescription>
+                  </DialogHeader>
+                  <div className="space-y-4">
+                    <div>
+                      <Label htmlFor="email">New Email</Label>
+                      <Input
+                        id="email"
+                        type="email"
+                        value={emailData.email}
+                        onChange={(e) => setEmailData({ email: e.target.value })}
+                        placeholder="Enter your new email address"
+                      />
+                    </div>
+                  </div>
+                  <DialogFooter>
+                    <Button variant="outline" onClick={() => setEmailDialogOpen(false)}>
+                      Cancel
+                    </Button>
+                    <Button onClick={handleUpdateEmail} disabled={saving || !emailData.email}>
+                      {saving ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : null}
+                      Update Email
+                    </Button>
+                  </DialogFooter>
+                </DialogContent>
+              </Dialog>
+
+              <Dialog open={phoneDialogOpen} onOpenChange={setPhoneDialogOpen}>
+                <DialogTrigger asChild>
+                  <Button variant="outline" className="w-full justify-start">
+                    <Phone className="h-4 w-4 mr-2" />
+                    {profile?.phone ? 'Update Phone' : 'Add Phone Number'}
+                  </Button>
+                </DialogTrigger>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle>{profile?.phone ? 'Update Phone Number' : 'Add Phone Number'}</DialogTitle>
+                    <DialogDescription>
+                      {profile?.phone ? 'Update your phone number.' : 'Add your phone number to your profile.'}
+                    </DialogDescription>
+                  </DialogHeader>
+                  <div className="space-y-4">
+                    <div>
+                      <Label htmlFor="phone">Phone Number</Label>
+                      <Input
+                        id="phone"
+                        type="tel"
+                        value={phoneData.phone}
+                        onChange={(e) => setPhoneData({ phone: e.target.value })}
+                        placeholder="Enter your phone number"
+                      />
+                    </div>
+                  </div>
+                  <DialogFooter>
+                    <Button variant="outline" onClick={() => setPhoneDialogOpen(false)}>
+                      Cancel
+                    </Button>
+                    <Button onClick={handleUpdatePhone} disabled={saving || !phoneData.phone}>
+                      {saving ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : null}
+                      {profile?.phone ? 'Update Phone' : 'Add Phone'}
+                    </Button>
+                  </DialogFooter>
+                </DialogContent>
+              </Dialog>
+
+              <Dialog open={addressDialogOpen} onOpenChange={setAddressDialogOpen}>
+                <DialogTrigger asChild>
+                  <Button variant="outline" className="w-full justify-start">
+                    <MapPin className="h-4 w-4 mr-2" />
+                    {profile?.address ? 'Update Address' : 'Add Address'}
+                  </Button>
+                </DialogTrigger>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle>{profile?.address ? 'Update Address' : 'Add Address'}</DialogTitle>
+                    <DialogDescription>
+                      {profile?.address ? 'Update your address.' : 'Add your address to your profile.'}
+                    </DialogDescription>
+                  </DialogHeader>
+                  <div className="space-y-4">
+                    <div>
+                      <Label htmlFor="address">Address</Label>
+                      <Input
+                        id="address"
+                        type="text"
+                        value={addressData.address}
+                        onChange={(e) => setAddressData({ address: e.target.value })}
+                        placeholder="Enter your address"
+                      />
+                    </div>
+                  </div>
+                  <DialogFooter>
+                    <Button variant="outline" onClick={() => setAddressDialogOpen(false)}>
+                      Cancel
+                    </Button>
+                    <Button onClick={handleUpdateAddress} disabled={saving || !addressData.address}>
+                      {saving ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : null}
+                      {profile?.address ? 'Update Address' : 'Add Address'}
+                    </Button>
+                  </DialogFooter>
+                </DialogContent>
+              </Dialog>
+
             </CardContent>
           </Card>
 

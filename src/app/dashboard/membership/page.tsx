@@ -30,6 +30,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
+import { MembershipSkeleton } from '@/components/dashboard/MembershipSkeleton';
 
 export default function MembershipPage() {
   const { userMembership, loading, refetchMembership } = useMembership();
@@ -77,12 +78,7 @@ export default function MembershipPage() {
   };
 
   if (loading) {
-    return (
-      <div className="flex items-center justify-center py-8">
-        <Loader2 className="h-8 w-8 animate-spin" />
-        <span className="ml-2">Loading membership details...</span>
-      </div>
-    );
+    return <MembershipSkeleton />;
   }
 
   if (!userMembership) {
@@ -125,6 +121,25 @@ export default function MembershipPage() {
         return 'bg-yellow-100 text-yellow-800';
       default:
         return 'bg-gray-100 text-gray-800';
+    }
+  };
+
+  const getPaymentMethodDisplay = (paymentMethod?: string) => {
+    if (!paymentMethod) return 'Website Payment';
+    
+    switch (paymentMethod.toLowerCase()) {
+      case 'direct_deposit':
+        return 'Direct Deposit';
+      case 'website_payment':
+        return 'Website Payment';
+      case 'debit_order':
+        return 'Debit Order';
+      case 'eft':
+        return 'EFT Transfer';
+      case 'bank_transfer':
+        return 'Bank Transfer';
+      default:
+        return paymentMethod;
     }
   };
 
@@ -178,15 +193,6 @@ export default function MembershipPage() {
                     <p className="text-sm text-gray-500">Start Date</p>
                     <p className="font-medium">
                       {new Date(userMembership.start_date).toLocaleDateString()}
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Clock className="h-5 w-5 text-gray-400" />
-                  <div>
-                    <p className="text-sm text-gray-500">End Date</p>
-                    <p className="font-medium">
-                      {new Date(userMembership.end_date).toLocaleDateString()}
                     </p>
                   </div>
                 </div>
@@ -342,9 +348,9 @@ export default function MembershipPage() {
                 </Badge>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-600">Auto Renew</span>
+                <span className="text-gray-600">Payment Method</span>
                 <span className="font-medium">
-                  {userMembership.auto_renew ? 'Yes' : 'No'}
+                  {getPaymentMethodDisplay(userMembership.payment_method)}
                 </span>
               </div>
               <div className="flex justify-between">
