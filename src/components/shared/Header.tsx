@@ -198,6 +198,16 @@ export function Header() {
                             Membership
                           </Link>
                           <Link
+                            href="/dashboard/payments"
+                            className={cn(
+                              'flex items-center gap-3 text-lg font-medium text-foreground/70 transition-colors hover:text-primary',
+                              pathname === '/dashboard/payments' && 'text-primary'
+                            )}
+                          >
+                            <Banknote className="h-5 w-5" />
+                            Payments
+                          </Link>
+                          <Link
                             href="/dashboard/profile"
                             className={cn(
                               'flex items-center gap-3 text-lg font-medium text-foreground/70 transition-colors hover:text-primary',
