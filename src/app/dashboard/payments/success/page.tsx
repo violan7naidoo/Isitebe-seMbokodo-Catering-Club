@@ -11,7 +11,7 @@ export default function PaymentSuccessPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [loading, setLoading] = useState(true);
-  const [paymentStatus, setPaymentStatus] = useState<'success' | 'pending' | 'failed' | null>(null);
+  const [paymentStatus, setPaymentStatus] = useState<'success' | 'completed' | 'pending' | 'failed' | null>(null);
 
   useEffect(() => {
     const checkPaymentStatus = async () => {
