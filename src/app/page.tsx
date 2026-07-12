@@ -175,24 +175,24 @@ export default function Home() {
               <div className="grid grid-cols-3 gap-4">
                 <div className="relative h-32 rounded-lg overflow-hidden shadow-md">
                   <Image
-                    src="/images/gallery-4.jpg"
-                    alt="Bongiwe Mzana, Founder of Isithebe seMbokodo Catering Club"
-                    fill
-                    className="object-cover object-top"
-                  />
-                </div>
-                <div className="relative h-32 rounded-lg overflow-hidden shadow-md">
-                  <Image
-                    src="/images/gallery-30.jpg"
-                    alt="Event catering showcase"
+                    src="/images/g2.jpeg"
+                    alt="Marinated chicken pieces garnished with chives"
                     fill
                     className="object-cover"
                   />
                 </div>
                 <div className="relative h-32 rounded-lg overflow-hidden shadow-md">
                   <Image
-                    src="/images/gallery-31.jpg"
-                    alt="Happy guests at our events"
+                    src="/images/g10.jpeg"
+                    alt="Vegetable rice garnished with microgreens"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div className="relative h-32 rounded-lg overflow-hidden shadow-md">
+                  <Image
+                    src="/images/g14.jpeg"
+                    alt="Potato salad garnished with chives, carrot, and edible flowers"
                     fill
                     className="object-cover"
                   />
@@ -235,8 +235,8 @@ export default function Home() {
               <div className="group h-full rounded-2xl bg-background shadow-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-1 overflow-hidden flex flex-col">
                 <div className="relative h-48 overflow-hidden">
                   <Image
-                    src="/images/gallery-33.jpg"
-                    alt="Our Vision for the Future"
+                    src="/images/g9.jpeg"
+                    alt="Bongiwe Mzana with the Isithebe seMbokodo catering setup"
                     fill
                     className="object-cover transition-transform duration-700 group-hover:scale-105"
                   />
@@ -264,8 +264,8 @@ export default function Home() {
               <div className="group h-full rounded-2xl bg-background shadow-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-1 overflow-hidden flex flex-col">
                 <div className="relative h-48 overflow-hidden">
                   <Image
-                    src="/images/gallery-32.jpg"
-                    alt="Our Mission in Action"
+                    src="/images/g5.jpeg"
+                    alt="Chafing dishes of fried and glazed chicken set up at an outdoor event"
                     fill
                     className="object-cover transition-transform duration-700 group-hover:scale-105"
                   />
