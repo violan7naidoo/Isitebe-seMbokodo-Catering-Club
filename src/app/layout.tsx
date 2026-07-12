@@ -9,33 +9,34 @@ import './globals.css';
 
 export const metadata: Metadata = {
   title: {
-    default: 'Isithebe seMbokodo Catering Club | Community & Catering',
+    default: "Isithebe seMbokodo Catering Club | South Africa's First Membership-Based Catering Organisation",
     template: '%s | Isithebe seMbokodo',
   },
   description:
-    'A women’s support society providing catering for funerals and events in South Africa. Empowering women through community, support, and economic opportunity.',
+    "South Africa's first membership-based catering organisation, providing affordable professional catering for funerals, weddings, and community events while empowering women and creating jobs for young people.",
   keywords: [
     'catering',
     'funerals',
+    'membership catering',
     'women empowerment',
     'South Africa',
     'community support',
     'events',
-    'sisterhood',
+    'weddings',
   ],
   openGraph: {
-    title: 'Isithebe seMbokodo Catering Club',
+    title: "Isithebe seMbokodo Catering Club | South Africa's First Membership-Based Catering Organisation",
     description:
-      'Empowering women and supporting communities through catering services.',
+      'Affordable, professional catering for funerals, weddings, and community events through monthly membership contributions.',
     type: 'website',
     locale: 'en_ZA',
     siteName: 'Isithebe seMbokodo Catering Club',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Isithebe seMbokodo Catering Club',
+    title: "Isithebe seMbokodo Catering Club | South Africa's First Membership-Based Catering Organisation",
     description:
-      'A women’s support society providing catering for funerals and events in South Africa.',
+      "South Africa's first membership-based catering organisation, providing affordable professional catering for funerals, weddings, and community events.",
   },
 };
 

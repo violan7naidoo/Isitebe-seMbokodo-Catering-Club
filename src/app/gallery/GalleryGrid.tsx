@@ -26,7 +26,10 @@ export function GalleryGrid() {
               alt={image.alt}
               data-ai-hint={image.hint}
               fill
-              className="object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
+              className={cn(
+                'object-cover transition-transform duration-300 ease-in-out group-hover:scale-105',
+                image.src.includes('founder') && 'object-top'
+              )}
             />
             <div className="absolute inset-0 bg-black/20 transition-opacity duration-300 group-hover:bg-black/40" />
             <div className="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">

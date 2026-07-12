@@ -5,9 +5,9 @@
         "hint": "event setup"
     },
     "sharingFood": {
-        "src": "/images/gallery-2.jpg",
-        "alt": "Delicious food prepared by Isitebe seMbokodo",
-        "hint": "catering food"
+        "src": "/images/founder.jpeg",
+        "alt": "Bongiwe Mzana, Founder of Isithebe seMbokodo Catering Club",
+        "hint": "founder portrait"
     },
     "founder": {
         "src": "/images/gallery-3.jpg",
@@ -21,9 +21,9 @@
         "hint": "event setup"
       },
       {
-        "src": "/images/gallery-2.jpg",
-        "alt": "Delicious food prepared by Isitebe seMbokodo",
-        "hint": "catering food"
+        "src": "/images/founder.jpeg",
+        "alt": "Bongiwe Mzana, Founder of Isithebe seMbokodo Catering Club",
+        "hint": "founder portrait"
       },
       {
         "src": "/images/gallery-3.jpg",

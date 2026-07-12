@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { HeartHandshake, ChefHat, Sprout, CheckCircle, Star, Heart, Users, Shield, Handshake, ArrowRight } from 'lucide-react';
+import { HeartHandshake, ChefHat, Sprout, CheckCircle, Star, Heart, Users, Shield, Handshake, ArrowRight, Tent, CalendarCheck, GraduationCap, HandCoins, CalendarDays, Clock, MapPin, Ticket } from 'lucide-react';
 import { AnimateIn } from '@/components/ui/animate-in';
 import styles from './animations.module.css';
 import { Button } from '@/components/ui/button';
@@ -46,28 +46,28 @@ const howItWorks = [
     title: 'Choose Your Package',
     icon: <Shield className="h-6 w-6" />,
     description:
-      'Select a membership package that best suits your needs, from basic funeral support to comprehensive event and business support.',
+      'Select the package that best suits your family and budget.',
   },
   {
     step: 2,
-    title: 'Join the Sisterhood',
+    title: 'Complete Your Application',
     icon: <Users className="h-6 w-6" />,
     description:
-      'Pay a once-off joining fee to become a full member of our supportive and growing community of sisters.',
+      'Fill in the online application form and upload your required documents.',
   },
   {
     step: 3,
-    title: 'Access Benefits',
+    title: 'Activate Your Membership',
     icon: <CheckCircle className="h-6 w-6" />,
     description:
-      'After a standard waiting period, you gain full access to our catering services and community support for your family\'s needs.',
+      'Pay the registration fee and your first monthly contribution. Once approved, you\'ll receive your Membership Number.',
   },
   {
     step: 4,
-    title: 'Grow With Us',
+    title: 'Book Your Catering Service',
     icon: <Sprout className="h-6 w-6" />,
     description:
-      'Participate in our empowerment programs, from business support to wellness sessions, and contribute to the strength of our sisterhood.',
+      'After the applicable waiting period, simply contact us to book your event. Our professional team will handle the catering while you focus on your family and guests.',
   }
 ];
 
@@ -75,39 +75,110 @@ export default function Home() {
   return (
     <div className="flex flex-col">
       <HeroSection
-        title="Isithebe seMbokodo"
-        subtitle=""
-        primaryButtonText="Join Our Sisterhood"
-        primaryButtonLink="/membership"
-        secondaryButtonText="Learn More"
-        secondaryButtonLink="/about"
+        title="Rooted in Community. Driven by Excellence. Built for Every Family."
+        subtitle="Affordable Catering and Lasting Peace of Mind, Driven by Excellence."
+        primaryButtonText="Become a Member"
+        primaryButtonLink="/membership/apply"
+        secondaryButtonText="View Membership Packages"
+        secondaryButtonLink="/membership"
         backgroundImage={{
           src: "/images/logo2.png",
-          alt: "Isithebe seMbokodo Catering Club event"
+          alt: "Why join Isithebe seMbokodo Catering Club"
         }}
       />
 
+      <section className="py-16 bg-primary/10">
+        <div className="container mx-auto px-4">
+          <div className="grid gap-10 lg:grid-cols-2 items-center max-w-5xl mx-auto">
+            <AnimateIn direction="up">
+              <div className="relative w-full overflow-hidden rounded-2xl shadow-xl aspect-[3/2]">
+                <Image
+                  src="/images/thelaunch.png"
+                  alt="Launch of Isithebe seMbokodo Catering Club invitation"
+                  fill
+                  className="object-contain bg-background"
+                />
+              </div>
+            </AnimateIn>
+            <AnimateIn delay={1} direction="up" className="space-y-6">
+              <span className="inline-block px-4 py-1.5 text-sm font-medium rounded-full bg-primary/20 text-primary">
+                Upcoming Event
+              </span>
+              <h2 className="font-headline text-3xl font-bold tracking-tight md:text-4xl">
+                You&apos;re Invited to Our <span className="text-primary">Launch Event</span>
+              </h2>
+              <p className="text-lg text-foreground/80">
+                Come, taste, experience and celebrate the Isithebe seMbokodo way &mdash; with live demonstrations of our services and delicious food served on the day.
+              </p>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="flex items-start gap-3">
+                  <CalendarDays className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
+                  <span className="text-sm text-foreground/90">5 September 2026</span>
+                </div>
+                <div className="flex items-start gap-3">
+                  <Clock className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
+                  <span className="text-sm text-foreground/90">12:00 PM</span>
+                </div>
+                <div className="flex items-start gap-3">
+                  <MapPin className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
+                  <span className="text-sm text-foreground/90">Lubbs Cozy Corner Guest House, Lubhacweni, KwaBhaca</span>
+                </div>
+                <div className="flex items-start gap-3">
+                  <Ticket className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
+                  <span className="text-sm text-foreground/90">R150 per person &mdash; tickets are limited</span>
+                </div>
+              </div>
+              <div className="pt-2 flex flex-col sm:flex-row gap-4">
+                <Button asChild size="lg" className="bg-primary hover:bg-primary/90">
+                  <Link href="/launch">View Event Details</Link>
+                </Button>
+                <Button asChild size="lg" variant="outline">
+                  <Link href="/contact">Get Your Ticket</Link>
+                </Button>
+              </div>
+            </AnimateIn>
+          </div>
+        </div>
+      </section>
+
       <section className="container mx-auto px-4 py-12">
-        <div className="grid gap-12 md:grid-cols-2 lg:gap-16 items-center">
+        <div className="grid gap-12 md:grid-cols-2 lg:gap-16 items-stretch">
           <div className="space-y-8">
             <AnimateIn delay={1} direction="up">
+              <span className="inline-block px-4 py-1.5 text-sm font-medium rounded-full bg-primary/10 text-primary mb-2">
+                South Africa&apos;s First Membership-Based Catering Organisation
+              </span>
               <h2 className="font-headline text-3xl font-bold tracking-tight md:text-4xl">
-                Rooted in Community, Serving with <span className="text-primary">Heart</span>
+                Affordable Catering, <span className="text-primary">Lasting Peace of Mind</span>
               </h2>
             </AnimateIn>
             <AnimateIn delay={2} direction="up">
-              <p className="text-lg text-foreground/80">
-                Isithebe seMbokodo Catering Club is a unique membership-based organization that provides catering services for funerals and other family events. Our club is built on the principle of sisterhood and mutual support, where members contribute a premium to access our catering services. We aim to empower our sisters by creating job and business opportunities in the catering industry.
-              </p>
+              <div className="space-y-4 text-lg text-foreground/80">
+                <p>
+                  At Isithebe seMbokodo Catering Club, we believe that every family deserves access to professional catering services without the financial burden that often comes with life&apos;s important occasions.
+                </p>
+                <p>
+                  We are a proudly South African, first membership-based catering organisation that enables individuals and families to prepare for funerals, weddings, graduations, birthdays, traditional ceremonies, church gatherings, and community events through affordable monthly membership contributions.
+                </p>
+                <p>
+                  Our members enjoy access to professional chefs, trained hospitality staff, quality catering equipment, and reliable event support&mdash;allowing families to focus on what truly matters while we take care of the catering.
+                </p>
+                <p>
+                  Beyond catering, we are committed to empowering women, creating employment opportunities for young people, and strengthening communities through hospitality training, entrepreneurship, and skills development.
+                </p>
+                <p>
+                  At Isithebe seMbokodo, we are more than a catering service&mdash;we are a family built on Ubuntu, compassion, excellence, and the belief that together we can make every celebration and every farewell meaningful, dignified, and stress-free.
+                </p>
+              </div>
             </AnimateIn>
             <AnimateIn delay={3} direction="up" className="pt-4">
               <div className="grid grid-cols-3 gap-4">
                 <div className="relative h-32 rounded-lg overflow-hidden shadow-md">
                   <Image
-                    src="/images/gallery-29.jpg"
-                    alt="Our catering team in action"
+                    src="/images/gallery-4.jpg"
+                    alt="Bongiwe Mzana, Founder of Isithebe seMbokodo Catering Club"
                     fill
-                    className="object-cover"
+                    className="object-cover object-top"
                   />
                 </div>
                 <div className="relative h-32 rounded-lg overflow-hidden shadow-md">
@@ -129,13 +200,13 @@ export default function Home() {
               </div>
             </AnimateIn>
           </div>
-          <AnimateIn delay={4} direction="up" className="relative h-96 w-full overflow-hidden rounded-2xl shadow-xl">
+          <AnimateIn delay={4} direction="up" className="relative h-full min-h-[24rem] w-full overflow-hidden rounded-2xl shadow-xl">
             <Image
               src={placeholderImages.sharingFood.src}
               alt={placeholderImages.sharingFood.alt}
               data-ai-hint={placeholderImages.sharingFood.hint}
               fill
-              className="object-cover transition-transform duration-700 hover:scale-105"
+              className="object-cover object-top transition-transform duration-700 hover:scale-105"
               priority
             />
           </AnimateIn>
@@ -152,44 +223,15 @@ export default function Home() {
         <div className="container mx-auto px-4 relative z-10">
           <AnimateIn className="mb-16 text-center" direction="up">
             <h2 className="font-headline text-3xl font-bold tracking-tight md:text-4xl">
-              Our Core <span className="text-primary">Principles</span>
+              Our Vision &amp; <span className="text-primary">Mission</span>
             </h2>
             <p className="mt-4 max-w-2xl mx-auto text-lg text-foreground/80">
               Guiding our actions and shaping our community.
             </p>
           </AnimateIn>
-          
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+
+          <div className="grid gap-8 md:grid-cols-2">
             <AnimateIn delay={1} direction="up">
-              <div className="group h-full rounded-2xl bg-background shadow-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-1 overflow-hidden flex flex-col">
-                <div className="relative h-48 overflow-hidden">
-                  <Image
-                    src="/images/gallery-32.jpg"
-                    alt="Our Mission in Action"
-                    fill
-                    className="object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/30 to-transparent"></div>
-                </div>
-                <div className="p-8 flex-grow flex flex-col">
-                  <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/20 text-primary -mt-14 relative z-10">
-                    <Heart className="h-8 w-8" />
-                  </div>
-                  <CardHeader className="p-0 mb-4 text-center">
-                    <CardTitle className="font-headline text-2xl">
-                      Our Mission
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="p-0 flex-grow flex items-start">
-                    <p className="text-foreground/80">
-                      To provide quality catering services to our members during times of need, while building a strong sense of community and support among sisters.
-                    </p>
-                  </CardContent>
-                </div>
-              </div>
-            </AnimateIn>
-            
-            <AnimateIn delay={2} direction="up">
               <div className="group h-full rounded-2xl bg-background shadow-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-1 overflow-hidden flex flex-col">
                 <div className="relative h-48 overflow-hidden">
                   <Image
@@ -211,19 +253,19 @@ export default function Home() {
                   </CardHeader>
                   <CardContent className="p-0 flex-grow flex items-start">
                     <p className="text-foreground/80">
-                      To become a leading catering club in South Africa, known for our commitment to quality, community, and sisterhood, where every member is empowered.
+                      To become South Africa&apos;s leading membership-based catering organisation by making professional catering services affordable, accessible, and reliable for every household.
                     </p>
                   </CardContent>
                 </div>
               </div>
             </AnimateIn>
-            
-            <AnimateIn delay={3} direction="up">
+
+            <AnimateIn delay={2} direction="up">
               <div className="group h-full rounded-2xl bg-background shadow-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-1 overflow-hidden flex flex-col">
                 <div className="relative h-48 overflow-hidden">
                   <Image
-                    src="/images/gallery-34.jpg"
-                    alt="Our Aim in Action"
+                    src="/images/gallery-32.jpg"
+                    alt="Our Mission in Action"
                     fill
                     className="object-cover transition-transform duration-700 group-hover:scale-105"
                   />
@@ -231,22 +273,60 @@ export default function Home() {
                 </div>
                 <div className="p-8 flex-grow flex flex-col">
                   <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/20 text-primary -mt-14 relative z-10">
-                    <Sprout className="h-8 w-8" />
+                    <Heart className="h-8 w-8" />
                   </div>
-                  <CardHeader className="p-0 mb-4">
+                  <CardHeader className="p-0 mb-4 text-center">
                     <CardTitle className="font-headline text-2xl">
-                      Our Aim
+                      Our Mission
                     </CardTitle>
                   </CardHeader>
-                  <CardContent className="p-0 flex-grow flex items-start">
-                    <p className="text-foreground/80">
-                      To deliver an excellent service and create a lifetime legacy for our members, working together to ensure growth, success, and a lasting impact.
-                    </p>
+                  <CardContent className="p-0 flex-grow">
+                    <p className="text-foreground/80 mb-3">We are committed to:</p>
+                    <ul className="space-y-2 text-left">
+                      {[
+                        'Providing affordable professional catering services for families and communities.',
+                        'Delivering exceptional service with dignity, compassion, and excellence.',
+                        'Supporting members during funerals, weddings, celebrations, and community events.',
+                        'Empowering women and creating sustainable employment opportunities.',
+                        'Developing future hospitality professionals through training and mentorship.',
+                        'Building stronger communities through partnership, service, and Ubuntu.',
+                      ].map((item) => (
+                        <li key={item} className="flex items-start">
+                          <CheckCircle className="h-4 w-4 mt-1 mr-2 text-primary flex-shrink-0" />
+                          <span className="text-sm text-foreground/80">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </CardContent>
                 </div>
               </div>
             </AnimateIn>
           </div>
+
+          <AnimateIn delay={3} direction="up" className="mt-16">
+            <div className="max-w-4xl mx-auto text-center mb-10">
+              <h3 className="font-headline text-2xl font-bold tracking-tight md:text-3xl">
+                Why Join <span className="text-primary">Isithebe seMbokodo?</span>
+              </h3>
+            </div>
+            <div className="max-w-4xl mx-auto grid gap-4 sm:grid-cols-2">
+              {[
+                'Affordable monthly membership packages',
+                'Professional chefs and trained hospitality staff',
+                'Complete catering solutions',
+                'Funeral and event catering support',
+                'Flexible membership options',
+                'Reliable service you can trust',
+                'Community empowerment and job creation',
+                'Quality, dignity, and peace of mind',
+              ].map((item) => (
+                <div key={item} className="flex items-start gap-3 bg-background/80 rounded-xl p-4 shadow-sm border border-border/30">
+                  <CheckCircle className="h-5 w-5 mt-0.5 text-primary flex-shrink-0" />
+                  <span className="text-foreground/90">{item}</span>
+                </div>
+              ))}
+            </div>
+          </AnimateIn>
         </div>
       </section>
 
@@ -309,40 +389,52 @@ export default function Home() {
       <section className="bg-gradient-to-b from-background to-muted/50 py-20 overflow-hidden">
         <div className="container mx-auto px-4">
           <AnimateIn className="max-w-4xl mx-auto text-center mb-16 relative" direction="up">
-            <span className="text-sm font-medium text-primary mb-4 inline-block">Our Services</span>
+            <span className="text-sm font-medium text-primary mb-4 inline-block">South Africa&apos;s First Membership-Based Catering Organisation</span>
             <h2 className="font-headline text-4xl font-bold tracking-tight text-foreground sm:text-5xl mb-6">
-              What We <span className="relative">
-                Offer
+              What Membership <span className="relative">
+                Gives You
                 <span className="absolute -bottom-2 left-0 w-full h-2 bg-primary/20 -z-10 rounded-full"></span>
               </span>
             </h2>
             <p className="text-lg text-foreground/80 max-w-2xl mx-auto">
-              More than just food, we offer a pillar of support that strengthens our community from within.
+              More than catering&mdash;your membership gives your family professional support, peace of mind, and access to affordable event services when they matter most.
             </p>
           </AnimateIn>
-          
+
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {[
               {
                 icon: <ChefHat className="h-8 w-8 text-primary" />,
-                title: "Catering Services",
-                description: "Delicious and nutritious meals for funerals and other family events, prepared with care and cultural sensitivity.",
-                delay: 100
+                title: "Professional Catering Services",
+                description: "Qualified chefs, trained hospitality staff, quality equipment, and professional food service for funerals, weddings, traditional ceremonies, birthdays, graduations, church gatherings, and community events.",
               },
               {
-                icon: <HeartHandshake className="h-8 w-8 text-primary" />,
-                title: "Family Support",
-                description: "Our membership structure provides a strong support network for members and their families during life's most challenging moments.",
-                delay: 200
+                icon: <Heart className="h-8 w-8 text-primary" />,
+                title: "Peace of Mind",
+                description: "Plan ahead with affordable monthly contributions so your family can focus on supporting one another while we take care of the catering.",
               },
               {
-                icon: <Sprout className="h-8 w-8 text-primary" />,
-                title: "Economic Empowerment",
-                description: "Creating sustainable job and business opportunities that foster financial independence and community growth.",
-                delay: 300
-              }
+                icon: <Tent className="h-8 w-8 text-primary" />,
+                title: "Complete Catering Equipment",
+                description: "Access to catering equipment based on your package, including serving stations, tables, chairs, tents, mobile refrigeration, serving utensils, and buffet setup.",
+              },
+              {
+                icon: <CalendarCheck className="h-8 w-8 text-primary" />,
+                title: "Easy Booking Process",
+                description: "A simple booking system with dedicated planning support from our experienced team to help ensure your event runs smoothly.",
+              },
+              {
+                icon: <GraduationCap className="h-8 w-8 text-primary" />,
+                title: "Skills Development & Job Creation",
+                description: "We invest in women and young people by providing hospitality training, work experience, and employment opportunities within the catering industry.",
+              },
+              {
+                icon: <Handshake className="h-8 w-8 text-primary" />,
+                title: "Community Partnership",
+                description: "Become part of a caring membership community built on Ubuntu, where families support one another and receive reliable, professional service.",
+              },
             ].map((item, index) => (
-              <AnimateIn 
+              <AnimateIn
                 key={index}
                 delay={index + 1}
                 direction="up"
@@ -357,8 +449,53 @@ export default function Home() {
               </AnimateIn>
             ))}
           </div>
+
+          <AnimateIn direction="up" className="mt-20">
+            <div className="max-w-5xl mx-auto text-center mb-10">
+              <h3 className="font-headline text-3xl font-bold tracking-tight md:text-4xl mb-4">
+                Why Families <span className="text-primary">Choose Us</span>
+              </h3>
+            </div>
+            <div className="max-w-5xl mx-auto grid grid-cols-2 gap-6 lg:grid-cols-4">
+              {[
+                { icon: <Users className="h-7 w-7" />, stat: '200+', label: 'Guests catered per Essential and Comfort package' },
+                { icon: <Users className="h-7 w-7" />, stat: '300+', label: 'Guests catered under the Premium Package' },
+                { icon: <ChefHat className="h-7 w-7" />, stat: '', label: 'Professional Chefs & Hospitality Team' },
+                { icon: <HandCoins className="h-7 w-7" />, stat: '', label: 'Affordable Monthly Membership Plans' },
+              ].map((item, index) => (
+                <div key={index} className="flex flex-col items-center text-center bg-background/80 backdrop-blur-sm rounded-2xl p-6 shadow-md border border-border/50">
+                  <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-4 text-primary">
+                    {item.icon}
+                  </div>
+                  {item.stat && (
+                    <span className="font-headline text-3xl font-bold text-primary mb-1">{item.stat}</span>
+                  )}
+                  <span className="text-sm text-foreground/80">{item.label}</span>
+                </div>
+              ))}
+            </div>
+          </AnimateIn>
+
+          <AnimateIn direction="up" className="mt-20">
+            <div className="max-w-3xl mx-auto text-center bg-primary/10 rounded-3xl p-10 md:p-14">
+              <h3 className="font-headline text-3xl font-bold tracking-tight md:text-4xl mb-4">
+                Ready to Become a Member?
+              </h3>
+              <p className="text-lg text-foreground/80 mb-8">
+                Join Isithebe seMbokodo Catering Club today and secure affordable professional catering support for your family&apos;s future events.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button asChild size="lg" className="bg-primary hover:bg-primary/90">
+                  <Link href="/membership/apply">Become a Member</Link>
+                </Button>
+                <Button asChild size="lg" variant="outline">
+                  <Link href="/membership">View Membership Packages</Link>
+                </Button>
+              </div>
+            </div>
+          </AnimateIn>
         </div>
-        
+
       </section>
       
       <section className="container mx-auto px-4">
@@ -404,59 +541,48 @@ export default function Home() {
               Our <span className="text-primary">Membership</span> Packages
             </h2>
             <p className="mt-4 max-w-2xl mx-auto text-lg text-foreground/80">
-              Choose the package that best suits your needs and join our sisterhood today.
+              Choose the package that best suits your family and budget.
             </p>
           </AnimateIn>
-          
+
           <div className="overflow-x-auto">
             <table className="min-w-full bg-background rounded-lg overflow-hidden shadow-lg border border-border/50">
               <thead className="bg-primary/10">
                 <tr>
                   <th className="px-6 py-4 text-left text-sm font-semibold text-foreground/90 uppercase tracking-wider">Package</th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold text-foreground/90 uppercase tracking-wider">Joining Fees</th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold text-foreground/90 uppercase tracking-wider">Monthly Contributions</th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold text-foreground/90 uppercase tracking-wider">Total</th>
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-foreground/90 uppercase tracking-wider">Registration Fee</th>
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-foreground/90 uppercase tracking-wider">Monthly Contribution</th>
+                  <th className="px-6 py-4 text-left text-sm font-semibold text-foreground/90 uppercase tracking-wider">Guests Covered</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-border/50">
                 <tr className="hover:bg-muted/50 transition-colors">
-                  <td className="px-6 py-4 whitespace-nowrap font-medium text-foreground">Package One</td>
-                  <td className="px-6 py-4 whitespace-nowrap">R200 joining fee + R100</td>
-                  <td className="px-6 py-4 whitespace-nowrap">R100/month</td>
-                  <td className="px-6 py-4 whitespace-nowrap font-semibold">R300 initial</td>
+                  <td className="px-6 py-4 whitespace-nowrap font-medium text-foreground">Essential Package</td>
+                  <td className="px-6 py-4 whitespace-nowrap">R200 (once-off)</td>
+                  <td className="px-6 py-4 whitespace-nowrap">R150 &ndash; R200/month</td>
+                  <td className="px-6 py-4 whitespace-nowrap font-semibold">Up to 200 guests</td>
                 </tr>
                 <tr className="hover:bg-muted/50 transition-colors">
-                  <td className="px-6 py-4 whitespace-nowrap font-medium text-foreground">Package Two</td>
-                  <td className="px-6 py-4 whitespace-nowrap">R200 + R150</td>
-                  <td className="px-6 py-4 whitespace-nowrap">R150/month</td>
-                  <td className="px-6 py-4 whitespace-nowrap font-semibold">R350 initial</td>
-                </tr>
-                <tr className="hover:bg-muted/50 transition-colors">
-                  <td className="px-6 py-4 whitespace-nowrap font-medium text-foreground">Umgalelo Package</td>
-                  <td className="px-6 py-4 whitespace-nowrap">R500 (pledging) + R200 (joining) + R150</td>
-                  <td className="px-6 py-4 whitespace-nowrap">R50 (when contributing for a member)</td>
-                  <td className="px-6 py-4 whitespace-nowrap font-semibold">R850 initial</td>
-                </tr>
-                <tr className="hover:bg-muted/50 transition-colors">
-                  <td className="px-6 py-4 whitespace-nowrap font-medium text-foreground">Sisters in Business</td>
-                  <td className="px-6 py-4 whitespace-nowrap">R500 + R150 + R200</td>
-                  <td className="px-6 py-4 whitespace-nowrap">R50 (when contributing)</td>
-                  <td className="px-6 py-4 whitespace-nowrap font-semibold">R850 initial</td>
+                  <td className="px-6 py-4 whitespace-nowrap font-medium text-foreground">Comfort Package</td>
+                  <td className="px-6 py-4 whitespace-nowrap">R200 (once-off)</td>
+                  <td className="px-6 py-4 whitespace-nowrap">R250 &ndash; R300/month</td>
+                  <td className="px-6 py-4 whitespace-nowrap font-semibold">Up to 200 guests</td>
                 </tr>
                 <tr className="hover:bg-muted/50 transition-colors bg-primary/5">
-                  <td className="px-6 py-4 whitespace-nowrap font-bold text-foreground">Umgalelo + Sisters in Business</td>
-                  <td className="px-6 py-4 whitespace-nowrap">R1000 (joining) + R350 (premiums)</td>
-                  <td className="px-6 py-4 whitespace-nowrap">Each month you pay your chosen package</td>
-                  <td className="px-6 py-4 whitespace-nowrap font-bold text-primary">R1100 (after 25% discount)</td>
+                  <td className="px-6 py-4 whitespace-nowrap font-bold text-foreground">Premium Package</td>
+                  <td className="px-6 py-4 whitespace-nowrap">R200 (once-off)</td>
+                  <td className="px-6 py-4 whitespace-nowrap">From R390/month*</td>
+                  <td className="px-6 py-4 whitespace-nowrap font-bold text-primary">Up to 300 guests</td>
                 </tr>
               </tbody>
             </table>
+            <p className="mt-3 text-sm text-foreground/60">*Premium monthly contribution depends on the number and age band of family members covered.</p>
           </div>
-          
+
           <div className="mt-8 text-center">
             <Button asChild size="lg">
               <Link href="/membership">
-                Join Our Sisterhood
+                View Membership Packages
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
@@ -472,16 +598,16 @@ export default function Home() {
                 <div className="space-y-6">
                   <div>
                     <span className="inline-block px-4 py-1.5 text-sm font-medium rounded-full bg-primary/10 text-primary mb-4">
-                      Financial Empowerment
+                      Membership Packages
                     </span>
                     <h2 className="font-headline text-3xl font-bold tracking-tight md:text-4xl mb-4">
-                      Introducing <span className="text-primary">Umgalelo Package</span>
+                      Find the <span className="text-primary">Right Package</span> for Your Family
                     </h2>
                     <p className="text-lg text-foreground/80">
-                      Join our community-driven initiative, designed to provide financial support and empowerment to our sisters.
+                      From reliable funeral support to full event catering for up to 300 guests, our three membership packages grow with your family&apos;s needs.
                     </p>
                   </div>
-                
+
                 <div className="space-y-4">
                   <div className="flex items-start space-x-4">
                     <div className="flex-shrink-0 mt-1">
@@ -490,11 +616,11 @@ export default function Home() {
                       </div>
                     </div>
                     <div>
-                      <h3 className="font-medium text-foreground">Access Financial Assistance</h3>
-                      <p className="text-foreground/80 text-sm">No traditional lending institutions or credit score worries</p>
+                      <h3 className="font-medium text-foreground">Essential Package</h3>
+                      <p className="text-foreground/80 text-sm">Reliable funeral catering support for up to 200 guests, from R150/month</p>
                     </div>
                   </div>
-                  
+
                   <div className="flex items-start space-x-4">
                     <div className="flex-shrink-0 mt-1">
                       <div className="flex items-center justify-center h-8 w-8 rounded-full bg-primary/10 text-primary">
@@ -502,11 +628,11 @@ export default function Home() {
                       </div>
                     </div>
                     <div>
-                      <h3 className="font-medium text-foreground">Supportive Community</h3>
-                      <p className="text-foreground/80 text-sm">Tap into a network of sisters committed to helping one another thrive</p>
+                      <h3 className="font-medium text-foreground">Comfort Package</h3>
+                      <p className="text-foreground/80 text-sm">Everything in Essential, plus a fully set-up serving tent (200 chairs, 20 tables) and a mobile fridge</p>
                     </div>
                   </div>
-                  
+
                   <div className="flex items-start space-x-4">
                     <div className="flex-shrink-0 mt-1">
                       <div className="flex items-center justify-center h-8 w-8 rounded-full bg-primary/10 text-primary">
@@ -514,24 +640,24 @@ export default function Home() {
                       </div>
                     </div>
                     <div>
-                      <h3 className="font-medium text-foreground">Grow Without Stress</h3>
-                      <p className="text-foreground/80 text-sm">Pursue your business or passion without financial burdens</p>
+                      <h3 className="font-medium text-foreground">Premium Package</h3>
+                      <p className="text-foreground/80 text-sm">Everything in Comfort, plus food for up to 300 guests, extra serving and kitchen staff</p>
                     </div>
                   </div>
                 </div>
-                
+
                   <div className="pt-4">
                     <Button asChild size="lg" className="bg-primary hover:bg-primary/90">
-                      <Link href="/membership">Join the Movement</Link>
+                      <Link href="/membership">Compare All Packages</Link>
                     </Button>
                   </div>
                 </div>
-                
+
                 <div className="space-y-4">
                   <div className="relative h-80 md:h-96 rounded-2xl overflow-hidden shadow-xl">
                     <Image
                       src="/images/woman-support.jpg"
-                      alt="Women entrepreneurs supporting each other"
+                      alt="Professional catering team serving a family event"
                       fill
                       className="object-cover"
                       priority
@@ -539,7 +665,7 @@ export default function Home() {
                     <div className="absolute inset-0 bg-gradient-to-t from-background/10 via-background/5 to-transparent"></div>
                   </div>
                   <p className="text-center text-foreground/80 italic">
-                    "We're here for you, Sis!"
+                    "Professional catering, whichever package you choose."
                   </p>
                 </div>
               </div>
@@ -556,24 +682,24 @@ export default function Home() {
                 <div className="space-y-8">
                   <div className="text-center md:text-left">
                     <h2 className="font-headline text-3xl font-bold tracking-tight text-foreground md:text-4xl">
-                      Empowering <span className="text-primary">Sisters in Business</span>
+                      Empowering <span className="text-primary">Women &amp; Youth</span>
                     </h2>
                     <p className="mt-4 text-lg text-foreground/80">
-                      Supporting women entrepreneurs to grow and thrive in the catering industry
+                      Creating jobs and building skills in the catering industry
                     </p>
                   </div>
-                  
+
                   <div className="space-y-6">
                     <p className="text-foreground/90">
-                      At Isithebe seMbokodo Catering Club, we're dedicated to supporting our sisters in business. Our mission is to empower and uplift women entrepreneurs by:
+                      Every Essential, Comfort, and Premium membership contribution helps us invest back into our community. As our membership grows, so does our ability to:
                     </p>
-                    
+
                     <ul className="space-y-3">
                       {[
-                        'Marketing their businesses to reach a wider audience',
-                        'Providing effective marketing strategies to drive growth',
-                        'Identifying new trends and opportunities to help them stay ahead',
-                        'Sparking innovative ideas to fuel their success'
+                        'Provide hospitality training and work experience for young people',
+                        'Create sustainable employment opportunities for women in the catering industry',
+                        'Support entrepreneurship and skills development across our community',
+                        'Strengthen local communities through partnership, service, and Ubuntu'
                       ].map((item, index) => (
                         <li key={index} className="flex items-start">
                           <CheckCircle className="h-5 w-5 text-primary mt-1 mr-3 flex-shrink-0" />
@@ -581,27 +707,27 @@ export default function Home() {
                         </li>
                       ))}
                     </ul>
-                    
+
                     <p className="text-foreground/90">
-                      As your trusted partner, Isithebe seMbokodo Catering Club is committed to being your source of support, guidance, and inspiration. Together, let's elevate your business and celebrate your achievements!
+                      Every package you choose helps fund this mission&mdash;because catering with us means catering with purpose.
                     </p>
                   </div>
                 </div>
-                
+
                 <div className="bg-white p-8 rounded-2xl shadow-lg border border-border/50">
                   <div className="text-center">
                     <h2 className="font-headline text-3xl font-bold tracking-tight text-foreground md:text-4xl mb-6">
                       Ready to Join Our Family?
                     </h2>
                     <p className="text-lg text-foreground/80 mb-8">
-                      Become a part of a sisterhood that cares, supports, and uplifts. Your journey towards empowerment and community starts here.
+                      Become a part of a caring membership community that supports and uplifts your family. Your journey towards affordable, professional catering starts here.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
                       <Button asChild size="lg" className="bg-primary hover:bg-primary/90">
-                        <Link href="/membership">Become a Member</Link>
+                        <Link href="/membership/apply">Become a Member</Link>
                       </Button>
                       <Button asChild size="lg" variant="outline">
-                        <Link href="/about">Learn More</Link>
+                        <Link href="/membership">View Membership Packages</Link>
                       </Button>
                     </div>
                   </div>

@@ -3,10 +3,10 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Menu, X, User, Home, CreditCard, Settings, Banknote } from 'lucide-react';
+import { Menu, X, User, Home, CreditCard, Settings, Banknote, ChevronDown } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
-import { NAV_LINKS } from '@/lib/constants';
+import { NAV_LINKS, MEMBERSHIP_LINKS } from '@/lib/constants';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Logo } from './Logo';
@@ -57,18 +57,41 @@ export function Header() {
           <span className="sr-only">Isithebe seMbokodo Home</span>
         </Link>
         <nav className="hidden items-center gap-6 md:flex">
-          {NAV_LINKS.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={cn(
-                'font-medium text-foreground/70 transition-colors hover:text-primary',
-                pathname === link.href && 'text-primary font-semibold'
-              )}
-            >
-              {link.label}
-            </Link>
-          ))}
+          {NAV_LINKS.map((link) =>
+            link.label === 'Membership' ? (
+              <DropdownMenu key={link.href}>
+                <DropdownMenuTrigger
+                  className={cn(
+                    'flex items-center gap-1 font-medium text-foreground/70 transition-colors hover:text-primary outline-none',
+                    pathname.startsWith('/membership') && 'text-primary font-semibold'
+                  )}
+                >
+                  Membership
+                  <ChevronDown className="h-4 w-4" />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="start">
+                  {MEMBERSHIP_LINKS.map((sub) => (
+                    <DropdownMenuItem key={sub.href} asChild>
+                      <Link href={sub.href} className="cursor-pointer">
+                        {sub.label}
+                      </Link>
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={cn(
+                  'font-medium text-foreground/70 transition-colors hover:text-primary',
+                  pathname === link.href && 'text-primary font-semibold'
+                )}
+              >
+                {link.label}
+              </Link>
+            )
+          )}
         </nav>
         <div className="hidden items-center gap-4 md:flex">
           {user ? (
@@ -156,19 +179,46 @@ export function Header() {
                   </Link>
                 </div>
                 <nav className="flex flex-col items-start gap-6">
-                  {NAV_LINKS.map((link) => (
-                    <Link
-                      key={link.href}
-                      href={link.href}
-                      className={cn(
-                        'text-xl font-medium text-foreground/70 transition-colors hover:text-primary',
-                        pathname === link.href && 'text-primary'
-                      )}
-                    >
-                      {link.label}
-                    </Link>
-                  ))}
-                  
+                  {NAV_LINKS.map((link) =>
+                    link.label === 'Membership' ? (
+                      <div key={link.href} className="w-full">
+                        <span
+                          className={cn(
+                            'text-xl font-medium text-foreground/70',
+                            pathname.startsWith('/membership') && 'text-primary'
+                          )}
+                        >
+                          Membership
+                        </span>
+                        <div className="mt-3 ml-3 flex flex-col gap-3 border-l border-border/50 pl-4">
+                          {MEMBERSHIP_LINKS.map((sub) => (
+                            <Link
+                              key={sub.href}
+                              href={sub.href}
+                              className={cn(
+                                'text-base font-medium text-foreground/70 transition-colors hover:text-primary',
+                                pathname === sub.href && 'text-primary'
+                              )}
+                            >
+                              {sub.label}
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    ) : (
+                      <Link
+                        key={link.href}
+                        href={link.href}
+                        className={cn(
+                          'text-xl font-medium text-foreground/70 transition-colors hover:text-primary',
+                          pathname === link.href && 'text-primary'
+                        )}
+                      >
+                        {link.label}
+                      </Link>
+                    )
+                  )}
+
                   {/* Dashboard Navigation for authenticated users */}
                   {user && (
                     <div className="w-full">
