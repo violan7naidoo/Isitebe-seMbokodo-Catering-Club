@@ -225,10 +225,13 @@ export default function LaunchPage() {
                       <div>
                         <span className="text-sm font-medium text-primary">Meet Your Host</span>
                         <h3 className="font-headline text-2xl font-bold">Bongiwe Mzana</h3>
-                        <p className="text-sm text-muted-foreground">Founder of Isithebe seMbokodo Catering Club &middot; 15+ years of catering excellence</p>
+                        <p className="text-sm text-muted-foreground">Founder of Isithebe seMbokodo Catering Club &middot; 15+ years of catering excellence &middot; Professional Chef &amp; Trainer at Bth Events and Culinary Academy</p>
                       </div>
                       <p className="text-foreground/80">
                         With more than 15 years of experience in the catering industry, Bongiwe has witnessed firsthand the challenges families, organisations and event hosts face when planning successful events. This inspired her to create Isithebe seMbokodo Catering Club — a solution-driven catering service designed to bring peace of mind, professionalism and affordability to every occasion.
+                      </p>
+                      <p className="text-foreground/80">
+                        She is also a Professional Chef and Trainer at Bth Events and Culinary Academy, sharing her culinary expertise and mentoring the next generation of hospitality professionals.
                       </p>
                       <p className="text-foreground/80">
                         &quot;We believe quality catering should be accessible to everyone. Our mission is to deliver exceptional culinary experiences, outstanding customer service and elegant event solutions without placing unnecessary financial pressure on our clients.&quot;

@@ -75,7 +75,7 @@ const objectives = [
 ];
 
 export default function AboutPage() {
-  const founderMessage = `My name is Bongiwe Mzana, and I am the Founder and Managing Director of Isithebe seMbokodo Catering Club.
+  const founderMessage = `My name is Bongiwe Mzana, and I am the Founder and Managing Director of Isithebe seMbokodo Catering Club, as well as a Professional Chef and Trainer at Bth Events and Culinary Academy.
 
 My journey in the catering industry has been built on passion, perseverance, and a deep desire to serve people with dignity, excellence, and love. I have witnessed firsthand the challenges families face when preparing for funerals and life's most important events. The financial burden, the emotional stress, and the lack of support can be overwhelming.
 
@@ -286,7 +286,7 @@ Founder & Managing Director`;
                 </CardHeader>
                 <CardContent className="flex-grow">
                   <p className="text-foreground/80">
-                    With over 15 years in the catering industry, Bongiwe brings expertise and passion to every event. Her vision of creating a supportive membership community has transformed the way families experience catering services.
+                    With over 15 years in the catering industry, Bongiwe brings expertise and passion to every event. She is also a Professional Chef and Trainer at Bth Events and Culinary Academy. Her vision of creating a supportive membership community has transformed the way families experience catering services.
                   </p>
                 </CardContent>
               </div>

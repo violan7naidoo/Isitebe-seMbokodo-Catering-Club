@@ -16,7 +16,8 @@ import {
 } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Check, Info } from 'lucide-react';
+import { AnimateIn } from '@/components/ui/animate-in';
+import { Check, Info, HeartHandshake, Users, Heart } from 'lucide-react';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
@@ -75,6 +76,21 @@ const packages = [
     provides: null,
     ctaLabel: 'Join Premium Package',
     highlight: true,
+  },
+];
+
+const upcomingPackages = [
+  {
+    icon: HeartHandshake,
+    name: 'Umgalelo Package',
+    description:
+      'A package built on the spirit of giving, unity and community. Together we rise, together we make a difference.',
+  },
+  {
+    icon: Users,
+    name: 'Sisters in Business Package',
+    description:
+      "A package dedicated to women entrepreneurs, dreamers and doers. Let's grow together, support each other and build legacy.",
   },
 ];
 
@@ -301,6 +317,63 @@ export default function MembershipPage() {
           <Button asChild variant="outline" size="lg">
             <Link href="/membership/faq">Read the FAQ</Link>
           </Button>
+        </div>
+      </section>
+
+      <section className="py-16 bg-muted/30">
+        <div className="container mx-auto px-4">
+          <AnimateIn className="text-center mb-4" direction="up">
+            <span className="inline-block px-4 py-1.5 text-sm font-medium rounded-full bg-primary/10 text-primary mb-4">
+              Soon to Launch
+            </span>
+            <h2 className="font-headline text-3xl font-bold tracking-tight md:text-4xl">
+              Two Powerful Packages. <span className="text-primary">One Powerful Purpose.</span>
+            </h2>
+            <p className="mt-4 max-w-2xl mx-auto text-lg text-foreground/80">
+              We&apos;re still putting the finishing touches on how these new packages will work, but we wanted you to know they&apos;re on the way &mdash; designed to empower, support and uplift.
+            </p>
+          </AnimateIn>
+
+          <div className="grid gap-6 sm:grid-cols-2 max-w-3xl mx-auto mt-10">
+            {upcomingPackages.map((pkg, index) => (
+              <AnimateIn key={pkg.name} delay={index + 1} direction="up">
+                <Card className="h-full flex flex-col border-border/50 border-dashed">
+                  <CardHeader>
+                    <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mb-2 text-primary">
+                      <pkg.icon className="h-7 w-7" />
+                    </div>
+                    <CardTitle className="text-xl font-bold">{pkg.name}</CardTitle>
+                  </CardHeader>
+                  <CardContent className="flex-grow">
+                    <p className="text-foreground/80">{pkg.description}</p>
+                  </CardContent>
+                  <CardFooter>
+                    <Badge variant="secondary" className="w-full justify-center py-2 text-sm font-medium">
+                      Information Available Soon
+                    </Badge>
+                  </CardFooter>
+                </Card>
+              </AnimateIn>
+            ))}
+          </div>
+
+          <AnimateIn direction="up" delay={2} className="mt-10 max-w-3xl mx-auto text-center">
+            <p className="font-headline text-xl italic text-primary">More Than Catering.</p>
+            <p className="mt-1 text-foreground/80">
+              We are a movement. We empower. We support. We serve.
+            </p>
+            <div className="mt-6 inline-flex items-center gap-3 rounded-full border border-border/50 bg-background px-6 py-3">
+              <Heart className="h-5 w-5 text-primary" />
+              <span className="text-sm text-foreground/80">
+                Be part of something bigger. Be part of the sisterhood. Be part of the change.
+              </span>
+            </div>
+            <div className="mt-8">
+              <Button asChild size="lg" variant="outline">
+                <Link href="/contact">Follow Our Journey &amp; Be the First to Know</Link>
+              </Button>
+            </div>
+          </AnimateIn>
         </div>
       </section>
 
