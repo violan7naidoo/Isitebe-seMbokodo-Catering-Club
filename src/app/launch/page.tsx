@@ -22,6 +22,8 @@ import {
   Music,
   Mic,
   Quote,
+  HeartHandshake,
+  CheckCircle,
 } from 'lucide-react';
 
 export const metadata: Metadata = {
@@ -87,6 +89,31 @@ const talksOffered = [
   'Inspirational Talks',
   'Beauty Talks',
   'Spiritual Talks',
+];
+
+const upcomingPackages = [
+  {
+    icon: HeartHandshake,
+    title: 'Umgalelo Package',
+    description:
+      'A community-driven package built on the spirit of giving, unity, and shared responsibility. Created for families and individuals who believe in supporting one another while enjoying affordable catering solutions and exclusive member benefits.',
+  },
+  {
+    icon: Users,
+    title: 'Sisters in Business Package',
+    description:
+      'Designed for women entrepreneurs, business owners, professionals, and aspiring leaders who want to connect, collaborate, grow their businesses, and build lasting networks through the Isithebe seMbokodo sisterhood.',
+  },
+];
+
+const underDevelopment = [
+  'Package pricing',
+  'Membership benefits',
+  'Terms and Conditions',
+  'Legal agreements',
+  'Member protection policies',
+  'Claims procedures',
+  'Eligibility requirements',
 ];
 
 export default function LaunchPage() {
@@ -378,6 +405,84 @@ export default function LaunchPage() {
               </Card>
             </AnimateIn>
           </div>
+        </div>
+      </section>
+
+      {/* Soon to Launch */}
+      <section id="soon-to-launch" className="py-16 bg-muted/30 scroll-mt-20">
+        <div className="container mx-auto px-4">
+          <AnimateIn className="text-center max-w-3xl mx-auto mb-12" direction="up">
+            <span className="inline-block px-4 py-1.5 text-sm font-medium rounded-full bg-primary/10 text-primary mb-4">
+              Coming Soon
+            </span>
+            <h2 className="font-headline text-3xl font-bold tracking-tight md:text-4xl">
+              Introducing Our New <span className="text-primary">Membership Packages</span>
+            </h2>
+            <p className="mt-4 text-lg text-foreground/80">
+              At Isithebe seMbokodo Catering Club, we are preparing to launch two exciting membership packages designed to bring greater value, support, and opportunities to our members.
+            </p>
+          </AnimateIn>
+
+          <div className="grid gap-10 lg:grid-cols-2 items-start max-w-5xl mx-auto">
+            <AnimateIn direction="up">
+              <div className="relative w-full overflow-hidden rounded-2xl shadow-xl aspect-[3/4] bg-muted">
+                <Image
+                  src="/images/soon-to-launch.jpeg"
+                  alt="Coming soon: Umgalelo Package and Sisters in Business Package"
+                  fill
+                  className="object-contain"
+                />
+              </div>
+            </AnimateIn>
+
+            <AnimateIn delay={1} direction="up" className="space-y-8">
+              {upcomingPackages.map((pkg) => (
+                <div key={pkg.title} className="flex gap-4">
+                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary flex-shrink-0">
+                    <pkg.icon className="h-6 w-6" />
+                  </div>
+                  <div>
+                    <h3 className="font-headline text-xl font-bold">{pkg.title}</h3>
+                    <p className="mt-1 text-foreground/80">{pkg.description}</p>
+                  </div>
+                </div>
+              ))}
+
+              <Card className="bg-background/80">
+                <CardContent className="pt-6 space-y-4">
+                  <h3 className="font-headline text-lg font-bold">Currently Under Development</h3>
+                  <p className="text-sm text-foreground/80">We are carefully finalising:</p>
+                  <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    {underDevelopment.map((item) => (
+                      <li key={item} className="flex items-start gap-2">
+                        <CheckCircle className="h-4 w-4 mt-0.5 text-primary flex-shrink-0" />
+                        <span className="text-sm text-foreground/80">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <p className="text-sm text-foreground/80">
+                    Our goal is to ensure that every package is fair, transparent, legally compliant, and provides the best possible value for our members.
+                  </p>
+                </CardContent>
+              </Card>
+            </AnimateIn>
+          </div>
+
+          <AnimateIn direction="up" delay={2} className="mt-12 max-w-3xl mx-auto text-center bg-primary/10 rounded-2xl p-8">
+            <h3 className="font-headline text-2xl font-bold">Launching Soon</h3>
+            <p className="mt-3 text-foreground/80">
+              We appreciate your patience as we complete the final details. Be among the first to receive updates when registrations officially open.
+            </p>
+            <p className="mt-3 italic text-primary">Watch this space&hellip; something exciting is coming.</p>
+            <p className="mt-4 font-medium text-foreground/90">
+              Together we serve. Together we grow. Together we thrive.
+            </p>
+            <div className="pt-6">
+              <Button asChild size="lg" className="bg-primary hover:bg-primary/90">
+                <Link href="/contact">Get Notified When We Launch</Link>
+              </Button>
+            </div>
+          </AnimateIn>
         </div>
       </section>
 

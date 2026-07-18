@@ -17,7 +17,7 @@ import {
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { AnimateIn } from '@/components/ui/animate-in';
-import { Check, Info, HeartHandshake, Users, Heart } from 'lucide-react';
+import { Check, Info, HeartHandshake, Users, Heart, Download } from 'lucide-react';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
@@ -317,10 +317,16 @@ export default function MembershipPage() {
           <Button asChild variant="outline" size="lg">
             <Link href="/membership/faq">Read the FAQ</Link>
           </Button>
+          <Button asChild variant="outline" size="lg">
+            <a href="/documents/application-for-membership.pdf" download>
+              <Download className="mr-2 h-4 w-4" />
+              Download Application Form
+            </a>
+          </Button>
         </div>
       </section>
 
-      <section className="py-16 bg-muted/30">
+      <section id="soon-to-launch" className="py-16 bg-muted/30 scroll-mt-20">
         <div className="container mx-auto px-4">
           <AnimateIn className="text-center mb-4" direction="up">
             <span className="inline-block px-4 py-1.5 text-sm font-medium rounded-full bg-primary/10 text-primary mb-4">

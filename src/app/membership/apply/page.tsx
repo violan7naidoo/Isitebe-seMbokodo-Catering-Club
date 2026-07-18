@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { HeroSection } from '@/components/shared/hero-section';
-import { Check } from 'lucide-react';
+import { Check, Download } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 import { ApplicationForm } from './ApplicationForm';
 
 export const metadata: Metadata = {
@@ -59,6 +60,15 @@ export default async function ApplyPage({
               </li>
             ))}
           </ul>
+          <div className="mt-8 text-center">
+            <p className="text-sm text-foreground/70 mb-3">Prefer to fill in a printed form instead?</p>
+            <Button asChild variant="outline">
+              <a href="/documents/application-for-membership.pdf" download>
+                <Download className="mr-2 h-4 w-4" />
+                Download Application Form (PDF)
+              </a>
+            </Button>
+          </div>
         </div>
 
         <div className="mx-auto max-w-4xl">
